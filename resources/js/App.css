@@ -1,0 +1,316 @@
+*{
+    margin: 0;
+    padding: 0;
+    font-family:'Times New Roman', Times, serif;
+    color: black;
+}
+
+/**************************************NavBar**************************/
+.sticky-top{
+    margin-bottom: 3rem;
+}
+
+.navbar-logo{
+    width: 32px;
+    height: 32px;
+    margin: 0 0.25rem 0 0.5rem;
+}
+
+.navbar-collapse{
+    justify-content: space-between;
+    padding-right: 4rem;
+}
+
+.nav-item{
+    margin-left: 1rem;
+}
+
+.nav-links, .navbar-logo, .text-color-black, .page-link{
+    color: black !important;
+    text-decoration: none !important;
+}
+
+.star-link{
+    color: black !important;
+}
+
+/**************************************Footer**************************/
+footer{
+    padding: 0.5rem;
+    background-color: #f8f9fa;
+    width: 100%;
+}
+
+.footer-logo{
+    width: 64px;
+    height: 64px;
+    margin: 0.5rem;
+    margin-right: 0;
+}
+
+/**************************************Home**************************/
+.home-header{
+    padding-left: 4rem;
+    padding-right: 4rem;
+    margin-top: 3rem;
+}
+
+.view-all{
+    float:right;
+}
+
+/**************************************Carousel**************************/
+.carousel{
+    width: 90%;
+    margin: auto;
+    margin-top: 1rem;
+    padding: 0rem 4rem 2rem 4rem;
+    border: solid rgb(224, 223, 223) 0.1rem;
+}
+
+del{
+    color:grey;
+}
+/**************************************Featured Book**************************/
+.featured-books{
+    margin: auto;
+    text-align: center;
+    margin-top: 4rem;
+    margin-bottom: 3rem;
+    width: 90%;
+}
+
+.list-featured-books{
+    margin-top: 1rem;
+    border: solid rgb(224, 223, 223) 0.1rem;
+    padding: 0rem 4rem 2rem 4rem;
+}
+/**************************************About Us**************************/
+.header-about-us{
+    margin: 1.5rem;
+    margin-left: 6rem;
+}
+
+.hr-about-us{
+    width: 85%;
+    margin: auto;
+}
+
+.about-us-content{
+    margin: auto;
+    margin-top: 2rem;
+    margin-bottom: 3rem;
+    width: 70%;
+    text-align: center;
+}
+
+.intrduce-about-us{
+    text-align: left;
+    margin-top: 3rem;
+    margin-bottom: 2.5rem;
+}
+
+.story-vision{
+    text-align: left;
+    margin: 2rem;
+}
+
+/**************************************Card**************************/
+.card-book{
+    margin-top: 2rem;
+    text-align: left;
+    width:100%;
+}
+
+.card-body{
+    overflow: hidden;
+    max-height:120px
+}
+
+.card-img-top{
+    max-height: 260px;
+}
+
+.card-title{
+    overflow: hidden;
+    max-height: 48px;
+}
+/**************************************Button**************************/
+.btn{
+    margin: 0.25rem;
+}
+
+.btn-shop{
+    margin-right: 0;
+    padding-right: 0 !important;
+}
+/**************************************Shop**************************/
+.header-shop{
+    margin: 1.5rem;
+    padding-left: 6rem;
+}
+
+span{
+    font-size: small;
+    color: rgb(124, 124, 124);
+}
+
+.span-star{
+    font-size: medium;
+    color: rgb(124, 124, 124);
+    padding: 1rem;
+}
+
+.black-span{
+    font-size: small;
+    color: black;
+}
+
+.body-shop{
+    padding: 2rem 5rem 2rem 6rem;
+}
+
+.sort-by-all-sale, .btn-show{
+    float: right;
+}
+
+.list-books{
+    margin-top: 0.25rem;
+}
+
+.accordion{
+    margin-top: 2rem;
+}
+
+.form-select{
+    background-color: #6c757d !important;
+    color: white !important;
+}
+
+option{
+    background-color: white;
+}
+
+/**************************************Product**************************/
+.body-product{
+    margin: 2rem;
+    padding: 0rem 4rem 2rem 4rem;
+}
+
+.book-information{
+    border: solid rgb(224, 223, 223) 0.1rem;
+    border-radius: 7px;
+}
+
+.image-book-information{
+    width:100%;
+}
+
+.content-and-title{
+    padding: 1rem;
+}
+
+.book-content{
+    padding-right: 1.5rem;
+}
+
+.by-author{
+    float: right;
+}
+
+.add-to-cart-form{
+    border: solid rgb(224, 223, 223) 0.1rem;
+    border-radius: 7px;
+}
+
+.add-to-cart-box{
+    padding: 2rem;    
+}
+
+.input-add-to-cart{
+    width: 100%;
+}
+
+.add-to-card-submit{
+    width: 100%;
+    margin-top: 2rem;
+    background-color: rgba(61, 60, 60, 0.205);
+    border: none;
+    padding-top: 0.5rem;
+}
+
+.add-to-cart-action{
+    width:20%;
+    background-color: rgba(61, 60, 60, 0.205); 
+    border: none;
+}
+
+.add-to-cart-number{
+    width:60%;
+    background-color: rgba(61, 60, 60, 0.205); 
+    border: none;
+    border-radius: 0;
+    text-align: center;
+}
+
+.pagination{
+    padding-top: 2rem;
+    justify-content: center;
+}
+
+.customer-review{
+    border: solid rgb(224, 223, 223) 0.1rem;
+    border-radius: 7px;
+    margin-top: 3rem;
+    padding: 2rem;
+    background-color: #f1f2f2;
+}
+
+.list-comment{
+    background-color: #f1f2f2 !important;
+}
+
+.write-a-review{
+    border: solid rgb(224, 223, 223) 0.1rem;
+    border-radius: 7px;
+    margin-top: 3rem;
+    padding: 2rem;
+}
+
+.review-input{
+    margin-top: 2rem;
+}
+
+.select{
+    width: 100%;
+    border-radius: 5px;
+    height: 40px;
+    border: rgb(224, 223, 223) solid 0.125rem;
+}
+
+/**************************************Cart**************************/
+
+.list-cart, .total-cart{
+    border: rgb(224, 223, 223) solid 0.125rem;
+    border-radius: 7px !important;
+    margin-top: 1rem;
+    margin-right: 1.25rem;
+}
+
+.total-cart{
+    text-align: center;
+    padding: 1rem;
+}
+
+.about-book{
+    display: flex;
+    align-items: center;
+}
+
+.table td, .table th{
+    vertical-align: middle !important;
+}
+
+.table{
+    border-radius: 7px !important;
+}
