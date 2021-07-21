@@ -29,9 +29,9 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 Route::prefix("Book")->group(function(){
     
-    Route::get("/filtered_by_category/{category_id}/per_page/{number}",[FilterController::class, "category"]);
+    Route::get("/filtered_by_category/{category_id}/per_page/{number}/sort/{sort_by}",[FilterController::class, "category"]);
 
-    Route::get("/filtered_by_author/{author_id}/per_page/{number}",[FilterController::class, "author"]);
+    Route::get("/filtered_by_author/{author_id}/per_page/{number}/sort/{sort_by}",[FilterController::class, "author"]);
 
     Route::get("/filtered_by_star/{star}",[FilterController::class, "star"]);
 
@@ -54,6 +54,10 @@ Route::apiResource("Category", CategoryController::class);
 Route::apiResource("Shop", ShopController::class);
 
 Route::apiResource("Review", ReviewController::class);
+
+Route::get("/test", function(){
+    return (12-null);
+});
 
 /*
 Route::get("/test", function(){

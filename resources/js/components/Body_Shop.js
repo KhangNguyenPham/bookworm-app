@@ -13,12 +13,15 @@ export default class Body_Shop extends Component{
             filtered_by:"",
             per_page:"5",
             id_filter:"1",
+            sort:"sale",
+            url:"/api/Book/filtered_by_category/1/per_page/5/sort/sale"
         };
-        this.handleChange = this.handleChange.bind(this);
+        this.show = this.show.bind(this);
+        this.sort = this.sort.bind(this);
     }
 
     componentDidMount(){
-        axios.get("/api/Book/filtered_by_category/1/per_page/5").then(response => {
+        axios.get(this.state.url).then(response => {
             const books = response.data.data;
             this.setState({books});
         }).catch(error => console.log(error));
@@ -36,7 +39,7 @@ export default class Body_Shop extends Component{
     }
 
     filtered_by_category(category_id, category_name){
-        axios.get("/api/Book/filtered_by_category/" + category_id + "/per_page/" + this.state.per_page).then(response => {
+        axios.get("/api/Book/filtered_by_category/" + category_id + "/per_page/" + this.state.per_page + "/sort/" + this.state.sort).then(response => {
             const books = response.data.data;
             this.setState({books});
             this.setState({filtered_by:"category " + category_name});
@@ -45,7 +48,7 @@ export default class Body_Shop extends Component{
     }
 
     filtered_by_author(author_id, author_name){
-        axios.get("/api/Book/filtered_by_author/" + author_id + "/per_page/" + this.state.per_page).then(response => {
+        axios.get("/api/Book/filtered_by_author/" + author_id + "/per_page/" + this.state.per_page + "/sort/" + this.state.sort).then(response => {
             const books = response.data.data;
             this.setState({books});
             this.setState({filtered_by:"author " + author_name});
@@ -57,18 +60,34 @@ export default class Body_Shop extends Component{
         this.setState({filtered_by:star});
     }
 
-    async    handleChange(event){
+    show(event){
         this.setState({per_page: event.target.value});
         let type = this.state.filtered_by.split(" ");
-        await axios.get("/api/Book/filtered_by_" + type[0] + "/" + this.state.id_filter + "/per_page/" + this.state.per_page).then(response => {
+        let url = "/api/Book/filtered_by_" + type[0] + "/" + this.state.id_filter + "/per_page/" + this.state.per_page + "/sort/" + this.state.sort;
+        axios.get(url).then(response => {
             const books = response.data.data;
             this.setState({books});
         }).catch(error => console.log(error));
+        console.log(url);
+    }
+
+    sort(event){
+        let sort = event.target.value.split(" ");
+        let sort_type = sort[sort.length-1];
+        let type = this.state.filtered_by.split(" ");
+        this.setState({sort:sort_type});
+        let url = "/api/Book/filtered_by_" + type[0] + "/" + this.state.id_filter + "/per_page/" + this.state.per_page + "/sort/" + this.state.sort;
+        console.log(url);
+    }
+
+    getData(){
+        console.log(this.state.url);
     }
 
     render(){
         return(
             <>
+                <h1>sort by {this.state.sort}</h1>
                 <h4 className="header-shop">Books <span>(Filltered by {this.state.filtered_by})</span></h4>
                 <hr className="hr-about-us"/>
                 <div className="row body-shop">
@@ -131,15 +150,15 @@ export default class Body_Shop extends Component{
                             <div className="col">Showing 1-12 of 126 books</div>
                             <div className="col">
                                 <button className="sort-by-all-sale btn btn-shop">
-                                    <select className="form-select">
+                                    <select className="form-select"  onChange={this.sort}>
                                         <option>Sort by all sale</option>
                                         <option>Sort by popularity</option>
                                         <option>Sort by price: low to high</option>
-                                        <option>Sort by price: high to to</option>
+                                        <option>Sort by price: high to low</option>
                                     </select>
                                 </button>
                                 <button className="btn-show btn btn-shop">
-                                    <select className="form-select" value={this.state.per_page} onChange={this.handleChange}>
+                                    <select className="form-select" onChange={this.show}>
                                         <option selected value="5">Show 5</option>
                                         <option value="15">Show 15</option>
                                         <option value="20">Show 20</option>
