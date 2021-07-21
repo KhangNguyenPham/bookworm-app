@@ -9,6 +9,7 @@ use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\FilterController;
 use App\Http\Controllers\Sale;
 use App\Http\Controllers\FeaturedBook;
+use App\Http\Controllers\ReviewController;
 
 
 /*
@@ -51,6 +52,8 @@ Route::apiResource("Author", AuthorController::class);
 Route::apiResource("Category", CategoryController::class);
 
 Route::apiResource("Shop", ShopController::class);
+
+Route::apiResource("Review", ReviewController::class);
 
 /*
 Route::get("/test", function(){

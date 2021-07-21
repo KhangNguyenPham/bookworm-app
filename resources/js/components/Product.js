@@ -30,19 +30,19 @@ export default function Product() {
             <hr className="hr-about-us"/>
             <div className="body-product">
                 <div className="row">
-                    <div className="col-8">
+                    <div className="col-lg-8 col-md-6 col-sm-6 col-12">
                         <Book_Information book_id={id}/>
                     </div>
-                    <div className="col-4">
-                        <Add_To_Cart />
+                    <div className="col-lg-4 col-md-6 col-sm-6 col-12">
+                        <Add_To_Cart book_id={id} />
                     </div>
                 </div>
                 <div className="row">
-                    <div className="col-8">
-                        <Customer_Review />
+                    <div className="col-lg-8 col-12">
+                        <Customer_Review book_id={id}/>
                     </div>
-                    <div className="col-4">
-                        <Write_A_Review />
+                    <div className="col-lg-4 col-12">
+                        <Write_A_Review book_id={id}/>
                     </div>
                 </div>
             </div>

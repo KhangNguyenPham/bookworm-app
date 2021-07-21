@@ -4,10 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
-use App\Models\Book;
-use App\Models\Category;
+use App\Models\Review;
 
-class BookController extends Controller
+class ReviewController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,8 +15,7 @@ class BookController extends Controller
      */
     public function index()
     {
-        $book = Book::all();
-        return response()->json($book, 200);
+        //
     }
 
     /**
@@ -49,16 +47,14 @@ class BookController extends Controller
      */
     public function show($id)
     {
-        $books = Book::join("authors", "books.author_id", "=", "authors.id")
-        ->leftjoin("discounts", "books.id", "=", "discounts.book_id")
-        ->select(
-            "books.id", "books.book_title", "books.book_price", "books.book_cover_photo", "books.book_summary",
-            "authors.author_name",
-            "discounts.discount_price"
-         )
-        ->where("books.id", $id)
+        //show review according to book_id
+        $reviews = Review::groupBy("book_id")
+        ->select("reviews.review_title", "reviews.review_details", "reviews.rating_start",
+                Review::Raw("AVG('rating_start') as star"))
+        ->Where("reviews.book_id", "=", $id)
         ->get();
-        return response()->json($books, 200);
+
+        return response()->json($reviews ,200); 
     }
 
     /**
@@ -94,10 +90,4 @@ class BookController extends Controller
     {
         //
     }
-
-    public function filterd_by_category($category_id){
-        $books = Book::where("books.category_id", $category_id);
-        return response()->json($category,200);
-    }
-    
 }

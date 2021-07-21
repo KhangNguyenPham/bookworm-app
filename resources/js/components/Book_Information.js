@@ -20,11 +20,11 @@ export default class Book_Information extends Component{
             <div className="book-information">
                 {this.state.books.map((book)=>
                 <div className="row">
-                    <div className="col-4">
+                    <div className="col-lg-4 col-md-12 col-sm-12">
                         <img className="image-book-information" src={"../images/" + book.book_cover_photo + ".jpg"} alt={book.book_title + " photo"}/>
                         <p className="by-author"><span>By (author)</span> {book.author_name}</p>
                     </div>
-                    <div className="col-8 content-and-title">
+                    <div className="col-lg-8 col-md-12 col-sm-12 content-and-title">
                         <h3>{book.book_title}</h3>
                         <p className="book-content">
                             {book.book_summary}   

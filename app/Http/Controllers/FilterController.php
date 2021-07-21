@@ -10,7 +10,8 @@ class FilterController extends Controller
 {
     public function category($category_id, $number){
         $books = Book::join("authors", "books.author_id", "=", "authors.id")
-        ->select("books.id", "book_title", "book_price", "book_cover_photo", "authors.author_name")
+        ->leftjoin("discounts", "books.id", "=", "discounts.book_id")
+        ->select("books.id", "book_title", "book_price", "book_cover_photo", "authors.author_name", "discounts.discount_price")
         ->where("category_id", $category_id)
         ->paginate($number);
         return response()->json($books, 200);
@@ -18,7 +19,8 @@ class FilterController extends Controller
 
     public function author($author_id, $number){
         $books = Book::join("authors", "books.author_id", "=", "authors.id")
-        ->select("books.id", "book_title", "book_price", "book_cover_photo", "authors.author_name")
+        ->leftjoin("discounts", "books.id", "=", "discounts.book_id")
+        ->select("books.id", "book_title", "book_price", "book_cover_photo", "authors.author_name", "discounts.discount_price")
         ->where("author_id", $author_id)
         ->paginate($number);
         return response()->json($books, 200);

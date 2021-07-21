@@ -8,44 +8,34 @@ function About(){
             <div className="about-us-content">
                 <h1>Welcom to BookWorm</h1>
                 <p className="intrduce-about-us">
-                    "Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur, 
-                    adipisci velit... There is no one who loves pain itself, who seeks after it and 
-                    wants to have it, simply because it is pain..."
+                    "Bookworm is an independent New York bookstore and language school with locations 
+                    in Manhattan and Brooklyn. We specialize in travel books and language classes."
                 </p>
                 <div className="row story-vision">
                     <div className="col-12 col-lg-6 col-md-6">
                         <h4>Our Story</h4>
                         <p>
-                            Lorem Ipsum is simply dummy text of the printing and typesetting industry. 
-                            Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, 
-                            when an unknown printer took a galley of type and scrambled it to make a type 
-                            specimen book.
+                            The name Bookworm was taken from the original name for New York International 
+                            Airport, which was renamed JFK in December 1963.
                         </p> 
                         <p>
-                            It has survived not only five centuries, but also the leap into 
-                            electronic typesetting, remaining essentially unchanged. 
+                            Our Manhattan store has just moved to the West Village. Our new location is 170 7th 
+                            Avenue South, at the corner of Perry Street. 
                         </p>
                         <p>
-                            It was popularised in 
-                            the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, 
-                            and more recently with desktop publishing software like Aldus PageMaker including 
-                            versions of Lorem Ipsum.
+                        From March 2008 through May 2016, the store was located in the Flatiron District.
                         </p>
                     </div>
                     <div className="col-12 col-lg-6 col-md-6">
                         <h4>Our Vision</h4>
                         <p>
-                            It is a long established fact that a reader will be distracted by the readable 
-                            content of a page when looking at its layout. The point of using Lorem Ipsum is 
-                            that it has a more-or-less normal distribution of letters, as opposed to using 
-                            'Content here, content here', making it look like readable English. 
+                            One of the last travel bookstores in the country, our Manhattan store carries a 
+                            range of guidebooks (all 10% off) to suit the needs and tastes of every traveller and budget.
                         </p>
                         <p>
-                            Many desktop 
-                            ishing packages and web page editors now use Lorem Ipsum as their default model text, 
-                            and a search for 'lorem ipsum' will uncover many web sites still in their infancy. 
-                            Various versions have evolved over the years, sometimes by accident, sometimes on 
-                            purpose (injected humour and the like).
+                            We believe that a novel or travelogue can be just as valuable a key to a place as any guidebook, 
+                            and our well-read, well-travelled staff is happy to make reading recommendations for any traveller, 
+                            book lover, or gift giver.
                         </p>
                     </div>
                 </div>

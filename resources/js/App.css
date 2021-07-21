@@ -11,8 +11,8 @@
 }
 
 .navbar-logo{
-    width: 32px;
-    height: 32px;
+    width: 64px;
+    height: 24px;
     margin: 0 0.25rem 0 0.5rem;
 }
 
@@ -42,8 +42,8 @@ footer{
 }
 
 .footer-logo{
-    width: 64px;
-    height: 64px;
+    width: 85px;
+    height: 40px;
     margin: 0.5rem;
     margin-right: 0;
 }
@@ -108,6 +108,8 @@ del{
     text-align: left;
     margin-top: 3rem;
     margin-bottom: 2.5rem;
+    padding-left: 2.7rem;
+    padding-right: 2rem;
 }
 
 .story-vision{
@@ -124,7 +126,8 @@ del{
 
 .card-body{
     overflow: hidden;
-    max-height:120px
+    max-height:120px;
+    cursor: pointer;
 }
 
 .card-img-top{

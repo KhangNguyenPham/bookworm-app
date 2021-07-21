@@ -2072,7 +2072,7 @@ function About() {
         children: "Welcom to BookWorm"
       }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("p", {
         className: "intrduce-about-us",
-        children: "\"Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit... There is no one who loves pain itself, who seeks after it and wants to have it, simply because it is pain...\""
+        children: "\"Bookworm is an independent New York bookstore and language school with locations in Manhattan and Brooklyn. We specialize in travel books and language classes.\""
       }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("div", {
         className: "row story-vision",
         children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("div", {
@@ -2080,20 +2080,20 @@ function About() {
           children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("h4", {
             children: "Our Story"
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("p", {
-            children: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book."
+            children: "The name Bookworm was taken from the original name for New York International Airport, which was renamed JFK in December 1963."
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("p", {
-            children: "It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged."
+            children: "Our Manhattan store has just moved to the West Village. Our new location is 170 7th Avenue South, at the corner of Perry Street."
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("p", {
-            children: "It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum."
+            children: "From March 2008 through May 2016, the store was located in the Flatiron District."
           })]
         }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("div", {
           className: "col-12 col-lg-6 col-md-6",
           children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("h4", {
             children: "Our Vision"
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("p", {
-            children: "It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English."
+            children: "One of the last travel bookstores in the country, our Manhattan store carries a range of guidebooks (all 10% off) to suit the needs and tastes of every traveller and budget."
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("p", {
-            children: "Many desktop ishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like)."
+            children: "We believe that a novel or travelogue can be just as valuable a key to a place as any guidebook, and our well-read, well-travelled staff is happy to make reading recommendations for any traveller, book lover, or gift giver."
           })]
         })]
       })]
@@ -2114,55 +2114,136 @@ function About() {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */   "default": () => (/* binding */ Add_To_Cart)
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+function _createSuper(Derived) { var hasNativeReflectConstruct = _isNativeReflectConstruct(); return function _createSuperInternal() { var Super = _getPrototypeOf(Derived), result; if (hasNativeReflectConstruct) { var NewTarget = _getPrototypeOf(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return _possibleConstructorReturn(this, result); }; }
+
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Boolean.prototype.valueOf.call(Reflect.construct(Boolean, [], function () {})); return true; } catch (e) { return false; } }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
 
 
 
-function Add_To_Cart() {
-  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("div", {
-    className: "add-to-cart",
-    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("form", {
-      className: "add-to-cart-form",
-      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("div", {
-        className: "input-group-text",
-        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("h4", {
-          children: "$29.99"
-        })
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("div", {
-        className: "add-to-cart-box",
-        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("small", {
-          children: "Quanity"
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("div", {
-          className: "input-add-to-cart",
-          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("button", {
-            className: "add-to-cart-action",
-            children: "-"
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("input", {
-            className: "add-to-cart-number",
-            type: "number",
-            min: "0",
-            max: "8"
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("button", {
-            className: "add-to-cart-action",
-            children: "+"
+
+
+
+var Add_To_Cart = /*#__PURE__*/function (_Component) {
+  _inherits(Add_To_Cart, _Component);
+
+  var _super = _createSuper(Add_To_Cart);
+
+  function Add_To_Cart() {
+    var _this;
+
+    _classCallCheck(this, Add_To_Cart);
+
+    for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
+      args[_key] = arguments[_key];
+    }
+
+    _this = _super.call.apply(_super, [this].concat(args));
+
+    _defineProperty(_assertThisInitialized(_this), "state", {
+      book_price: "",
+      discount_price: ""
+    });
+
+    return _this;
+  }
+
+  _createClass(Add_To_Cart, [{
+    key: "componentDidMount",
+    value: function componentDidMount() {
+      var _this2 = this;
+
+      var url = "/api/Book/" + this.props.book_id;
+      axios__WEBPACK_IMPORTED_MODULE_1___default().get(url).then(function (response) {
+        var book_price = response.data[0].book_price;
+        var discount_price = response.data[0].discount_price;
+
+        _this2.setState({
+          book_price: book_price
+        });
+
+        _this2.setState({
+          discount_price: discount_price
+        });
+      })["catch"](function (error) {
+        return console.log(error);
+      });
+    }
+  }, {
+    key: "render",
+    value: function render() {
+      return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("div", {
+        className: "add-to-cart",
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("form", {
+          className: "add-to-cart-form",
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("div", {
+            className: "input-group-text",
+            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("h4", {
+              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("del", {
+                children: this.state.discount_price != null ? "$" + this.state.book_price : ""
+              }), this.state.discount_price != null ? " $" + this.state.discount_price : " $" + this.state.book_price]
+            })
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("div", {
+            className: "add-to-cart-box",
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("small", {
+              children: "Quanity"
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("div", {
+              className: "input-add-to-cart",
+              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("button", {
+                className: "add-to-cart-action",
+                children: "-"
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("input", {
+                className: "add-to-cart-number",
+                type: "number",
+                min: "0",
+                max: "8"
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("button", {
+                className: "add-to-cart-action",
+                children: "+"
+              })]
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("button", {
+              className: "add-to-card-submit",
+              type: "submit",
+              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("h5", {
+                children: "Add to cart"
+              })
+            })]
           })]
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("button", {
-          className: "add-to-card-submit",
-          type: "submit",
-          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("h5", {
-            children: "Add to cart"
-          })
-        })]
-      })]
-    })
-  });
-}
+        })
+      });
+    }
+  }]);
 
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (Add_To_Cart);
+  return Add_To_Cart;
+}(react__WEBPACK_IMPORTED_MODULE_0__.Component);
+
+
 
 /***/ }),
 
@@ -2728,7 +2809,9 @@ var Body_Shop = /*#__PURE__*/function (_Component) {
                           className: "list-group list-group-flush",
                           children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("li", {
                             className: "list-group-item",
-                            children: ["$", book.book_price]
+                            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("del", {
+                              children: book.discount_price != null ? "$" + book.book_price : ""
+                            }), book.discount_price != null ? " $" + book.discount_price : " $" + book.book_price]
                           })
                         })]
                       })
@@ -2882,7 +2965,7 @@ var Book_Information = /*#__PURE__*/function (_Component) {
           return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("div", {
             className: "row",
             children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("div", {
-              className: "col-4",
+              className: "col-lg-4 col-md-12 col-sm-12",
               children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("img", {
                 className: "image-book-information",
                 src: "../images/" + book.book_cover_photo + ".jpg",
@@ -2894,7 +2977,7 @@ var Book_Information = /*#__PURE__*/function (_Component) {
                 }), " ", book.author_name]
               })]
             }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("div", {
-              className: "col-8 content-and-title",
+              className: "col-lg-8 col-md-12 col-sm-12 content-and-title",
               children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("h3", {
                 children: book.book_title
               }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("p", {
@@ -2929,6 +3012,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
 /* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
 function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
@@ -3030,30 +3114,33 @@ var Carousel = /*#__PURE__*/function (_Component) {
                 children: this.state.books.map(function (book, index) {
                   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("div", {
                     className: "col-lg-3 col-md-4 col-sm-6 col-12",
-                    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("div", {
+                    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("div", {
                       className: "card card-book",
-                      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("img", {
-                        className: "card-img-top",
-                        src: "images/" + book.book_cover_photo + ".jpg",
-                        alt: book.book_title + " photo"
-                      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("div", {
-                        className: "card-body",
-                        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("h5", {
-                          className: "card-title",
-                          children: book.book_title
-                        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("p", {
-                          className: "card-text",
-                          children: book.author_name
+                      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)(react_router_dom__WEBPACK_IMPORTED_MODULE_3__.Link, {
+                        to: "Product/" + book.id,
+                        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("img", {
+                          className: "card-img-top",
+                          src: "images/" + book.book_cover_photo + ".jpg",
+                          alt: book.book_title + " photo"
+                        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("div", {
+                          className: "card-body",
+                          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("h5", {
+                            className: "card-title",
+                            children: book.book_title
+                          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("p", {
+                            className: "card-text",
+                            children: book.author_name
+                          })]
+                        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("ul", {
+                          className: "list-group list-group-flush",
+                          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("li", {
+                            className: "list-group-item",
+                            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("del", {
+                              children: ["$", book.book_price]
+                            }), " $", book.discount_price]
+                          })
                         })]
-                      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("ul", {
-                        className: "list-group list-group-flush",
-                        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("li", {
-                          className: "list-group-item",
-                          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("del", {
-                            children: ["$", book.book_price]
-                          }), " $", book.discount_price]
-                        })
-                      })]
+                      })
                     })
                   }, index);
                 })
@@ -3348,6 +3435,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
 /* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
 function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
@@ -3372,6 +3460,7 @@ function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Re
 function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 
 
 
@@ -3482,28 +3571,33 @@ var Featured_Books = /*#__PURE__*/function (_Component) {
               children: this.state.books.map(function (book, index) {
                 return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("div", {
                   className: "col-lg-3 col-md-4 col-sm-6 col-12",
-                  children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("div", {
+                  children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("div", {
                     className: "card card-book",
-                    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("img", {
-                      className: "card-img-top",
-                      src: "images/" + book.book_cover_photo + ".jpg",
-                      alt: book.booktitle + " photo"
-                    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("div", {
-                      className: "card-body",
-                      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("h5", {
-                        className: "card-title",
-                        children: book.book_title
-                      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("p", {
-                        className: "card-text",
-                        children: book.author_name
+                    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)(react_router_dom__WEBPACK_IMPORTED_MODULE_3__.Link, {
+                      to: "Product/" + book.id,
+                      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("img", {
+                        className: "card-img-top",
+                        src: "images/" + book.book_cover_photo + ".jpg",
+                        alt: book.booktitle + " photo"
+                      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("div", {
+                        className: "card-body",
+                        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("h5", {
+                          className: "card-title",
+                          children: book.book_title
+                        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("p", {
+                          className: "card-text",
+                          children: book.author_name
+                        })]
+                      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("ul", {
+                        className: "list-group list-group-flush",
+                        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("li", {
+                          className: "list-group-item",
+                          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("del", {
+                            children: book.discount_price != null ? "$" + book.book_price : ""
+                          }), book.discount_price != null ? " $" + book.discount_price : " $" + book.book_price]
+                        })
                       })]
-                    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("ul", {
-                      className: "list-group list-group-flush",
-                      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("li", {
-                        className: "list-group-item",
-                        children: ["$", book.book_price]
-                      })
-                    })]
+                    })
                   })
                 }, index);
               })
@@ -3765,22 +3859,28 @@ function Product() {
       children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("div", {
         className: "row",
         children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("div", {
-          className: "col-8",
+          className: "col-lg-8 col-md-6 col-sm-6 col-12",
           children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_Book_Information__WEBPACK_IMPORTED_MODULE_1__.default, {
             book_id: id
           })
         }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("div", {
-          className: "col-4",
-          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_Add_To_Cart__WEBPACK_IMPORTED_MODULE_2__.default, {})
+          className: "col-lg-4 col-md-6 col-sm-6 col-12",
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_Add_To_Cart__WEBPACK_IMPORTED_MODULE_2__.default, {
+            book_id: id
+          })
         })]
       }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("div", {
         className: "row",
         children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("div", {
-          className: "col-8",
-          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_Customer_Review__WEBPACK_IMPORTED_MODULE_4__.default, {})
+          className: "col-lg-8 col-12",
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_Customer_Review__WEBPACK_IMPORTED_MODULE_4__.default, {
+            book_id: id
+          })
         }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("div", {
-          className: "col-4",
-          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_Write_A_Reivew__WEBPACK_IMPORTED_MODULE_3__.default, {})
+          className: "col-lg-4 col-12",
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_Write_A_Reivew__WEBPACK_IMPORTED_MODULE_3__.default, {
+            book_id: id
+          })
         })]
       })]
     })]
@@ -3980,7 +4080,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "*{\r\n    margin: 0;\r\n    padding: 0;\r\n    font-family:'Times New Roman', Times, serif;\r\n    color: black;\r\n}\r\n\r\n/**************************************NavBar**************************/\r\n.sticky-top{\r\n    margin-bottom: 3rem;\r\n}\r\n\r\n.navbar-logo{\r\n    width: 32px;\r\n    height: 32px;\r\n    margin: 0 0.25rem 0 0.5rem;\r\n}\r\n\r\n.navbar-collapse{\r\n    justify-content: space-between;\r\n    padding-right: 4rem;\r\n}\r\n\r\n.nav-item{\r\n    margin-left: 1rem;\r\n}\r\n\r\n.nav-links, .navbar-logo, .text-color-black, .page-link{\r\n    color: black !important;\r\n    text-decoration: none !important;\r\n}\r\n\r\n.star-link{\r\n    color: black !important;\r\n}\r\n\r\n/**************************************Footer**************************/\r\nfooter{\r\n    padding: 0.5rem;\r\n    background-color: #f8f9fa;\r\n    width: 100%;\r\n}\r\n\r\n.footer-logo{\r\n    width: 64px;\r\n    height: 64px;\r\n    margin: 0.5rem;\r\n    margin-right: 0;\r\n}\r\n\r\n/**************************************Home**************************/\r\n.home-header{\r\n    padding-left: 4rem;\r\n    padding-right: 4rem;\r\n    margin-top: 3rem;\r\n}\r\n\r\n.view-all{\r\n    float:right;\r\n}\r\n\r\n/**************************************Carousel**************************/\r\n.carousel{\r\n    width: 90%;\r\n    margin: auto;\r\n    margin-top: 1rem;\r\n    padding: 0rem 4rem 2rem 4rem;\r\n    border: solid rgb(224, 223, 223) 0.1rem;\r\n}\r\n\r\ndel{\r\n    color:grey;\r\n}\r\n/**************************************Featured Book**************************/\r\n.featured-books{\r\n    margin: auto;\r\n    text-align: center;\r\n    margin-top: 4rem;\r\n    margin-bottom: 3rem;\r\n    width: 90%;\r\n}\r\n\r\n.list-featured-books{\r\n    margin-top: 1rem;\r\n    border: solid rgb(224, 223, 223) 0.1rem;\r\n    padding: 0rem 4rem 2rem 4rem;\r\n}\r\n/**************************************About Us**************************/\r\n.header-about-us{\r\n    margin: 1.5rem;\r\n    margin-left: 6rem;\r\n}\r\n\r\n.hr-about-us{\r\n    width: 85%;\r\n    margin: auto;\r\n}\r\n\r\n.about-us-content{\r\n    margin: auto;\r\n    margin-top: 2rem;\r\n    margin-bottom: 3rem;\r\n    width: 70%;\r\n    text-align: center;\r\n}\r\n\r\n.intrduce-about-us{\r\n    text-align: left;\r\n    margin-top: 3rem;\r\n    margin-bottom: 2.5rem;\r\n}\r\n\r\n.story-vision{\r\n    text-align: left;\r\n    margin: 2rem;\r\n}\r\n\r\n/**************************************Card**************************/\r\n.card-book{\r\n    margin-top: 2rem;\r\n    text-align: left;\r\n    width:100%;\r\n}\r\n\r\n.card-body{\r\n    overflow: hidden;\r\n    max-height:120px\r\n}\r\n\r\n.card-img-top{\r\n    max-height: 260px;\r\n}\r\n\r\n.card-title{\r\n    overflow: hidden;\r\n    max-height: 48px;\r\n}\r\n/**************************************Button**************************/\r\n.btn{\r\n    margin: 0.25rem;\r\n}\r\n\r\n.btn-shop{\r\n    margin-right: 0;\r\n    padding-right: 0 !important;\r\n}\r\n/**************************************Shop**************************/\r\n.header-shop{\r\n    margin: 1.5rem;\r\n    padding-left: 6rem;\r\n}\r\n\r\nspan{\r\n    font-size: small;\r\n    color: rgb(124, 124, 124);\r\n}\r\n\r\n.span-star{\r\n    font-size: medium;\r\n    color: rgb(124, 124, 124);\r\n    padding: 1rem;\r\n}\r\n\r\n.black-span{\r\n    font-size: small;\r\n    color: black;\r\n}\r\n\r\n.body-shop{\r\n    padding: 2rem 5rem 2rem 6rem;\r\n}\r\n\r\n.sort-by-all-sale, .btn-show{\r\n    float: right;\r\n}\r\n\r\n.list-books{\r\n    margin-top: 0.25rem;\r\n}\r\n\r\n.accordion{\r\n    margin-top: 2rem;\r\n}\r\n\r\n.form-select{\r\n    background-color: #6c757d !important;\r\n    color: white !important;\r\n}\r\n\r\noption{\r\n    background-color: white;\r\n}\r\n\r\n/**************************************Product**************************/\r\n.body-product{\r\n    margin: 2rem;\r\n    padding: 0rem 4rem 2rem 4rem;\r\n}\r\n\r\n.book-information{\r\n    border: solid rgb(224, 223, 223) 0.1rem;\r\n    border-radius: 7px;\r\n}\r\n\r\n.image-book-information{\r\n    width:100%;\r\n}\r\n\r\n.content-and-title{\r\n    padding: 1rem;\r\n}\r\n\r\n.book-content{\r\n    padding-right: 1.5rem;\r\n}\r\n\r\n.by-author{\r\n    float: right;\r\n}\r\n\r\n.add-to-cart-form{\r\n    border: solid rgb(224, 223, 223) 0.1rem;\r\n    border-radius: 7px;\r\n}\r\n\r\n.add-to-cart-box{\r\n    padding: 2rem;    \r\n}\r\n\r\n.input-add-to-cart{\r\n    width: 100%;\r\n}\r\n\r\n.add-to-card-submit{\r\n    width: 100%;\r\n    margin-top: 2rem;\r\n    background-color: rgba(61, 60, 60, 0.205);\r\n    border: none;\r\n    padding-top: 0.5rem;\r\n}\r\n\r\n.add-to-cart-action{\r\n    width:20%;\r\n    background-color: rgba(61, 60, 60, 0.205); \r\n    border: none;\r\n}\r\n\r\n.add-to-cart-number{\r\n    width:60%;\r\n    background-color: rgba(61, 60, 60, 0.205); \r\n    border: none;\r\n    border-radius: 0;\r\n    text-align: center;\r\n}\r\n\r\n.pagination{\r\n    padding-top: 2rem;\r\n    justify-content: center;\r\n}\r\n\r\n.customer-review{\r\n    border: solid rgb(224, 223, 223) 0.1rem;\r\n    border-radius: 7px;\r\n    margin-top: 3rem;\r\n    padding: 2rem;\r\n    background-color: #f1f2f2;\r\n}\r\n\r\n.list-comment{\r\n    background-color: #f1f2f2 !important;\r\n}\r\n\r\n.write-a-review{\r\n    border: solid rgb(224, 223, 223) 0.1rem;\r\n    border-radius: 7px;\r\n    margin-top: 3rem;\r\n    padding: 2rem;\r\n}\r\n\r\n.review-input{\r\n    margin-top: 2rem;\r\n}\r\n\r\n.select{\r\n    width: 100%;\r\n    border-radius: 5px;\r\n    height: 40px;\r\n    border: rgb(224, 223, 223) solid 0.125rem;\r\n}\r\n\r\n/**************************************Cart**************************/\r\n\r\n.list-cart, .total-cart{\r\n    border: rgb(224, 223, 223) solid 0.125rem;\r\n    border-radius: 7px !important;\r\n    margin-top: 1rem;\r\n    margin-right: 1.25rem;\r\n}\r\n\r\n.total-cart{\r\n    text-align: center;\r\n    padding: 1rem;\r\n}\r\n\r\n.about-book{\r\n    display: flex;\r\n    align-items: center;\r\n}\r\n\r\n.table td, .table th{\r\n    vertical-align: middle !important;\r\n}\r\n\r\n.table{\r\n    border-radius: 7px !important;\r\n}", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "*{\r\n    margin: 0;\r\n    padding: 0;\r\n    font-family:'Times New Roman', Times, serif;\r\n    color: black;\r\n}\r\n\r\n/**************************************NavBar**************************/\r\n.sticky-top{\r\n    margin-bottom: 3rem;\r\n}\r\n\r\n.navbar-logo{\r\n    width: 64px;\r\n    height: 24px;\r\n    margin: 0 0.25rem 0 0.5rem;\r\n}\r\n\r\n.navbar-collapse{\r\n    justify-content: space-between;\r\n    padding-right: 4rem;\r\n}\r\n\r\n.nav-item{\r\n    margin-left: 1rem;\r\n}\r\n\r\n.nav-links, .navbar-logo, .text-color-black, .page-link{\r\n    color: black !important;\r\n    text-decoration: none !important;\r\n}\r\n\r\n.star-link{\r\n    color: black !important;\r\n}\r\n\r\n/**************************************Footer**************************/\r\nfooter{\r\n    padding: 0.5rem;\r\n    background-color: #f8f9fa;\r\n    width: 100%;\r\n}\r\n\r\n.footer-logo{\r\n    width: 85px;\r\n    height: 40px;\r\n    margin: 0.5rem;\r\n    margin-right: 0;\r\n}\r\n\r\n/**************************************Home**************************/\r\n.home-header{\r\n    padding-left: 4rem;\r\n    padding-right: 4rem;\r\n    margin-top: 3rem;\r\n}\r\n\r\n.view-all{\r\n    float:right;\r\n}\r\n\r\n/**************************************Carousel**************************/\r\n.carousel{\r\n    width: 90%;\r\n    margin: auto;\r\n    margin-top: 1rem;\r\n    padding: 0rem 4rem 2rem 4rem;\r\n    border: solid rgb(224, 223, 223) 0.1rem;\r\n}\r\n\r\ndel{\r\n    color:grey;\r\n}\r\n/**************************************Featured Book**************************/\r\n.featured-books{\r\n    margin: auto;\r\n    text-align: center;\r\n    margin-top: 4rem;\r\n    margin-bottom: 3rem;\r\n    width: 90%;\r\n}\r\n\r\n.list-featured-books{\r\n    margin-top: 1rem;\r\n    border: solid rgb(224, 223, 223) 0.1rem;\r\n    padding: 0rem 4rem 2rem 4rem;\r\n}\r\n/**************************************About Us**************************/\r\n.header-about-us{\r\n    margin: 1.5rem;\r\n    margin-left: 6rem;\r\n}\r\n\r\n.hr-about-us{\r\n    width: 85%;\r\n    margin: auto;\r\n}\r\n\r\n.about-us-content{\r\n    margin: auto;\r\n    margin-top: 2rem;\r\n    margin-bottom: 3rem;\r\n    width: 70%;\r\n    text-align: center;\r\n}\r\n\r\n.intrduce-about-us{\r\n    text-align: left;\r\n    margin-top: 3rem;\r\n    margin-bottom: 2.5rem;\r\n    padding-left: 2.7rem;\r\n    padding-right: 2rem;\r\n}\r\n\r\n.story-vision{\r\n    text-align: left;\r\n    margin: 2rem;\r\n}\r\n\r\n/**************************************Card**************************/\r\n.card-book{\r\n    margin-top: 2rem;\r\n    text-align: left;\r\n    width:100%;\r\n}\r\n\r\n.card-body{\r\n    overflow: hidden;\r\n    max-height:120px;\r\n    cursor: pointer;\r\n}\r\n\r\n.card-img-top{\r\n    max-height: 260px;\r\n}\r\n\r\n.card-title{\r\n    overflow: hidden;\r\n    max-height: 48px;\r\n}\r\n/**************************************Button**************************/\r\n.btn{\r\n    margin: 0.25rem;\r\n}\r\n\r\n.btn-shop{\r\n    margin-right: 0;\r\n    padding-right: 0 !important;\r\n}\r\n/**************************************Shop**************************/\r\n.header-shop{\r\n    margin: 1.5rem;\r\n    padding-left: 6rem;\r\n}\r\n\r\nspan{\r\n    font-size: small;\r\n    color: rgb(124, 124, 124);\r\n}\r\n\r\n.span-star{\r\n    font-size: medium;\r\n    color: rgb(124, 124, 124);\r\n    padding: 1rem;\r\n}\r\n\r\n.black-span{\r\n    font-size: small;\r\n    color: black;\r\n}\r\n\r\n.body-shop{\r\n    padding: 2rem 5rem 2rem 6rem;\r\n}\r\n\r\n.sort-by-all-sale, .btn-show{\r\n    float: right;\r\n}\r\n\r\n.list-books{\r\n    margin-top: 0.25rem;\r\n}\r\n\r\n.accordion{\r\n    margin-top: 2rem;\r\n}\r\n\r\n.form-select{\r\n    background-color: #6c757d !important;\r\n    color: white !important;\r\n}\r\n\r\noption{\r\n    background-color: white;\r\n}\r\n\r\n/**************************************Product**************************/\r\n.body-product{\r\n    margin: 2rem;\r\n    padding: 0rem 4rem 2rem 4rem;\r\n}\r\n\r\n.book-information{\r\n    border: solid rgb(224, 223, 223) 0.1rem;\r\n    border-radius: 7px;\r\n}\r\n\r\n.image-book-information{\r\n    width:100%;\r\n}\r\n\r\n.content-and-title{\r\n    padding: 1rem;\r\n}\r\n\r\n.book-content{\r\n    padding-right: 1.5rem;\r\n}\r\n\r\n.by-author{\r\n    float: right;\r\n}\r\n\r\n.add-to-cart-form{\r\n    border: solid rgb(224, 223, 223) 0.1rem;\r\n    border-radius: 7px;\r\n}\r\n\r\n.add-to-cart-box{\r\n    padding: 2rem;    \r\n}\r\n\r\n.input-add-to-cart{\r\n    width: 100%;\r\n}\r\n\r\n.add-to-card-submit{\r\n    width: 100%;\r\n    margin-top: 2rem;\r\n    background-color: rgba(61, 60, 60, 0.205);\r\n    border: none;\r\n    padding-top: 0.5rem;\r\n}\r\n\r\n.add-to-cart-action{\r\n    width:20%;\r\n    background-color: rgba(61, 60, 60, 0.205); \r\n    border: none;\r\n}\r\n\r\n.add-to-cart-number{\r\n    width:60%;\r\n    background-color: rgba(61, 60, 60, 0.205); \r\n    border: none;\r\n    border-radius: 0;\r\n    text-align: center;\r\n}\r\n\r\n.pagination{\r\n    padding-top: 2rem;\r\n    justify-content: center;\r\n}\r\n\r\n.customer-review{\r\n    border: solid rgb(224, 223, 223) 0.1rem;\r\n    border-radius: 7px;\r\n    margin-top: 3rem;\r\n    padding: 2rem;\r\n    background-color: #f1f2f2;\r\n}\r\n\r\n.list-comment{\r\n    background-color: #f1f2f2 !important;\r\n}\r\n\r\n.write-a-review{\r\n    border: solid rgb(224, 223, 223) 0.1rem;\r\n    border-radius: 7px;\r\n    margin-top: 3rem;\r\n    padding: 2rem;\r\n}\r\n\r\n.review-input{\r\n    margin-top: 2rem;\r\n}\r\n\r\n.select{\r\n    width: 100%;\r\n    border-radius: 5px;\r\n    height: 40px;\r\n    border: rgb(224, 223, 223) solid 0.125rem;\r\n}\r\n\r\n/**************************************Cart**************************/\r\n\r\n.list-cart, .total-cart{\r\n    border: rgb(224, 223, 223) solid 0.125rem;\r\n    border-radius: 7px !important;\r\n    margin-top: 1rem;\r\n    margin-right: 1.25rem;\r\n}\r\n\r\n.total-cart{\r\n    text-align: center;\r\n    padding: 1rem;\r\n}\r\n\r\n.about-book{\r\n    display: flex;\r\n    align-items: center;\r\n}\r\n\r\n.table td, .table th{\r\n    vertical-align: middle !important;\r\n}\r\n\r\n.table{\r\n    border-radius: 7px !important;\r\n}", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 

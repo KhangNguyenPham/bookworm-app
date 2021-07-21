@@ -12,11 +12,11 @@ use App\Models\Discount;
 class FeaturedBook extends Controller
 {
     function recommend(){
-        /*
+        
         $id = Book::join("reviews", "books.id", "=", "reviews.book_id")
         ->select( 
             "reviews.book_id",
-            Review::raw("avg(reviews.rating_start) as avg_star")
+            Review::raw("AVG(cast(reviews.rating_start as float)) as avg_star")
         )
         ->groupBy("reviews.book_id")
         ->orderBy("avg_star","desc")
@@ -38,19 +38,17 @@ class FeaturedBook extends Controller
                 unset($id_collection[$key]);
             }
         }
-        
+
         $books = Book::join("authors", "books.author_id", "=", "authors.id")
+        ->leftjoin("discounts", "books.id", "=", "discounts.book_id")
         ->select(
             "books.id", "books.book_title", "books.book_price", "books.book_cover_photo",
             "authors.author_name",
+            "discounts.discount_price"
          )
         ->whereIn("books.id", $id_collection)->get();
 
         return response()->json($books ,200);
-        */
-
-        $books = Book::take(8)->get();
-        return $books;
     }
 
     function popular(){
@@ -81,9 +79,11 @@ class FeaturedBook extends Controller
         }
         
         $books = Book::join("authors", "books.author_id", "=", "authors.id")
+        ->leftjoin("discounts", "books.id", "=", "discounts.book_id")
         ->select(
             "books.id", "books.book_title", "books.book_price", "books.book_cover_photo",
             "authors.author_name",
+            "discounts.discount_price"
          )
         ->whereIn("books.id", $id_collection)->get();
 

@@ -31,14 +31,16 @@ export default class Carousel extends Component {
                             {this.state.books.map((book, index)=>(
                                 <div key={index} className="col-lg-3 col-md-4 col-sm-6 col-12">
                                     <div className="card card-book">
-                                        <img className="card-img-top" src={"images/" + book.book_cover_photo + ".jpg"} alt={book.book_title + " photo"}/>
-                                        <div className="card-body">
-                                            <h5 className="card-title">{book.book_title}</h5>
-                                            <p className="card-text">{book.author_name}</p>
-                                        </div>
-                                        <ul className="list-group list-group-flush">
-                                            <li className="list-group-item"><del>${book.book_price}</del> ${book.discount_price}</li>
-                                        </ul>
+                                        <Link to={"Product/" + book.id}>
+                                            <img className="card-img-top" src={"images/" + book.book_cover_photo + ".jpg"} alt={book.book_title + " photo"}/>
+                                            <div className="card-body">
+                                                <h5 className="card-title">{book.book_title}</h5>
+                                                <p className="card-text">{book.author_name}</p>
+                                            </div>
+                                            <ul className="list-group list-group-flush">
+                                                <li className="list-group-item"><del>${book.book_price}</del> ${book.discount_price}</li>
+                                            </ul>
+                                        </Link>
                                     </div>  
                                 </div>
                             ))} 

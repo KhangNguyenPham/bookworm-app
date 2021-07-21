@@ -160,7 +160,12 @@ export default class Body_Shop extends Component{
                                                     <p className="card-text">{book.author_name}</p>
                                                 </div>
                                                 <ul className="list-group list-group-flush">
-                                                    <li className="list-group-item">${book.book_price}</li>
+                                                    <li className="list-group-item">
+                                                        <del>
+                                                            {(book.discount_price != null ? "$" + book.book_price : "")} 
+                                                        </del>
+                                                        {(book.discount_price != null ? " $" + book.discount_price : " $" + book.book_price)}
+                                                    </li>
                                                 </ul>
                                             </Link>
                                         </div>
