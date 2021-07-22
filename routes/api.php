@@ -10,6 +10,7 @@ use App\Http\Controllers\FilterController;
 use App\Http\Controllers\Sale;
 use App\Http\Controllers\FeaturedBook;
 use App\Http\Controllers\ReviewController;
+use App\Http\Controllers\ReviewActionController;
 
 
 /*
@@ -43,6 +44,12 @@ Route::prefix("Book")->group(function(){
 
         Route::get("/popular", [FeaturedBook::class, "popular"]);
     });
+});
+
+Route::prefix("Review/{book_id}")->group(function(){
+    Route::get("/total_reviews", [ReviewActionController::class, "total_review"]);
+
+    Route::get("/rating_star", [ReviewActionController::class, "rating_star"]);
 });
 
 Route::apiResource("Book", BookController::class);

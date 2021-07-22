@@ -47,7 +47,7 @@ export default class Featured_Books extends Component{
                                     <div className="card card-book">
                                         <Link to={"Product/" + book.id}>
                                             <img className="card-img-top" src={"images/" + book.book_cover_photo + ".jpg"} alt={book.booktitle + " photo"} />
-                                            <div className="card-body">
+                                            <div className="card-body infbook">
                                                 <h5 className="card-title">{book.book_title}</h5>
                                                 <p className="card-text">{book.author_name}</p>
                                             </div>

@@ -126,8 +126,20 @@ del{
 
 .card-body{
     overflow: hidden;
-    max-height:120px;
     cursor: pointer;
+}
+
+.card-body:hover{
+    font-weight: 900;
+}
+
+.navhvr:hover{
+    font-weight: 900;
+    color: #c73938;
+}
+
+.infbook{
+    height:140px;
 }
 
 .card-img-top{

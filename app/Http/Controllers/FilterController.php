@@ -12,7 +12,7 @@ class FilterController extends Controller
 {
     function category_sale($category_id, $number){
         $books = Book::join("authors", "books.author_id", "=", "authors.id")
-        ->leftjoin("discounts", "books.id", "=", "discounts.book_id")
+        ->join("discounts", "books.id", "=", "discounts.book_id")
         ->select("books.id", "book_title", "book_price", "book_cover_photo", "books.category_id",
             "authors.author_name", 
             "discounts.discount_price",

@@ -1,6 +1,7 @@
 import React, {Component} from "react";
 import {Link} from "react-router-dom";
 import axios from "axios";
+import Pagination from "react-js-pagination";
 
 export default class Body_Shop extends Component{
     
@@ -14,16 +15,26 @@ export default class Body_Shop extends Component{
             per_page:"5",
             id_filter:"1",
             sort:"sale",
-            url:"/api/Book/filtered_by_category/1/per_page/5/sort/sale"
+            url:"/api/Book/filtered_by_category/1/per_page/5/sort/sale",
+            activePage: 1,
+            itemsCountPerPage: 0,
+            totalItemsCount: 0,
+            pageRangeDisplayed: 5,
         };
         this.show = this.show.bind(this);
         this.sort = this.sort.bind(this);
+        this.handlePageChange = this.handlePageChange.bind(this);
     }
 
     componentDidMount(){
         axios.get(this.state.url).then(response => {
             const books = response.data.data;
-            this.setState({books});
+            this.setState({
+                books,
+                activePage: response.data.current_page,
+                itemsCountPerPage: response.data.per_page,
+                totalItemsCount: response.data.total
+            });
         }).catch(error => console.log(error));
         
         axios.get("/api/Author").then(response => {
@@ -39,18 +50,30 @@ export default class Body_Shop extends Component{
     }
 
     filtered_by_category(category_id, category_name){
-        axios.get("/api/Book/filtered_by_category/" + category_id + "/per_page/" + this.state.per_page + "/sort/" + this.state.sort).then(response => {
+        axios.get("/api/Book/filtered_by_category/" + category_id + "/per_page/" + 
+        this.state.per_page + "/sort/" + this.state.sort).then(response => {
             const books = response.data.data;
-            this.setState({books});
+            this.setState({
+                books,
+                activePage: response.data.current_page,
+                itemsCountPerPage: response.data.per_page,
+                totalItemsCount: response.data.total
+            });
             this.setState({filtered_by:"category " + category_name});
             this.setState({id_filter:category_id});
         }).catch(error => console.log(error)); 
     }
 
     filtered_by_author(author_id, author_name){
-        axios.get("/api/Book/filtered_by_author/" + author_id + "/per_page/" + this.state.per_page + "/sort/" + this.state.sort).then(response => {
+        axios.get("/api/Book/filtered_by_author/" + author_id + "/per_page/" + 
+        this.state.per_page + "/sort/" + this.state.sort).then(response => {
             const books = response.data.data;
-            this.setState({books});
+            this.setState({
+                books, 
+                activePage: response.data.current_page,
+                itemsCountPerPage: response.data.per_page,
+                totalItemsCount: response.data.total
+            });
             this.setState({filtered_by:"author " + author_name});
             this.setState({id_filter:author_id});
         }).catch(error => console.log(error)); 
@@ -63,10 +86,16 @@ export default class Body_Shop extends Component{
     show(event){
         this.setState({per_page: event.target.value});
         let type = this.state.filtered_by.split(" ");
-        let url = "/api/Book/filtered_by_" + type[0] + "/" + this.state.id_filter + "/per_page/" + this.state.per_page + "/sort/" + this.state.sort;
+        let url = "/api/Book/filtered_by_" + type[0] + "/" + this.state.id_filter + "/per_page/" + 
+        this.state.per_page + "/sort/" + this.state.sort;
         axios.get(url).then(response => {
             const books = response.data.data;
-            this.setState({books});
+            this.setState({
+                books,
+                activePage: response.data.current_page,
+                itemsCountPerPage: response.data.per_page,
+                totalItemsCount: response.data.total
+            });
         }).catch(error => console.log(error));
         console.log(url);
     }
@@ -76,12 +105,29 @@ export default class Body_Shop extends Component{
         let sort_type = sort[sort.length-1];
         let type = this.state.filtered_by.split(" ");
         this.setState({sort:sort_type});
-        let url = "/api/Book/filtered_by_" + type[0] + "/" + this.state.id_filter + "/per_page/" + this.state.per_page + "/sort/" + this.state.sort;
+        let url = "/api/Book/filtered_by_" + type[0] + "/" + this.state.id_filter + "/per_page/" + 
+        this.state.per_page + "/sort/" + this.state.sort;
         console.log(url);
     }
 
     getData(){
         console.log(this.state.url);
+    }
+
+    handlePageChange(pageNumber) {
+        let type = this.state.filtered_by.split(" ");
+        let url = "/api/Book/filtered_by_" + type[0] + "/" + this.state.id_filter + "/per_page/" + 
+        this.state.per_page + "/sort/" + this.state.sort + "?page=" + pageNumber;
+        axios.get(url).then(response => {
+            const books = response.data.data;
+            this.setState({
+                books, 
+                activePage: response.data.current_page,
+                itemsCountPerPage: response.data.per_page,
+                totalItemsCount: response.data.total
+            });
+        }).catch(error => console.log(error));
+        console.log(url);
     }
 
     render(){
@@ -174,7 +220,7 @@ export default class Body_Shop extends Component{
                                         <div className="card card-book">
                                             <Link to={"/Product/" + book.id}>
                                                 <img className="card-img-top" src={"images/" + book.book_cover_photo + ".jpg"} alt={book.booktitle + " photo"} />
-                                                <div className="card-body">
+                                                <div className="card-body infbook">
                                                     <h5 className="card-title">{book.book_title}</h5>
                                                     <p className="card-text">{book.author_name}</p>
                                                 </div>
@@ -192,13 +238,16 @@ export default class Body_Shop extends Component{
                                 ))}
                             </div>
                             <nav aria-label="Page navigation example">
-                                <ul className="pagination">
-                                    <li className="page-item"><Link className="page-link" to="#">Previous</Link></li>
-                                    <li className="page-item"><Link className="page-link" to="#">1</Link></li>
-                                    <li className="page-item"><Link className="page-link" to="#">2</Link></li>
-                                    <li className="page-item"><Link className="page-link" to="#">3</Link></li>
-                                    <li className="page-item"><Link className="page-link">Next</Link></li>
-                                </ul>
+                                <Pagination
+                                    activePage={this.state.activePage}
+                                    totalItemsCount={this.state.totalItemsCount}
+                                    itemsCountPerPage={this.state.per_page}
+                                    onChange={this.handlePageChange}
+                                    itemClass="page-item"
+                                    linkClass="page-link"
+                                    firstPageText="First"
+                                    lastPageText="Last"
+                                />
                             </nav>
                         </div>
                     </div>
