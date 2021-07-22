@@ -85,7 +85,7 @@ class FeaturedBook extends Controller
             "authors.author_name",
             "discounts.discount_price"
          )
-        ->whereIn("books.id", $id_collection)->get();
+        ->whereIn("books.id", $id_result)->get();
 
         return response()->json($books ,200);
     }

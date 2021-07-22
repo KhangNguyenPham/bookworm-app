@@ -80,7 +80,18 @@ export default class Body_Shop extends Component{
     }
 
     filtered_by_star(star){
-        this.setState({filtered_by:star});
+        axios.get("/api/Book/filtered_by_star/" + star + "/per_page/" + 
+        this.state.per_page + "/sort/" + this.state.sort).then(response => {
+            const books = response.data.data;
+            this.setState({
+                books, 
+                activePage: response.data.current_page,
+                itemsCountPerPage: response.data.per_page,
+                totalItemsCount: response.data.total
+            });
+            this.setState({filtered_by:"star " + star + " star"});
+            this.setState({id_filter:star});
+        }).catch(error => console.log(error)); 
     }
 
     show(event){
@@ -193,7 +204,10 @@ export default class Body_Shop extends Component{
                     </div>
                     <div className="col-lg-10 col-sm-12">
                         <div className="row">
-                            <div className="col">Showing 1-12 of 126 books</div>
+                            <div className="col">Showing 
+                            { (this.state.activePage-1)*Number(this.state.itemsCountPerPage)+Number(1)} - 
+                            { (this.state.activePage-1)*Number(this.state.itemsCountPerPage)+Number(this.state.itemsCountPerPage) } 
+                            of { this.state.totalItemsCount} books</div>
                             <div className="col">
                                 <button className="sort-by-all-sale btn btn-shop">
                                     <select className="form-select"  onChange={this.sort}>

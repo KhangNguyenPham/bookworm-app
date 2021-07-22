@@ -2551,14 +2551,33 @@ var Body_Shop = /*#__PURE__*/function (_Component) {
   }, {
     key: "filtered_by_star",
     value: function filtered_by_star(star) {
-      this.setState({
-        filtered_by: star
+      var _this5 = this;
+
+      axios__WEBPACK_IMPORTED_MODULE_1___default().get("/api/Book/filtered_by_star/" + star + "/per_page/" + this.state.per_page + "/sort/" + this.state.sort).then(function (response) {
+        var books = response.data.data;
+
+        _this5.setState({
+          books: books,
+          activePage: response.data.current_page,
+          itemsCountPerPage: response.data.per_page,
+          totalItemsCount: response.data.total
+        });
+
+        _this5.setState({
+          filtered_by: "star " + star + " star(s)"
+        });
+
+        _this5.setState({
+          id_filter: star
+        });
+      })["catch"](function (error) {
+        return console.log(error);
       });
     }
   }, {
     key: "show",
     value: function show(event) {
-      var _this5 = this;
+      var _this6 = this;
 
       this.setState({
         per_page: event.target.value
@@ -2568,7 +2587,7 @@ var Body_Shop = /*#__PURE__*/function (_Component) {
       axios__WEBPACK_IMPORTED_MODULE_1___default().get(url).then(function (response) {
         var books = response.data.data;
 
-        _this5.setState({
+        _this6.setState({
           books: books,
           activePage: response.data.current_page,
           itemsCountPerPage: response.data.per_page,
@@ -2599,14 +2618,14 @@ var Body_Shop = /*#__PURE__*/function (_Component) {
   }, {
     key: "handlePageChange",
     value: function handlePageChange(pageNumber) {
-      var _this6 = this;
+      var _this7 = this;
 
       var type = this.state.filtered_by.split(" ");
       var url = "/api/Book/filtered_by_" + type[0] + "/" + this.state.id_filter + "/per_page/" + this.state.per_page + "/sort/" + this.state.sort + "?page=" + pageNumber;
       axios__WEBPACK_IMPORTED_MODULE_1___default().get(url).then(function (response) {
         var books = response.data.data;
 
-        _this6.setState({
+        _this7.setState({
           books: books,
           activePage: response.data.current_page,
           itemsCountPerPage: response.data.per_page,
@@ -2620,7 +2639,7 @@ var Body_Shop = /*#__PURE__*/function (_Component) {
   }, {
     key: "render",
     value: function render() {
-      var _this7 = this;
+      var _this8 = this;
 
       return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.Fragment, {
         children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("h1", {
@@ -2665,7 +2684,7 @@ var Body_Shop = /*#__PURE__*/function (_Component) {
                     return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
                       className: "card-body",
                       onClick: function onClick() {
-                        return _this7.filtered_by_category(category.id, category.category_name);
+                        return _this8.filtered_by_category(category.id, category.category_name);
                       },
                       children: category.category_name
                     }, index);
@@ -2697,7 +2716,7 @@ var Body_Shop = /*#__PURE__*/function (_Component) {
                     return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
                       className: "card-body",
                       onClick: function onClick() {
-                        return _this7.filtered_by_author(author.id, author.author_name);
+                        return _this8.filtered_by_author(author.id, author.author_name);
                       },
                       children: author.author_name
                     }, index);
@@ -2728,31 +2747,31 @@ var Body_Shop = /*#__PURE__*/function (_Component) {
                   children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
                     className: "card-body",
                     onClick: function onClick() {
-                      return _this7.filtered_by_star(1);
+                      return _this8.filtered_by_star(1);
                     },
                     children: "1 Star"
                   }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
                     className: "card-body",
                     onClick: function onClick() {
-                      return _this7.filtered_by_star(2);
+                      return _this8.filtered_by_star(2);
                     },
                     children: "2 Star"
                   }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
                     className: "card-body",
                     onClick: function onClick() {
-                      return _this7.filtered_by_star(3);
+                      return _this8.filtered_by_star(3);
                     },
                     children: "3 Star"
                   }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
                     className: "card-body",
                     onClick: function onClick() {
-                      return _this7.filtered_by_star(4);
+                      return _this8.filtered_by_star(4);
                     },
                     children: "4 Star"
                   }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
                     className: "card-body",
                     onClick: function onClick() {
-                      return _this7.filtered_by_star(5);
+                      return _this8.filtered_by_star(5);
                     },
                     children: "5 Star"
                   })]
@@ -2763,9 +2782,9 @@ var Body_Shop = /*#__PURE__*/function (_Component) {
             className: "col-lg-10 col-sm-12",
             children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
               className: "row",
-              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
+              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
                 className: "col",
-                children: "Showing 1-12 of 126 books"
+                children: ["Showing", (this.state.activePage - 1) * Number(this.state.itemsCountPerPage) + Number(1), " -", (this.state.activePage - 1) * Number(this.state.itemsCountPerPage) + Number(this.state.itemsCountPerPage), "of ", this.state.totalItemsCount, " books"]
               }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
                 className: "col",
                 children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("button", {

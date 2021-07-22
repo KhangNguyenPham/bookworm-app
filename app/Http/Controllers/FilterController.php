@@ -122,7 +122,49 @@ class FilterController extends Controller
         return response()->json($books, 200);
     }
 
-    public function star($star){
-        return response()->json($star, 200);
+    public function star($star, $number, $sort_by){
+        $id = Book::join("reviews", "books.id", "=", "reviews.book_id")
+        ->select( 
+            "reviews.book_id",
+            Review::raw("AVG(cast(reviews.rating_start as float)) as avg_star")
+        )
+        ->groupBy("reviews.book_id")
+        ->orderBy("avg_star","desc")
+        ->get();
+
+        $id = json_decode($id);
+        $id = (array)$id;
+        $id_collection=[];
+        $id_result=[];
+        
+        foreach($id as $key=>$value){
+            foreach($value as $x=>$y)
+            {
+                if(($y>=$star) && ($x!="book_id")){
+                    $id_collection = [...$id_collection, $value];
+                }
+            }
+        }
+
+        foreach($id_collection as $key=>$value){
+            foreach($value as $x=>$y)
+            {
+                if(($x=="book_id")){
+                    $id_result = [...$id_result, $y];
+                }
+            }
+        }
+
+        $books = Book::join("authors", "books.author_id", "=", "authors.id")
+        ->leftjoin("discounts", "books.id", "=", "discounts.book_id")
+        ->select(
+            "books.id", "books.book_title", "books.book_price", "books.book_cover_photo",
+            "authors.author_name",
+            "discounts.discount_price"
+         )
+        ->whereIn("books.id", $id_result)
+        ->paginate($number);
+
+        return response()->json($books, 200);
     }
 }

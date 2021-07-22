@@ -34,7 +34,7 @@ Route::prefix("Book")->group(function(){
 
     Route::get("/filtered_by_author/{author_id}/per_page/{number}/sort/{sort_by}",[FilterController::class, "author"]);
 
-    Route::get("/filtered_by_star/{star}",[FilterController::class, "star"]);
+    Route::get("/filtered_by_star/{star}/per_page/{number}/sort/{sort_by}",[FilterController::class, "star"]);
 
     Route::apiResource("/sale", Sale::class);
 
