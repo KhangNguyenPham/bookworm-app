@@ -64,8 +64,11 @@ footer{
     width: 90%;
     margin: auto;
     margin-top: 1rem;
-    padding: 0rem 4rem 2rem 4rem;
     border: solid rgb(224, 223, 223) 0.1rem;
+}
+
+.card-caroulsel{
+    padding: 2rem;
 }
 
 del{

@@ -1,5 +1,5 @@
 import React from "react";
-import Carousel from "./Carousel";
+import Carousel2 from "./Carousel2";
 import Featured_Books from "./Featured_Books";
 
 function Home(){
@@ -13,7 +13,7 @@ function Home(){
                     <button className="btn btn-secondary view-all">View All</button>
                 </div>
             </div>
-            <Carousel />
+            <Carousel2 />
             <Featured_Books />
         </>
     )

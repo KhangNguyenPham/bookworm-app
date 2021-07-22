@@ -30,7 +30,7 @@ class FilterController extends Controller
             "reviews.book_id",
             Review::raw("count(reviews.book_id) as total")
         )
-        ->where("books.category.id", $category_id)
+        #->where("books.category_id", $category_id)
         ->groupBy("reviews.book_id")
         ->orderBy("total","desc")
         ->get();
@@ -58,9 +58,10 @@ class FilterController extends Controller
             "authors.author_name",
             "discounts.discount_price"
         )
+        ->where("books.category_id", $category_id)
         ->whereIn("books.id", $id_collection)
         ->paginate($number);
-       
+
         return $books;
     }
 

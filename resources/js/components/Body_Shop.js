@@ -99,6 +99,7 @@ export default class Body_Shop extends Component{
         let type = this.state.filtered_by.split(" ");
         let url = "/api/Book/filtered_by_" + type[0] + "/" + this.state.id_filter + "/per_page/" + 
         this.state.per_page + "/sort/" + this.state.sort;
+        
         axios.get(url).then(response => {
             const books = response.data.data;
             this.setState({
@@ -145,6 +146,7 @@ export default class Body_Shop extends Component{
         return(
             <>
                 <h1>sort by {this.state.sort}</h1>
+                <h1>show {this.state.per_page}</h1>
                 <h4 className="header-shop">Books <span>(Filltered by {this.state.filtered_by})</span></h4>
                 <hr className="hr-about-us"/>
                 <div className="row body-shop">
@@ -219,7 +221,7 @@ export default class Body_Shop extends Component{
                                 </button>
                                 <button className="btn-show btn btn-shop">
                                     <select className="form-select" onChange={this.show}>
-                                        <option selected value="5">Show 5</option>
+                                        <option value="5">Show 5</option>
                                         <option value="15">Show 15</option>
                                         <option value="20">Show 20</option>
                                         <option value="25">Show 25</option>
