@@ -3548,7 +3548,7 @@ var Customer_Review = /*#__PURE__*/function (_Component) {
                   return _this7.fill(5);
                 },
                 className: "star-link",
-                children: ["5 star (", this.state.count5, ")"]
+                children: [" 5 star (", this.state.count5, ")"]
               }), " |", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)(react_router_dom__WEBPACK_IMPORTED_MODULE_4__.Link, {
                 onClick: function onClick() {
                   return _this7.fill(4);
@@ -3586,7 +3586,6 @@ var Customer_Review = /*#__PURE__*/function (_Component) {
               className: "col-8",
               children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("select", {
                 className: "form-select",
-                value: this.state.sort,
                 onChange: this.sort,
                 children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("option", {
                   value: "oldest",
@@ -3597,7 +3596,6 @@ var Customer_Review = /*#__PURE__*/function (_Component) {
                 })]
               }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("select", {
                 className: "form-select",
-                value: this.state.per_page,
                 onChange: this.show,
                 children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("option", {
                   value: "5",

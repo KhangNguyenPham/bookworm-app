@@ -163,18 +163,16 @@ export default class Customer_Review extends Component {
     render(){
         return(
             <div className="customer-review">
-                <h1>{this.state.sort}</h1>
-                <h1>{this.state.per_page}</h1>
                 <div>
                     <h3>Customer Review <span>(Filtered by {this.state.star} stars)</span></h3>     
                     <h2>{this.state.avg_star} Star</h2>
                     <p>({this.state.total_reviews})
                         <span className="span-star"> 
-                            <Link onClick={()=>this.fill(5)} className="star-link" >5 star ({this.state.count5})</Link> | 
-                            <Link onClick={()=>this.fill(4)} className="star-link" > 4 star ({this.state.count4})</Link> | 
-                            <Link onClick={()=>this.fill(3)} className="star-link" > 3 star ({this.state.count3})</Link> | 
-                            <Link onClick={()=>this.fill(2)} className="star-link" > 2 star ({this.state.count2})</Link> | 
-                            <Link onClick={()=>this.fill(1)} className="star-link" > 1 star ({this.state.count1})</Link>
+                            <Link onClick={()=>this.fill(5)} className="star-link"> 5 star ({this.state.count5})</Link> | 
+                            <Link onClick={()=>this.fill(4)} className="star-link"> 4 star ({this.state.count4})</Link> | 
+                            <Link onClick={()=>this.fill(3)} className="star-link"> 3 star ({this.state.count3})</Link> | 
+                            <Link onClick={()=>this.fill(2)} className="star-link"> 2 star ({this.state.count2})</Link> | 
+                            <Link onClick={()=>this.fill(1)} className="star-link"> 1 star ({this.state.count1})</Link>
                         </span>
                     </p>
                     <div className="row">
@@ -182,11 +180,11 @@ export default class Customer_Review extends Component {
                             <p>Showing {this.state.from} - {this.state.to} of {this.state.total_reviews} reviews</p>
                         </div>
                         <div className="col-8">                         
-                            <select className="form-select" value={this.state.sort} onChange={this.sort}>
+                            <select className="form-select" onChange={this.sort}>
                                 <option value="oldest">Sort by date: newest to oldest</option>
                                 <option value="newest">Sort by date: oldest to newest</option>
                             </select>
-                            <select className="form-select" value={this.state.per_page} onChange={this.show}>
+                            <select className="form-select" onChange={this.show}>
                                 <option value="5">Show 5</option>
                                 <option value="10">Show 10</option>
                                 <option value="15">Show 15</option>
