@@ -50,6 +50,8 @@ Route::prefix("Review/{book_id}")->group(function(){
     Route::get("/total_reviews", [ReviewActionController::class, "total_review"]);
 
     Route::get("/rating_star", [ReviewActionController::class, "rating_star"]);
+
+    Route::get("/filltered_by_star/{star}", [ReviewActionController::class, "filltered"]);
 });
 
 Route::apiResource("Book", BookController::class);
@@ -60,7 +62,7 @@ Route::apiResource("Category", CategoryController::class);
 
 Route::apiResource("Shop", ShopController::class);
 
-Route::apiResource("Review", ReviewController::class);
+#Route::apiResource("Review", ReviewController::class);
 
 Route::get("/test", function(){
     return (12-null);

@@ -15,7 +15,8 @@ class AuthorController extends Controller
      */
     public function index()
     {
-        $authors = Author::all();
+        $authors = Author::orderBy("author_name", "asc")
+        ->get();
         return response()->json($authors,200);
     }
 

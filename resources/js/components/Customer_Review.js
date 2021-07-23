@@ -17,8 +17,10 @@ export default class Customer_Review extends Component {
             itemsCountPerPage: 0,
             totalItemsCount: 0,
             pageRangeDisplayed: 5,
+            sort:"oldest"
         }
         this.handlePageChange = this.handlePageChange.bind(this);
+        this.sort = this.sort.bind(this);
     }
 
     componentDidMount(){
@@ -70,9 +72,19 @@ export default class Customer_Review extends Component {
         }
     }
 
+    sort(day){
+        this.setState({sort: day.target.value});
+    }
+
+    show(number){
+        this.setState({per_page: number.target.value});
+    }
+
     render(){
         return(
             <div className="customer-review">
+                <h1>{this.state.sort}</h1>
+                <h1>{this.state.show}</h1>
                 <div>
                     <h3>Customer Review <span>(Filtered by 5 stars)</span></h3>     
                     <h2>{this.state.avg_star} Star</h2>
@@ -89,22 +101,17 @@ export default class Customer_Review extends Component {
                         <div className="col-4">
                             <p>Showing 1-5 of {this.state.total_reviews} reviews</p>
                         </div>
-                        <div className="col-8">
-                            <button className="sort-by-all-sale btn btn-shop">
-                                <select className="form-select">
-                                    <option selected>Sort by date</option>
-                                    <option value="0">Sort by date: newest to oldest</option>
-                                    <option value="1">Sort by date: oldest to newest</option>
-                                </select>
-                            </button>
-                            <button className="btn-show btn btn-shop">
-                                <select className="form-select">
-                                    <option value="0">Show 5</option>
-                                    <option value="1">Show 10</option>
-                                    <option value="2">Show 15</option>
-                                    <option value="3">Show 20</option>
-                                </select>
-                            </button>  
+                        <div className="col-8">                         
+                            <select className="form-select" value={this.state.sort} onChange={this.sort}>
+                                <option value="oldest">Sort by date: newest to oldest</option>
+                                <option value="newest">Sort by date: oldest to newest</option>
+                            </select>
+                            <select className="form-select" value={this.state.per_page} onChange={this.show}>
+                                <option value="5">Show 5</option>
+                                <option value="10">Show 10</option>
+                                <option value="15">Show 15</option>
+                                <option value="20">Show 20</option>
+                            </select>  
                         </div>
                     </div>
                 </div>

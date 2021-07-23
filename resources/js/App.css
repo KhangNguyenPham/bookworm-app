@@ -203,6 +203,12 @@ span{
 .form-select{
     background-color: #6c757d !important;
     color: white !important;
+    margin-left: 2rem;
+    margin-bottom: 1rem;
+    padding: auto;
+    height: 35px;
+    border-radius: 7px;
+    float: right;
 }
 
 option{

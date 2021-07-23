@@ -20,6 +20,8 @@ export default class Body_Shop extends Component{
             itemsCountPerPage: 0,
             totalItemsCount: 0,
             pageRangeDisplayed: 5,
+            from:"1",
+            to:"5"
         };
         this.show = this.show.bind(this);
         this.sort = this.sort.bind(this);
@@ -33,7 +35,9 @@ export default class Body_Shop extends Component{
                 books,
                 activePage: response.data.current_page,
                 itemsCountPerPage: response.data.per_page,
-                totalItemsCount: response.data.total
+                totalItemsCount: response.data.total,
+                from:response.data.from,
+                to:response.data.to
             });
         }).catch(error => console.log(error));
         
@@ -57,7 +61,9 @@ export default class Body_Shop extends Component{
                 books,
                 activePage: response.data.current_page,
                 itemsCountPerPage: response.data.per_page,
-                totalItemsCount: response.data.total
+                totalItemsCount: response.data.total,
+                from:response.data.from,
+                to:response.data.to
             });
             this.setState({filtered_by:"category " + category_name});
             this.setState({id_filter:category_id});
@@ -72,7 +78,9 @@ export default class Body_Shop extends Component{
                 books, 
                 activePage: response.data.current_page,
                 itemsCountPerPage: response.data.per_page,
-                totalItemsCount: response.data.total
+                totalItemsCount: response.data.total,
+                from:response.data.from,
+                to:response.data.to
             });
             this.setState({filtered_by:"author " + author_name});
             this.setState({id_filter:author_id});
@@ -87,7 +95,9 @@ export default class Body_Shop extends Component{
                 books, 
                 activePage: response.data.current_page,
                 itemsCountPerPage: response.data.per_page,
-                totalItemsCount: response.data.total
+                totalItemsCount: response.data.total,
+                from:response.data.from,
+                to:response.data.to
             });
             this.setState({filtered_by:"star " + star + " star"});
             this.setState({id_filter:star});
@@ -106,7 +116,9 @@ export default class Body_Shop extends Component{
                 books,
                 activePage: response.data.current_page,
                 itemsCountPerPage: response.data.per_page,
-                totalItemsCount: response.data.total
+                totalItemsCount: response.data.total,
+                from:response.data.from,
+                to:response.data.to
             });
         }).catch(error => console.log(error));
         console.log(url);
@@ -136,7 +148,9 @@ export default class Body_Shop extends Component{
                 books, 
                 activePage: response.data.current_page,
                 itemsCountPerPage: response.data.per_page,
-                totalItemsCount: response.data.total
+                totalItemsCount: response.data.total,
+                from:response.data.from,
+                to:response.data.to
             });
         }).catch(error => console.log(error));
         console.log(url);
@@ -205,28 +219,21 @@ export default class Body_Shop extends Component{
                         </div>
                     </div>
                     <div className="col-lg-10 col-sm-12">
-                        <div className="row">
-                            <div className="col">Showing 
-                            { (this.state.activePage-1)*Number(this.state.itemsCountPerPage)+Number(1)} - 
-                            { (this.state.activePage-1)*Number(this.state.itemsCountPerPage)+Number(this.state.itemsCountPerPage) } 
-                            of { this.state.totalItemsCount} books</div>
+                        <div className="row mt-1">
+                            <div className="col">Showing  {this.state.from} - {this.state.to} of {this.state.totalItemsCount} books</div>
                             <div className="col">
-                                <button className="sort-by-all-sale btn btn-shop">
-                                    <select className="form-select"  onChange={this.sort}>
-                                        <option>Sort by all sale</option>
-                                        <option>Sort by popularity</option>
-                                        <option>Sort by price: low to high</option>
-                                        <option>Sort by price: high to low</option>
-                                    </select>
-                                </button>
-                                <button className="btn-show btn btn-shop">
-                                    <select className="form-select" onChange={this.show}>
-                                        <option value="5">Show 5</option>
-                                        <option value="15">Show 15</option>
-                                        <option value="20">Show 20</option>
-                                        <option value="25">Show 25</option>
-                                    </select>
-                                </button>
+                                <select className="form-select"  onChange={this.sort}>
+                                    <option>Sort by all sale</option>
+                                    <option>Sort by popularity</option>
+                                    <option>Sort by price: low to high</option>
+                                    <option>Sort by price: high to low</option>
+                                </select>
+                                <select className="form-select" onChange={this.show}>
+                                    <option value="5">Show 5</option>
+                                    <option value="15">Show 15</option>
+                                    <option value="20">Show 20</option>
+                                    <option value="25">Show 25</option>
+                                </select>
                             </div>
                         </div>
                         <div className="list-books">
