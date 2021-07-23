@@ -3320,10 +3320,19 @@ var Customer_Review = /*#__PURE__*/function (_Component) {
       itemsCountPerPage: 0,
       totalItemsCount: 0,
       pageRangeDisplayed: 5,
-      sort: "oldest"
+      sort: "oldest",
+      star: 5,
+      from: "",
+      to: "",
+      count1: 0,
+      count2: 0,
+      count3: 0,
+      count4: 0,
+      count5: 0
     };
     _this.handlePageChange = _this.handlePageChange.bind(_assertThisInitialized(_this));
     _this.sort = _this.sort.bind(_assertThisInitialized(_this));
+    _this.show = _this.show.bind(_assertThisInitialized(_this));
     return _this;
   }
 
@@ -3332,7 +3341,7 @@ var Customer_Review = /*#__PURE__*/function (_Component) {
     value: function componentDidMount() {
       var _this2 = this;
 
-      var url = "/api/Review/" + this.props.book_id + "?page=" + this.state.current_page;
+      var url = "/api/Review/" + this.props.book_id + "/filltered_by_star/" + this.state.star + "/sort/" + this.state.sort + "/per_page/" + this.state.per_page;
       axios__WEBPACK_IMPORTED_MODULE_1___default().get(url).then(function (response) {
         var reviews = response.data.data;
 
@@ -3340,7 +3349,9 @@ var Customer_Review = /*#__PURE__*/function (_Component) {
           reviews: reviews,
           activePage: response.data.current_page,
           itemsCountPerPage: response.data.per_page,
-          totalItemsCount: response.data.total
+          totalItemsCount: response.data.total,
+          from: response.data.from,
+          to: response.data.to
         });
 
         console.log(response);
@@ -3368,6 +3379,41 @@ var Customer_Review = /*#__PURE__*/function (_Component) {
         });
 
         console.log(response);
+      })["catch"](function (error) {
+        return console.log(error);
+      });
+      axios__WEBPACK_IMPORTED_MODULE_1___default().get("/api/Review/" + this.props.book_id + "/list_star/" + 1).then(function (response) {
+        _this2.setState({
+          count1: response.data
+        });
+      })["catch"](function (error) {
+        return console.log(error);
+      });
+      axios__WEBPACK_IMPORTED_MODULE_1___default().get("/api/Review/" + this.props.book_id + "/list_star/" + 2).then(function (response) {
+        _this2.setState({
+          count2: response.data
+        });
+      })["catch"](function (error) {
+        return console.log(error);
+      });
+      axios__WEBPACK_IMPORTED_MODULE_1___default().get("/api/Review/" + this.props.book_id + "/list_star/" + 3).then(function (response) {
+        _this2.setState({
+          count3: response.data
+        });
+      })["catch"](function (error) {
+        return console.log(error);
+      });
+      axios__WEBPACK_IMPORTED_MODULE_1___default().get("/api/Review/" + this.props.book_id + "/list_star/" + 4).then(function (response) {
+        _this2.setState({
+          count4: response.data
+        });
+      })["catch"](function (error) {
+        return console.log(error);
+      });
+      axios__WEBPACK_IMPORTED_MODULE_1___default().get("/api/Review/" + this.props.book_id + "/list_star/" + 5).then(function (response) {
+        _this2.setState({
+          count5: response.data
+        });
       })["catch"](function (error) {
         return console.log(error);
       });
@@ -3417,8 +3463,34 @@ var Customer_Review = /*#__PURE__*/function (_Component) {
       });
     }
   }, {
+    key: "fill",
+    value: function fill(star) {
+      var _this4 = this;
+
+      var url = "/api/Review/" + this.props.book_id + "/filltered_by_star/" + star + "/sort/" + this.state.sort + "/per_page/" + this.state.per_page;
+      axios__WEBPACK_IMPORTED_MODULE_1___default().get(url).then(function (response) {
+        var reviews = response.data.data;
+
+        _this4.setState({
+          reviews: reviews,
+          activePage: response.data.current_page,
+          itemsCountPerPage: response.data.per_page,
+          totalItemsCount: response.data.total,
+          star: star,
+          from: response.data.from,
+          to: response.data.to
+        });
+
+        console.log(response);
+      })["catch"](function (error) {
+        return console.log(error);
+      });
+    }
+  }, {
     key: "render",
     value: function render() {
+      var _this5 = this;
+
       return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
         className: "customer-review",
         children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("h1", {
@@ -3427,34 +3499,44 @@ var Customer_Review = /*#__PURE__*/function (_Component) {
           children: this.state.show
         }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
           children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("h3", {
-            children: ["Customer Review ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("span", {
-              children: "(Filtered by 5 stars)"
+            children: ["Customer Review ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("span", {
+              children: ["(Filtered by ", this.state.star, " stars)"]
             })]
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("h2", {
             children: [this.state.avg_star, " Star"]
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("p", {
             children: ["(", this.state.total_reviews, ")", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("span", {
               className: "span-star",
-              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_4__.Link, {
+              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)(react_router_dom__WEBPACK_IMPORTED_MODULE_4__.Link, {
+                onClick: function onClick() {
+                  return _this5.fill(5);
+                },
                 className: "star-link",
-                to: "",
-                children: "5 star (200)"
-              }), " |", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_4__.Link, {
+                children: ["5 star (", this.state.count5, ")"]
+              }), " |", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)(react_router_dom__WEBPACK_IMPORTED_MODULE_4__.Link, {
+                onClick: function onClick() {
+                  return _this5.fill(4);
+                },
                 className: "star-link",
-                to: "",
-                children: " 4 star (100)"
-              }), " |", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_4__.Link, {
+                children: [" 4 star (", this.state.count4, ")"]
+              }), " |", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)(react_router_dom__WEBPACK_IMPORTED_MODULE_4__.Link, {
+                onClick: function onClick() {
+                  return _this5.fill(3);
+                },
                 className: "star-link",
-                to: "",
-                children: " 3 star (20)"
-              }), " |", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_4__.Link, {
+                children: [" 3 star (", this.state.count3, ")"]
+              }), " |", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)(react_router_dom__WEBPACK_IMPORTED_MODULE_4__.Link, {
+                onClick: function onClick() {
+                  return _this5.fill(2);
+                },
                 className: "star-link",
-                to: "",
-                children: " 2 star (5)"
-              }), " |", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_4__.Link, {
+                children: [" 2 star (", this.state.count2, ")"]
+              }), " |", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)(react_router_dom__WEBPACK_IMPORTED_MODULE_4__.Link, {
+                onClick: function onClick() {
+                  return _this5.fill(1);
+                },
                 className: "star-link",
-                to: "",
-                children: " 1 star (0)"
+                children: [" 1 star (", this.state.count1, ")"]
               })]
             })]
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
@@ -3462,7 +3544,7 @@ var Customer_Review = /*#__PURE__*/function (_Component) {
             children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
               className: "col-4",
               children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("p", {
-                children: ["Showing 1-5 of ", this.state.total_reviews, " reviews"]
+                children: ["Showing ", this.state.from, " - ", this.state.to, " of ", this.state.total_reviews, " reviews"]
               })
             }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
               className: "col-8",

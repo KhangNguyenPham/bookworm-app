@@ -25,22 +25,37 @@ class ReviewActionController extends Controller
         return response()->json($star[0], 200);
     }
 
-    function filltered($id,$star){
-        switch ($star){
-            case "1":
-                return response()->json(1, 200);
+    function list_star($book_id, $star){
+        $counting_star = Review::where("book_id", $book_id)
+        ->where("rating_start", $star)
+        ->count();
+        return response()->json($counting_star, 200);
+    }
+
+    function sort_by_nto($id, $star, $number){
+        $reviews = Review::where("book_id",$id)
+        ->where("rating_start", $star)
+        ->orderBy("review_date", "desc")
+        ->paginate($number);
+        return $reviews;
+    }
+
+    function sort_by_otn($id, $star, $number){
+        $reviews = Review::where("book_id",$id)
+        ->where("rating_start", $star)
+        ->orderBy("review_date", "asc")
+        ->paginate($number);
+        return $reviews;
+    }
+
+    function filltered($id, $star, $sort, $number){
+        $fillter = new ReviewActionController();
+        switch ($sort){
+            case "oldest":
+                return response()->json($fillter->sort_by_nto($id, $star, $number), 200);
                 break;
-            case "2":
-                return response()->json(2, 200);
-                break;
-            case "3":
-                return response()->json(3, 200);
-                break;
-            case "4":
-                return response()->json(4, 200);
-                break;
-            case "5":
-                return response()->json(5, 200);
+            case "newest":
+                return response()->json($fillter->sort_by_otn($id, $star, $number), 200);
                 break;
             default:
                 return "404-not found";

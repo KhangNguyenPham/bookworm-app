@@ -17,21 +17,34 @@ export default class Customer_Review extends Component {
             itemsCountPerPage: 0,
             totalItemsCount: 0,
             pageRangeDisplayed: 5,
-            sort:"oldest"
+            sort:"oldest",
+            star:5, 
+            from:"",
+            to:"",
+            count1:0,
+            count2:0,
+            count3:0,
+            count4:0,
+            count5:0,
+
         }
         this.handlePageChange = this.handlePageChange.bind(this);
         this.sort = this.sort.bind(this);
+        this.show = this.show.bind(this);
     }
 
     componentDidMount(){
-        let url = "/api/Review/" + this.props.book_id + "?page=" + this.state.current_page;
+        let url = "/api/Review/" + this.props.book_id + "/filltered_by_star/" + this.state.star + 
+        "/sort/" + this.state.sort + "/per_page/" + this.state.per_page;
         axios.get(url).then(response => {
             const reviews = response.data.data;
             this.setState({
                 reviews,
                 activePage: response.data.current_page,
                 itemsCountPerPage: response.data.per_page,
-                totalItemsCount: response.data.total
+                totalItemsCount: response.data.total,
+                from: response.data.from,
+                to: response.data.to,
             });
             console.log(response);
         }).catch(error => console.log(error));
@@ -49,6 +62,27 @@ export default class Customer_Review extends Component {
             this.setState({avg_star});
             console.log(response);
         }).catch(error => console.log(error));
+
+        axios.get("/api/Review/" + this.props.book_id + "/list_star/" + 1).then(response => {
+            this.setState({count1:response.data});
+        }).catch(error => console.log(error));
+
+        axios.get("/api/Review/" + this.props.book_id + "/list_star/" + 2).then(response => {
+            this.setState({count2:response.data});
+        }).catch(error => console.log(error));
+
+        axios.get("/api/Review/" + this.props.book_id + "/list_star/" + 3).then(response => {
+            this.setState({count3:response.data});
+        }).catch(error => console.log(error));
+
+        axios.get("/api/Review/" + this.props.book_id + "/list_star/" + 4).then(response => {
+            this.setState({count4:response.data});
+        }).catch(error => console.log(error));
+
+        axios.get("/api/Review/" + this.props.book_id + "/list_star/" + 5).then(response => {
+            this.setState({count5:response.data});
+        }).catch(error => console.log(error));
+        
     }
 
     handlePageChange(pageNumber) {
@@ -71,7 +105,7 @@ export default class Customer_Review extends Component {
             }, this)
         }
     }
-
+    
     sort(day){
         this.setState({sort: day.target.value});
     }
@@ -80,26 +114,45 @@ export default class Customer_Review extends Component {
         this.setState({per_page: number.target.value});
     }
 
+    fill(star){
+        let url = "/api/Review/" + this.props.book_id + "/filltered_by_star/" + star + 
+        "/sort/" + this.state.sort + "/per_page/" + this.state.per_page;
+        axios.get(url).then(response => {
+            const reviews = response.data.data;
+            this.setState({
+                reviews,
+                activePage: response.data.current_page,
+                itemsCountPerPage: response.data.per_page,
+                totalItemsCount: response.data.total,
+                star:star,
+                from: response.data.from,
+                to: response.data.to,
+            });
+            console.log(response);
+        }).catch(error => console.log(error));
+
+    }
+
     render(){
         return(
             <div className="customer-review">
                 <h1>{this.state.sort}</h1>
                 <h1>{this.state.show}</h1>
                 <div>
-                    <h3>Customer Review <span>(Filtered by 5 stars)</span></h3>     
+                    <h3>Customer Review <span>(Filtered by {this.state.star} stars)</span></h3>     
                     <h2>{this.state.avg_star} Star</h2>
                     <p>({this.state.total_reviews})
                         <span className="span-star"> 
-                            <Link className="star-link" to="">5 star (200)</Link> | 
-                            <Link className="star-link" to=""> 4 star (100)</Link> | 
-                            <Link className="star-link" to=""> 3 star (20)</Link> | 
-                            <Link className="star-link" to=""> 2 star (5)</Link> | 
-                            <Link className="star-link" to=""> 1 star (0)</Link>
+                            <Link onClick={()=>this.fill(5)} className="star-link" >5 star ({this.state.count5})</Link> | 
+                            <Link onClick={()=>this.fill(4)} className="star-link" > 4 star ({this.state.count4})</Link> | 
+                            <Link onClick={()=>this.fill(3)} className="star-link" > 3 star ({this.state.count3})</Link> | 
+                            <Link onClick={()=>this.fill(2)} className="star-link" > 2 star ({this.state.count2})</Link> | 
+                            <Link onClick={()=>this.fill(1)} className="star-link" > 1 star ({this.state.count1})</Link>
                         </span>
                     </p>
                     <div className="row">
                         <div className="col-4">
-                            <p>Showing 1-5 of {this.state.total_reviews} reviews</p>
+                            <p>Showing {this.state.from} - {this.state.to} of {this.state.total_reviews} reviews</p>
                         </div>
                         <div className="col-8">                         
                             <select className="form-select" value={this.state.sort} onChange={this.sort}>
