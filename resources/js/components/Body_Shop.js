@@ -105,10 +105,9 @@ export default class Body_Shop extends Component{
     }
 
     show(event){
-        this.setState({per_page: event.target.value});
         let type = this.state.filtered_by.split(" ");
         let url = "/api/Book/filtered_by_" + type[0] + "/" + this.state.id_filter + "/per_page/" + 
-        this.state.per_page + "/sort/" + this.state.sort;
+        event.target.value + "/sort/" + this.state.sort;
         
         axios.get(url).then(response => {
             const books = response.data.data;
@@ -118,7 +117,8 @@ export default class Body_Shop extends Component{
                 itemsCountPerPage: response.data.per_page,
                 totalItemsCount: response.data.total,
                 from:response.data.from,
-                to:response.data.to
+                to:response.data.to,
+                per_page : event.target.value
             });
         }).catch(error => console.log(error));
         console.log(url);

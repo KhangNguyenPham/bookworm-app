@@ -2589,11 +2589,8 @@ var Body_Shop = /*#__PURE__*/function (_Component) {
     value: function show(event) {
       var _this6 = this;
 
-      this.setState({
-        per_page: event.target.value
-      });
       var type = this.state.filtered_by.split(" ");
-      var url = "/api/Book/filtered_by_" + type[0] + "/" + this.state.id_filter + "/per_page/" + this.state.per_page + "/sort/" + this.state.sort;
+      var url = "/api/Book/filtered_by_" + type[0] + "/" + this.state.id_filter + "/per_page/" + event.target.value + "/sort/" + this.state.sort;
       axios__WEBPACK_IMPORTED_MODULE_1___default().get(url).then(function (response) {
         var books = response.data.data;
 
@@ -2603,7 +2600,8 @@ var Body_Shop = /*#__PURE__*/function (_Component) {
           itemsCountPerPage: response.data.per_page,
           totalItemsCount: response.data.total,
           from: response.data.from,
-          to: response.data.to
+          to: response.data.to,
+          per_page: event.target.value
         });
       })["catch"](function (error) {
         return console.log(error);
