@@ -107,11 +107,39 @@ export default class Customer_Review extends Component {
     }
     
     sort(day){
-        this.setState({sort: day.target.value});
+        let url = "/api/Review/" + this.props.book_id + "/filltered_by_star/" + this.state.star + 
+        "/sort/" + day.target.value + "/per_page/" + this.state.per_page;
+        axios.get(url).then(response => {
+            const reviews = response.data.data;
+            this.setState({
+                reviews,
+                activePage: response.data.current_page,
+                itemsCountPerPage: response.data.per_page,
+                totalItemsCount: response.data.total,
+                from: response.data.from,
+                to: response.data.to,
+                sort: day.target.value
+            });
+            console.log(response);
+        }).catch(error => console.log(error));
     }
 
     show(number){
-        this.setState({per_page: number.target.value});
+        let url = "/api/Review/" + this.props.book_id + "/filltered_by_star/" + this.state.star + 
+        "/sort/" + this.state.sort + "/per_page/" + number.target.value;
+        axios.get(url).then(response => {
+            const reviews = response.data.data;
+            this.setState({
+                reviews,
+                activePage: response.data.current_page,
+                itemsCountPerPage: response.data.per_page,
+                totalItemsCount: response.data.total,
+                from: response.data.from,
+                to: response.data.to,
+                per_page: number.target.value
+            });
+            console.log(response);
+        }).catch(error => console.log(error));
     }
 
     fill(star){
@@ -130,14 +158,13 @@ export default class Customer_Review extends Component {
             });
             console.log(response);
         }).catch(error => console.log(error));
-
     }
 
     render(){
         return(
             <div className="customer-review">
                 <h1>{this.state.sort}</h1>
-                <h1>{this.state.show}</h1>
+                <h1>{this.state.per_page}</h1>
                 <div>
                     <h3>Customer Review <span>(Filtered by {this.state.star} stars)</span></h3>     
                     <h2>{this.state.avg_star} Star</h2>

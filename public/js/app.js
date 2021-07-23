@@ -3451,27 +3451,61 @@ var Customer_Review = /*#__PURE__*/function (_Component) {
   }, {
     key: "sort",
     value: function sort(day) {
-      this.setState({
-        sort: day.target.value
+      var _this4 = this;
+
+      var url = "/api/Review/" + this.props.book_id + "/filltered_by_star/" + this.state.star + "/sort/" + day.target.value + "/per_page/" + this.state.per_page;
+      axios__WEBPACK_IMPORTED_MODULE_1___default().get(url).then(function (response) {
+        var reviews = response.data.data;
+
+        _this4.setState({
+          reviews: reviews,
+          activePage: response.data.current_page,
+          itemsCountPerPage: response.data.per_page,
+          totalItemsCount: response.data.total,
+          from: response.data.from,
+          to: response.data.to,
+          sort: day.target.value
+        });
+
+        console.log(response);
+      })["catch"](function (error) {
+        return console.log(error);
       });
     }
   }, {
     key: "show",
     value: function show(number) {
-      this.setState({
-        per_page: number.target.value
+      var _this5 = this;
+
+      var url = "/api/Review/" + this.props.book_id + "/filltered_by_star/" + this.state.star + "/sort/" + this.state.sort + "/per_page/" + number.target.value;
+      axios__WEBPACK_IMPORTED_MODULE_1___default().get(url).then(function (response) {
+        var reviews = response.data.data;
+
+        _this5.setState({
+          reviews: reviews,
+          activePage: response.data.current_page,
+          itemsCountPerPage: response.data.per_page,
+          totalItemsCount: response.data.total,
+          from: response.data.from,
+          to: response.data.to,
+          per_page: number.target.value
+        });
+
+        console.log(response);
+      })["catch"](function (error) {
+        return console.log(error);
       });
     }
   }, {
     key: "fill",
     value: function fill(star) {
-      var _this4 = this;
+      var _this6 = this;
 
       var url = "/api/Review/" + this.props.book_id + "/filltered_by_star/" + star + "/sort/" + this.state.sort + "/per_page/" + this.state.per_page;
       axios__WEBPACK_IMPORTED_MODULE_1___default().get(url).then(function (response) {
         var reviews = response.data.data;
 
-        _this4.setState({
+        _this6.setState({
           reviews: reviews,
           activePage: response.data.current_page,
           itemsCountPerPage: response.data.per_page,
@@ -3489,14 +3523,14 @@ var Customer_Review = /*#__PURE__*/function (_Component) {
   }, {
     key: "render",
     value: function render() {
-      var _this5 = this;
+      var _this7 = this;
 
       return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
         className: "customer-review",
         children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("h1", {
           children: this.state.sort
         }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("h1", {
-          children: this.state.show
+          children: this.state.per_page
         }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
           children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("h3", {
             children: ["Customer Review ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("span", {
@@ -3509,31 +3543,31 @@ var Customer_Review = /*#__PURE__*/function (_Component) {
               className: "span-star",
               children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)(react_router_dom__WEBPACK_IMPORTED_MODULE_4__.Link, {
                 onClick: function onClick() {
-                  return _this5.fill(5);
+                  return _this7.fill(5);
                 },
                 className: "star-link",
                 children: ["5 star (", this.state.count5, ")"]
               }), " |", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)(react_router_dom__WEBPACK_IMPORTED_MODULE_4__.Link, {
                 onClick: function onClick() {
-                  return _this5.fill(4);
+                  return _this7.fill(4);
                 },
                 className: "star-link",
                 children: [" 4 star (", this.state.count4, ")"]
               }), " |", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)(react_router_dom__WEBPACK_IMPORTED_MODULE_4__.Link, {
                 onClick: function onClick() {
-                  return _this5.fill(3);
+                  return _this7.fill(3);
                 },
                 className: "star-link",
                 children: [" 3 star (", this.state.count3, ")"]
               }), " |", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)(react_router_dom__WEBPACK_IMPORTED_MODULE_4__.Link, {
                 onClick: function onClick() {
-                  return _this5.fill(2);
+                  return _this7.fill(2);
                 },
                 className: "star-link",
                 children: [" 2 star (", this.state.count2, ")"]
               }), " |", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)(react_router_dom__WEBPACK_IMPORTED_MODULE_4__.Link, {
                 onClick: function onClick() {
-                  return _this5.fill(1);
+                  return _this7.fill(1);
                 },
                 className: "star-link",
                 children: [" 1 star (", this.state.count1, ")"]
