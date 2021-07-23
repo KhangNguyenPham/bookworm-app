@@ -163,8 +163,10 @@ export default class Body_Shop extends Component{
 
     handlePageChange(pageNumber) {
         let type = this.state.filtered_by.split(" ");
+        let sort = this.state.sort.split(" ");
+        let sort_type = sort[sort.length-1];
         let url = "/api/Book/filtered_by_" + type[0] + "/" + this.state.id_filter + "/per_page/" + 
-        this.state.per_page + "/sort/" + this.state.sort + "?page=" + pageNumber;
+        this.state.per_page + "/sort/" + sort_type + "?page=" + pageNumber;
         axios.get(url).then(response => {
             const books = response.data.data;
             this.setState({
