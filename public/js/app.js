@@ -2417,6 +2417,8 @@ function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Re
 
 function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
 
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 
 
 
@@ -2436,14 +2438,15 @@ var Body_Shop = /*#__PURE__*/function (_Component) {
     _classCallCheck(this, Body_Shop);
 
     _this = _super.call(this, props);
-    _this.state = {
+
+    _defineProperty(_assertThisInitialized(_this), "state", {
       books: [],
       authors: [],
       categorys: [],
       filtered_by: "",
-      per_page: "5",
       id_filter: "1",
       sort: "sale",
+      per_page: "5",
       url: "/api/Book/filtered_by_category/1/per_page/5/sort/sale",
       activePage: 1,
       itemsCountPerPage: 0,
@@ -2451,7 +2454,8 @@ var Body_Shop = /*#__PURE__*/function (_Component) {
       pageRangeDisplayed: 5,
       from: "1",
       to: "5"
-    };
+    });
+
     _this.show = _this.show.bind(_assertThisInitialized(_this));
     _this.sort = _this.sort.bind(_assertThisInitialized(_this));
     _this.handlePageChange = _this.handlePageChange.bind(_assertThisInitialized(_this));
@@ -2490,10 +2494,7 @@ var Body_Shop = /*#__PURE__*/function (_Component) {
         var categorys = response.data;
 
         _this2.setState({
-          categorys: categorys
-        });
-
-        _this2.setState({
+          categorys: categorys,
           filtered_by: "category " + categorys[0].category_name
         });
       })["catch"](function (error) {
@@ -2505,7 +2506,10 @@ var Body_Shop = /*#__PURE__*/function (_Component) {
     value: function filtered_by_category(category_id, category_name) {
       var _this3 = this;
 
-      axios__WEBPACK_IMPORTED_MODULE_1___default().get("/api/Book/filtered_by_category/" + category_id + "/per_page/" + this.state.per_page + "/sort/" + this.state.sort).then(function (response) {
+      var sort = this.state.sort.split(" ");
+      var sort_type = sort[sort.length - 1];
+      var url = "/api/Book/filtered_by_category/" + category_id + "/per_page/" + this.state.per_page + "/sort/" + sort_type;
+      axios__WEBPACK_IMPORTED_MODULE_1___default().get(url).then(function (response) {
         var books = response.data.data;
 
         _this3.setState({
@@ -2514,26 +2518,24 @@ var Body_Shop = /*#__PURE__*/function (_Component) {
           itemsCountPerPage: response.data.per_page,
           totalItemsCount: response.data.total,
           from: response.data.from,
-          to: response.data.to
-        });
-
-        _this3.setState({
-          filtered_by: "category " + category_name
-        });
-
-        _this3.setState({
+          to: response.data.to,
+          filtered_by: "category " + category_name,
           id_filter: category_id
         });
       })["catch"](function (error) {
         return console.log(error);
       });
+      console.log(url);
     }
   }, {
     key: "filtered_by_author",
     value: function filtered_by_author(author_id, author_name) {
       var _this4 = this;
 
-      axios__WEBPACK_IMPORTED_MODULE_1___default().get("/api/Book/filtered_by_author/" + author_id + "/per_page/" + this.state.per_page + "/sort/" + this.state.sort).then(function (response) {
+      var sort = this.state.sort.split(" ");
+      var sort_type = sort[sort.length - 1];
+      var url = "/api/Book/filtered_by_author/" + author_id + "/per_page/" + this.state.per_page + "/sort/" + sort_type;
+      axios__WEBPACK_IMPORTED_MODULE_1___default().get(url).then(function (response) {
         var books = response.data.data;
 
         _this4.setState({
@@ -2542,26 +2544,24 @@ var Body_Shop = /*#__PURE__*/function (_Component) {
           itemsCountPerPage: response.data.per_page,
           totalItemsCount: response.data.total,
           from: response.data.from,
-          to: response.data.to
-        });
-
-        _this4.setState({
-          filtered_by: "author " + author_name
-        });
-
-        _this4.setState({
+          to: response.data.to,
+          filtered_by: "author " + author_name,
           id_filter: author_id
         });
       })["catch"](function (error) {
         return console.log(error);
       });
+      console.log(url);
     }
   }, {
     key: "filtered_by_star",
     value: function filtered_by_star(star) {
       var _this5 = this;
 
-      axios__WEBPACK_IMPORTED_MODULE_1___default().get("/api/Book/filtered_by_star/" + star + "/per_page/" + this.state.per_page + "/sort/" + this.state.sort).then(function (response) {
+      var sort = this.state.sort.split(" ");
+      var sort_type = sort[sort.length - 1];
+      var url = "/api/Book/filtered_by_star/" + star + "/per_page/" + this.state.per_page + "/sort/" + sort_type;
+      axios__WEBPACK_IMPORTED_MODULE_1___default().get(url).then(function (response) {
         var books = response.data.data;
 
         _this5.setState({
@@ -2570,19 +2570,14 @@ var Body_Shop = /*#__PURE__*/function (_Component) {
           itemsCountPerPage: response.data.per_page,
           totalItemsCount: response.data.total,
           from: response.data.from,
-          to: response.data.to
-        });
-
-        _this5.setState({
-          filtered_by: "star " + star + " star"
-        });
-
-        _this5.setState({
+          to: response.data.to,
+          filtered_by: "star " + star + " star",
           id_filter: star
         });
       })["catch"](function (error) {
         return console.log(error);
       });
+      console.log(url);
     }
   }, {
     key: "show",
@@ -2590,7 +2585,9 @@ var Body_Shop = /*#__PURE__*/function (_Component) {
       var _this6 = this;
 
       var type = this.state.filtered_by.split(" ");
-      var url = "/api/Book/filtered_by_" + type[0] + "/" + this.state.id_filter + "/per_page/" + event.target.value + "/sort/" + this.state.sort;
+      var sort = this.state.sort.split(" ");
+      var sort_type = sort[sort.length - 1];
+      var url = "/api/Book/filtered_by_" + type[0] + "/" + this.state.id_filter + "/per_page/" + event.target.value + "/sort/" + sort_type;
       axios__WEBPACK_IMPORTED_MODULE_1___default().get(url).then(function (response) {
         var books = response.data.data;
 
@@ -2611,31 +2608,40 @@ var Body_Shop = /*#__PURE__*/function (_Component) {
   }, {
     key: "sort",
     value: function sort(event) {
+      var _this7 = this;
+
+      var type = this.state.filtered_by.split(" ");
       var sort = event.target.value.split(" ");
       var sort_type = sort[sort.length - 1];
-      var type = this.state.filtered_by.split(" ");
-      this.setState({
-        sort: sort_type
+      var url = "/api/Book/filtered_by_" + type[0] + "/" + this.state.id_filter + "/per_page/" + this.state.per_page + "/sort/" + sort_type;
+      axios__WEBPACK_IMPORTED_MODULE_1___default().get(url).then(function (response) {
+        var books = response.data.data;
+
+        _this7.setState({
+          books: books,
+          activePage: response.data.current_page,
+          itemsCountPerPage: response.data.per_page,
+          totalItemsCount: response.data.total,
+          from: response.data.from,
+          to: response.data.to,
+          sort: event.target.value
+        });
+      })["catch"](function (error) {
+        return console.log(error);
       });
-      var url = "/api/Book/filtered_by_" + type[0] + "/" + this.state.id_filter + "/per_page/" + this.state.per_page + "/sort/" + this.state.sort;
       console.log(url);
-    }
-  }, {
-    key: "getData",
-    value: function getData() {
-      console.log(this.state.url);
     }
   }, {
     key: "handlePageChange",
     value: function handlePageChange(pageNumber) {
-      var _this7 = this;
+      var _this8 = this;
 
       var type = this.state.filtered_by.split(" ");
       var url = "/api/Book/filtered_by_" + type[0] + "/" + this.state.id_filter + "/per_page/" + this.state.per_page + "/sort/" + this.state.sort + "?page=" + pageNumber;
       axios__WEBPACK_IMPORTED_MODULE_1___default().get(url).then(function (response) {
         var books = response.data.data;
 
-        _this7.setState({
+        _this8.setState({
           books: books,
           activePage: response.data.current_page,
           itemsCountPerPage: response.data.per_page,
@@ -2651,7 +2657,7 @@ var Body_Shop = /*#__PURE__*/function (_Component) {
   }, {
     key: "render",
     value: function render() {
-      var _this8 = this;
+      var _this9 = this;
 
       return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.Fragment, {
         children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("h1", {
@@ -2698,7 +2704,7 @@ var Body_Shop = /*#__PURE__*/function (_Component) {
                     return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
                       className: "card-body",
                       onClick: function onClick() {
-                        return _this8.filtered_by_category(category.id, category.category_name);
+                        return _this9.filtered_by_category(category.id, category.category_name);
                       },
                       children: category.category_name
                     }, index);
@@ -2730,7 +2736,7 @@ var Body_Shop = /*#__PURE__*/function (_Component) {
                     return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
                       className: "card-body",
                       onClick: function onClick() {
-                        return _this8.filtered_by_author(author.id, author.author_name);
+                        return _this9.filtered_by_author(author.id, author.author_name);
                       },
                       children: author.author_name
                     }, index);
@@ -2761,31 +2767,31 @@ var Body_Shop = /*#__PURE__*/function (_Component) {
                   children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
                     className: "card-body",
                     onClick: function onClick() {
-                      return _this8.filtered_by_star(1);
+                      return _this9.filtered_by_star(1);
                     },
                     children: "1 Star"
                   }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
                     className: "card-body",
                     onClick: function onClick() {
-                      return _this8.filtered_by_star(2);
+                      return _this9.filtered_by_star(2);
                     },
                     children: "2 Star"
                   }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
                     className: "card-body",
                     onClick: function onClick() {
-                      return _this8.filtered_by_star(3);
+                      return _this9.filtered_by_star(3);
                     },
                     children: "3 Star"
                   }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
                     className: "card-body",
                     onClick: function onClick() {
-                      return _this8.filtered_by_star(4);
+                      return _this9.filtered_by_star(4);
                     },
                     children: "4 Star"
                   }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
                     className: "card-body",
                     onClick: function onClick() {
-                      return _this8.filtered_by_star(5);
+                      return _this9.filtered_by_star(5);
                     },
                     children: "5 Star"
                   })]

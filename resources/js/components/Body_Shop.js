@@ -7,26 +7,27 @@ export default class Body_Shop extends Component{
     
     constructor(props){
         super(props);
-        this.state = {
-            books:[],
-            authors:[],
-            categorys:[],
-            filtered_by:"",
-            per_page:"5",
-            id_filter:"1",
-            sort:"sale",
-            url:"/api/Book/filtered_by_category/1/per_page/5/sort/sale",
-            activePage: 1,
-            itemsCountPerPage: 0,
-            totalItemsCount: 0,
-            pageRangeDisplayed: 5,
-            from:"1",
-            to:"5"
-        };
         this.show = this.show.bind(this);
         this.sort = this.sort.bind(this);
         this.handlePageChange = this.handlePageChange.bind(this);
     }
+
+    state = {
+        books:[],
+        authors:[],
+        categorys:[],
+        filtered_by:"",
+        id_filter:"1",
+        sort:"sale",
+        per_page:"5",
+        url:"/api/Book/filtered_by_category/1/per_page/5/sort/sale",
+        activePage: 1,
+        itemsCountPerPage: 0,
+        totalItemsCount: 0,
+        pageRangeDisplayed: 5,
+        from:"1",
+        to:"5"
+    };
 
     componentDidMount(){
         axios.get(this.state.url).then(response => {
@@ -48,14 +49,19 @@ export default class Body_Shop extends Component{
        
         axios.get("/api/Category").then(response => {
             const categorys = response.data;
-            this.setState({categorys});
-            this.setState({filtered_by:"category " + categorys[0].category_name})
+            this.setState({
+                categorys,
+                filtered_by:"category " + categorys[0].category_name
+            });
         }).catch(error => console.log(error));
     }
 
     filtered_by_category(category_id, category_name){
-        axios.get("/api/Book/filtered_by_category/" + category_id + "/per_page/" + 
-        this.state.per_page + "/sort/" + this.state.sort).then(response => {
+        let sort = this.state.sort.split(" ");
+        let sort_type = sort[sort.length-1];
+        let url = "/api/Book/filtered_by_category/" + category_id + "/per_page/" + 
+        this.state.per_page + "/sort/" + sort_type;
+        axios.get(url).then(response => {
             const books = response.data.data;
             this.setState({
                 books,
@@ -63,16 +69,20 @@ export default class Body_Shop extends Component{
                 itemsCountPerPage: response.data.per_page,
                 totalItemsCount: response.data.total,
                 from:response.data.from,
-                to:response.data.to
+                to:response.data.to,
+                filtered_by:"category " + category_name,
+                id_filter:category_id
             });
-            this.setState({filtered_by:"category " + category_name});
-            this.setState({id_filter:category_id});
         }).catch(error => console.log(error)); 
+        console.log(url);
     }
 
     filtered_by_author(author_id, author_name){
-        axios.get("/api/Book/filtered_by_author/" + author_id + "/per_page/" + 
-        this.state.per_page + "/sort/" + this.state.sort).then(response => {
+        let sort = this.state.sort.split(" ");
+        let sort_type = sort[sort.length-1];
+        let url = "/api/Book/filtered_by_author/" + author_id + "/per_page/" + 
+        this.state.per_page + "/sort/" + sort_type;
+        axios.get(url).then(response => {
             const books = response.data.data;
             this.setState({
                 books, 
@@ -80,16 +90,20 @@ export default class Body_Shop extends Component{
                 itemsCountPerPage: response.data.per_page,
                 totalItemsCount: response.data.total,
                 from:response.data.from,
-                to:response.data.to
+                to:response.data.to,
+                filtered_by:"author " + author_name,
+                id_filter:author_id
             });
-            this.setState({filtered_by:"author " + author_name});
-            this.setState({id_filter:author_id});
         }).catch(error => console.log(error)); 
+        console.log(url);
     }
 
     filtered_by_star(star){
-        axios.get("/api/Book/filtered_by_star/" + star + "/per_page/" + 
-        this.state.per_page + "/sort/" + this.state.sort).then(response => {
+        let sort = this.state.sort.split(" ");
+        let sort_type = sort[sort.length-1];
+        let url = "/api/Book/filtered_by_star/" + star + "/per_page/" + 
+        this.state.per_page + "/sort/" + sort_type;
+        axios.get(url).then(response => {
             const books = response.data.data;
             this.setState({
                 books, 
@@ -97,18 +111,20 @@ export default class Body_Shop extends Component{
                 itemsCountPerPage: response.data.per_page,
                 totalItemsCount: response.data.total,
                 from:response.data.from,
-                to:response.data.to
+                to:response.data.to,
+                filtered_by:"star " + star + " star",
+                id_filter:star
             });
-            this.setState({filtered_by:"star " + star + " star"});
-            this.setState({id_filter:star});
         }).catch(error => console.log(error)); 
+        console.log(url);
     }
 
     show(event){
         let type = this.state.filtered_by.split(" ");
+        let sort = this.state.sort.split(" ");
+        let sort_type = sort[sort.length-1];
         let url = "/api/Book/filtered_by_" + type[0] + "/" + this.state.id_filter + "/per_page/" + 
-        event.target.value + "/sort/" + this.state.sort;
-        
+        event.target.value + "/sort/" + sort_type;
         axios.get(url).then(response => {
             const books = response.data.data;
             this.setState({
@@ -125,17 +141,24 @@ export default class Body_Shop extends Component{
     }
 
     sort(event){
+        let type = this.state.filtered_by.split(" ");
         let sort = event.target.value.split(" ");
         let sort_type = sort[sort.length-1];
-        let type = this.state.filtered_by.split(" ");
-        this.setState({sort:sort_type});
         let url = "/api/Book/filtered_by_" + type[0] + "/" + this.state.id_filter + "/per_page/" + 
-        this.state.per_page + "/sort/" + this.state.sort;
+        this.state.per_page + "/sort/" + sort_type;
+        axios.get(url).then(response => {
+            const books = response.data.data;
+            this.setState({
+                books,
+                activePage: response.data.current_page,
+                itemsCountPerPage: response.data.per_page,
+                totalItemsCount: response.data.total,
+                from:response.data.from,
+                to:response.data.to,
+                sort : event.target.value
+            });
+        }).catch(error => console.log(error));
         console.log(url);
-    }
-
-    getData(){
-        console.log(this.state.url);
     }
 
     handlePageChange(pageNumber) {
@@ -159,8 +182,6 @@ export default class Body_Shop extends Component{
     render(){
         return(
             <>
-                <h1>sort by {this.state.sort}</h1>
-                <h1>show {this.state.per_page}</h1>
                 <h4 className="header-shop">Books <span>(Filltered by {this.state.filtered_by})</span></h4>
                 <hr className="hr-about-us"/>
                 <div className="row body-shop">
