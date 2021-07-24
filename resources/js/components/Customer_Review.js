@@ -35,7 +35,7 @@ export default class Customer_Review extends Component {
 
     componentDidMount(){
         let url = "/api/Review/" + this.props.book_id + "/filltered_by_star/" + this.state.star + 
-        "/sort/" + this.state.sort + "/per_page/" + this.state.per_page;
+        "/per_page/" + this.state.per_page + "/sort/" + this.state.sort;
         axios.get(url).then(response => {
             const reviews = response.data.data;
             this.setState({
@@ -46,21 +46,19 @@ export default class Customer_Review extends Component {
                 from: response.data.from,
                 to: response.data.to,
             });
-            console.log(response);
+            console.log(url);
         }).catch(error => console.log(error));
 
         let url_total = "/api/Review/" + this.props.book_id + "/total_reviews";
         axios.get(url_total).then(response => {
             const total_reviews = response.data;
             this.setState({total_reviews});
-            console.log(response);
         }).catch(error => console.log(error));
 
         let url_avg = "/api/Review/" + this.props.book_id + "/rating_star";
         axios.get(url_avg).then(response => {
             const avg_star = response.data["avg_star"]||0;
             this.setState({avg_star});
-            console.log(response);
         }).catch(error => console.log(error));
 
         axios.get("/api/Review/" + this.props.book_id + "/list_star/" + 1).then(response => {
@@ -86,29 +84,25 @@ export default class Customer_Review extends Component {
     }
 
     handlePageChange(pageNumber) {
-        let url = "/api/Review/" + this.props.book_id + "?page=" + pageNumber;
+        let url = "/api/Review/" + this.props.book_id + "/filltered_by_star/" + this.state.star + 
+        "/per_page/" + this.state.per_page + "/sort/" + this.state.sort +"?page=" + pageNumber;
         axios.get(url).then(response => {
             const reviews = response.data.data;
             this.setState({
                 reviews,
-                activePage: response.data.current_page
+                activePage: response.data.current_page,
+                itemsCountPerPage: response.data.per_page,
+                totalItemsCount: response.data.total,
+                from: response.data.from,
+                to: response.data.to,
             });
         }).catch(error => console.log(error));
-    }
-
-    tabRow() {
-        if (this.state.items instanceof Array) {
-            return this.state.items.map(function (object, i) {
-                return <TableRow
-                    obj={object} st={this.state} key={i} index={i}
-                />;
-            }, this)
-        }
+        console.log(url)
     }
     
     sort(day){
         let url = "/api/Review/" + this.props.book_id + "/filltered_by_star/" + this.state.star + 
-        "/sort/" + day.target.value + "/per_page/" + this.state.per_page;
+        "/per_page/" + this.state.per_page + "/sort/" + day.target.value;
         axios.get(url).then(response => {
             const reviews = response.data.data;
             this.setState({
@@ -120,13 +114,13 @@ export default class Customer_Review extends Component {
                 to: response.data.to,
                 sort: day.target.value
             });
-            console.log(response);
         }).catch(error => console.log(error));
+        console.log(url)
     }
 
     show(number){
         let url = "/api/Review/" + this.props.book_id + "/filltered_by_star/" + this.state.star + 
-        "/sort/" + this.state.sort + "/per_page/" + number.target.value;
+        "/per_page/" + number.target.value + "/sort/" + this.state.sort;
         axios.get(url).then(response => {
             const reviews = response.data.data;
             this.setState({
@@ -138,13 +132,13 @@ export default class Customer_Review extends Component {
                 to: response.data.to,
                 per_page: number.target.value
             });
-            console.log(response);
         }).catch(error => console.log(error));
+        console.log(url)
     }
 
     fill(star){
         let url = "/api/Review/" + this.props.book_id + "/filltered_by_star/" + star + 
-        "/sort/" + this.state.sort + "/per_page/" + this.state.per_page;
+        "/per_page/" + this.state.per_page + "/sort/" + this.state.sort;
         axios.get(url).then(response => {
             const reviews = response.data.data;
             this.setState({
@@ -156,8 +150,8 @@ export default class Customer_Review extends Component {
                 from: response.data.from,
                 to: response.data.to,
             });
-            console.log(response);
         }).catch(error => console.log(error));
+        console.log(url)
     }
 
     render(){

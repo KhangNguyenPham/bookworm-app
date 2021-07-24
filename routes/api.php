@@ -59,7 +59,7 @@ Route::prefix("/Review/{book_id}")->group(function(){
 
     Route::get("/list_star/{star}", [ReviewActionController::class, "list_star"]);
 
-    Route::get("/filltered_by_star/{star}/sort/{sort}/per_page/{number}", [ReviewActionController::class, "filltered"]);
+    Route::get("/filltered_by_star/{star}/per_page/{number}/sort/{sort}", [ReviewActionController::class, "filltered"]);
 });
 
 Route::apiResource("/Book", BookController::class);

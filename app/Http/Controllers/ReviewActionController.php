@@ -48,7 +48,7 @@ class ReviewActionController extends Controller
         return $reviews;
     }
 
-    function filltered($id, $star, $sort, $number){
+    function filltered($id, $star, $number, $sort){
         $fillter = new ReviewActionController();
         switch ($sort){
             case "oldest":

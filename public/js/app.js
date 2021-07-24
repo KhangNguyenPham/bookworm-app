@@ -3859,7 +3859,7 @@ var Customer_Review = /*#__PURE__*/function (_Component) {
     value: function componentDidMount() {
       var _this2 = this;
 
-      var url = "/api/Review/" + this.props.book_id + "/filltered_by_star/" + this.state.star + "/sort/" + this.state.sort + "/per_page/" + this.state.per_page;
+      var url = "/api/Review/" + this.props.book_id + "/filltered_by_star/" + this.state.star + "/per_page/" + this.state.per_page + "/sort/" + this.state.sort;
       axios__WEBPACK_IMPORTED_MODULE_1___default().get(url).then(function (response) {
         var reviews = response.data.data;
 
@@ -3872,7 +3872,7 @@ var Customer_Review = /*#__PURE__*/function (_Component) {
           to: response.data.to
         });
 
-        console.log(response);
+        console.log(url);
       })["catch"](function (error) {
         return console.log(error);
       });
@@ -3883,8 +3883,6 @@ var Customer_Review = /*#__PURE__*/function (_Component) {
         _this2.setState({
           total_reviews: total_reviews
         });
-
-        console.log(response);
       })["catch"](function (error) {
         return console.log(error);
       });
@@ -3895,8 +3893,6 @@ var Customer_Review = /*#__PURE__*/function (_Component) {
         _this2.setState({
           avg_star: avg_star
         });
-
-        console.log(response);
       })["catch"](function (error) {
         return console.log(error);
       });
@@ -3941,37 +3937,29 @@ var Customer_Review = /*#__PURE__*/function (_Component) {
     value: function handlePageChange(pageNumber) {
       var _this3 = this;
 
-      var url = "/api/Review/" + this.props.book_id + "?page=" + pageNumber;
+      var url = "/api/Review/" + this.props.book_id + "/filltered_by_star/" + this.state.star + "/per_page/" + this.state.per_page + "/sort/" + this.state.sort + "?page=" + pageNumber;
       axios__WEBPACK_IMPORTED_MODULE_1___default().get(url).then(function (response) {
         var reviews = response.data.data;
 
         _this3.setState({
           reviews: reviews,
-          activePage: response.data.current_page
+          activePage: response.data.current_page,
+          itemsCountPerPage: response.data.per_page,
+          totalItemsCount: response.data.total,
+          from: response.data.from,
+          to: response.data.to
         });
       })["catch"](function (error) {
         return console.log(error);
       });
-    }
-  }, {
-    key: "tabRow",
-    value: function tabRow() {
-      if (this.state.items instanceof Array) {
-        return this.state.items.map(function (object, i) {
-          return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(TableRow, {
-            obj: object,
-            st: this.state,
-            index: i
-          }, i);
-        }, this);
-      }
+      console.log(url);
     }
   }, {
     key: "sort",
     value: function sort(day) {
       var _this4 = this;
 
-      var url = "/api/Review/" + this.props.book_id + "/filltered_by_star/" + this.state.star + "/sort/" + day.target.value + "/per_page/" + this.state.per_page;
+      var url = "/api/Review/" + this.props.book_id + "/filltered_by_star/" + this.state.star + "/per_page/" + this.state.per_page + "/sort/" + day.target.value;
       axios__WEBPACK_IMPORTED_MODULE_1___default().get(url).then(function (response) {
         var reviews = response.data.data;
 
@@ -3984,18 +3972,17 @@ var Customer_Review = /*#__PURE__*/function (_Component) {
           to: response.data.to,
           sort: day.target.value
         });
-
-        console.log(response);
       })["catch"](function (error) {
         return console.log(error);
       });
+      console.log(url);
     }
   }, {
     key: "show",
     value: function show(number) {
       var _this5 = this;
 
-      var url = "/api/Review/" + this.props.book_id + "/filltered_by_star/" + this.state.star + "/sort/" + this.state.sort + "/per_page/" + number.target.value;
+      var url = "/api/Review/" + this.props.book_id + "/filltered_by_star/" + this.state.star + "/per_page/" + number.target.value + "/sort/" + this.state.sort;
       axios__WEBPACK_IMPORTED_MODULE_1___default().get(url).then(function (response) {
         var reviews = response.data.data;
 
@@ -4008,18 +3995,17 @@ var Customer_Review = /*#__PURE__*/function (_Component) {
           to: response.data.to,
           per_page: number.target.value
         });
-
-        console.log(response);
       })["catch"](function (error) {
         return console.log(error);
       });
+      console.log(url);
     }
   }, {
     key: "fill",
     value: function fill(star) {
       var _this6 = this;
 
-      var url = "/api/Review/" + this.props.book_id + "/filltered_by_star/" + star + "/sort/" + this.state.sort + "/per_page/" + this.state.per_page;
+      var url = "/api/Review/" + this.props.book_id + "/filltered_by_star/" + star + "/per_page/" + this.state.per_page + "/sort/" + this.state.sort;
       axios__WEBPACK_IMPORTED_MODULE_1___default().get(url).then(function (response) {
         var reviews = response.data.data;
 
@@ -4032,11 +4018,10 @@ var Customer_Review = /*#__PURE__*/function (_Component) {
           from: response.data.from,
           to: response.data.to
         });
-
-        console.log(response);
       })["catch"](function (error) {
         return console.log(error);
       });
+      console.log(url);
     }
   }, {
     key: "render",
