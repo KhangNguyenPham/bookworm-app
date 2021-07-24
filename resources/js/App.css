@@ -59,6 +59,16 @@ footer{
     float:right;
 }
 
+.text-white-color{
+    color:white;
+    text-decoration: none;
+}
+
+.text-white-color:hover{
+    color:white;
+    text-decoration: none;
+}
+
 /**************************************Carousel**************************/
 .carousel{
     width: 90%;
