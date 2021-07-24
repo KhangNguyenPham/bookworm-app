@@ -74,7 +74,7 @@ export default class Add_To_Cart extends Component{
             }
         let in_cart = 0;
         let store = localStorage.getItem("cart");
-        if(store){
+        if(store!=null){
             cart = JSON.parse(store);
             cart.forEach(element => {
                 if(element.id == book.id){
@@ -101,7 +101,6 @@ export default class Add_To_Cart extends Component{
             cart.push(book);
             localStorage.setItem("cart", JSON.stringify(cart));
         }
-        console.log(cart, book.quantity);
     }
 
     render(){

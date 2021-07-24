@@ -6,7 +6,17 @@ import navbar_logo from "../../assets/bookworm_icon.svg";
 export default class NavBar extends Component{
 
     state={
-        choose:"home"
+        choose:"home",
+        cart:0
+    }
+
+    componentDidMount(){
+        let cart = JSON.parse(localStorage.getItem("cart"));
+        if(cart){
+            this.setState({cart:cart.length});
+        }else{
+            this.setState({cart:0});
+        }
     }
 
     choose(item){
@@ -51,7 +61,7 @@ export default class NavBar extends Component{
                             </li>
                             <li className="nav-item" id="cart" onClick={()=>this.choose("cart")}>
                                 <Link to="/Cart" className="nav-links navhvr">
-                                    Cart(0)
+                                    Cart({this.state.cart})
                                 </Link>
                             </li>
                         </ul>
