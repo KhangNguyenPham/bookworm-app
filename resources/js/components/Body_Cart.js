@@ -6,12 +6,21 @@ export default class Body_Cart extends Component{
 
     state={
         cart:[],
-        total:""
+        total:0
     }
     
     componentDidMount(){
         const cart = JSON.parse(localStorage.getItem("cart"));
-        this.setState({cart});
+        let total = 0;
+        if(cart){
+            cart.forEach(element => {
+                total += Number(element.price) * element.quantity;
+            });
+        }
+        this.setState({
+            cart,
+            total
+        });
     }
 
     render(){
@@ -28,7 +37,6 @@ export default class Body_Cart extends Component{
                             </tr>
                         </thead>
                         <tbody>
-                           
                             {this.state.cart == null ? "" : this.state.cart.map((book)=>
                                 (
                                 <tr>
@@ -55,7 +63,7 @@ export default class Body_Cart extends Component{
                                         </div>
                                     </td>
                                     <td>
-                                        {Math.round(book.quantity * Number(book.price)*100)/100}
+                                        ${Math.round(book.quantity * Number(book.price)*100)/100}
                                     </td>
                                 </tr>
                             ))}
@@ -65,7 +73,7 @@ export default class Body_Cart extends Component{
                 <div className="col-lg-4 col-md-12">
                     <div className="total-cart">
                         <h5>Cart Totals</h5>
-                        <h3>$99.99</h3>
+                        <h3>${Math.round(this.state.total*100)/100}</h3>
                         <button className="add-to-card-submit" type="submit"><h5>Place order</h5></button>
                     </div>
                 </div>

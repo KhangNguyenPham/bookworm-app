@@ -2527,12 +2527,12 @@ var Add_To_Cart = /*#__PURE__*/function (_Component) {
           cart.push(book);
           this.setState({
             toast: "You pushed " + book.quantity + " " + book.book_title + " into cart.",
-            bg: "bg-primary",
+            bg: "bg-success",
             show: true
           });
         } else {
           this.setState({
-            toast: "Cart full",
+            toast: "Cart full!!! It is available 8 for each book. Now you have " + in_cart + " for this book.",
             bg: "bg-danger",
             show: true
           });
@@ -2543,6 +2543,11 @@ var Add_To_Cart = /*#__PURE__*/function (_Component) {
         localStorage.setItem("cart", "");
         cart.push(book);
         localStorage.setItem("cart", JSON.stringify(cart));
+        this.setState({
+          toast: "You pushed " + book.quantity + " " + book.book_title + " into cart.",
+          bg: "bg-primary",
+          show: true
+        });
       }
     }
   }, {
@@ -2688,7 +2693,7 @@ var Body_Cart = /*#__PURE__*/function (_Component) {
 
     _defineProperty(_assertThisInitialized(_this), "state", {
       cart: [],
-      total: ""
+      total: 0
     });
 
     return _this;
@@ -2698,8 +2703,17 @@ var Body_Cart = /*#__PURE__*/function (_Component) {
     key: "componentDidMount",
     value: function componentDidMount() {
       var cart = JSON.parse(localStorage.getItem("cart"));
+      var total = 0;
+
+      if (cart) {
+        cart.forEach(function (element) {
+          total += Number(element.price) * element.quantity;
+        });
+      }
+
       this.setState({
-        cart: cart
+        cart: cart,
+        total: total
       });
     }
   }, {
@@ -2763,8 +2777,8 @@ var Body_Cart = /*#__PURE__*/function (_Component) {
                         children: "+"
                       })]
                     })
-                  }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("td", {
-                    children: Math.round(book.quantity * Number(book.price) * 100) / 100
+                  }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("td", {
+                    children: ["$", Math.round(book.quantity * Number(book.price) * 100) / 100]
                   })]
                 });
               })
@@ -2776,8 +2790,8 @@ var Body_Cart = /*#__PURE__*/function (_Component) {
             className: "total-cart",
             children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("h5", {
               children: "Cart Totals"
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("h3", {
-              children: "$99.99"
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("h3", {
+              children: ["$", Math.round(this.state.total * 100) / 100]
             }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("button", {
               className: "add-to-card-submit",
               type: "submit",

@@ -85,12 +85,12 @@ export default class Add_To_Cart extends Component{
                 cart.push(book);
                 this.setState({
                     toast:"You pushed " + book.quantity + " "+ book.book_title + " into cart.",
-                    bg:"bg-primary",
+                    bg:"bg-success",
                     show:true
                 });
             }else{
                 this.setState({
-                    toast:"Cart full",
+                    toast:"Cart full!!! It is available 8 for each book. Now you have " + in_cart + " for this book.",
                     bg:"bg-danger",
                     show:true
                 });
@@ -100,6 +100,11 @@ export default class Add_To_Cart extends Component{
             localStorage.setItem("cart","");
             cart.push(book);
             localStorage.setItem("cart", JSON.stringify(cart));
+            this.setState({
+                toast:"You pushed " + book.quantity + " "+ book.book_title + " into cart.",
+                bg:"bg-primary",
+                show:true
+            });
         }
     }
 
