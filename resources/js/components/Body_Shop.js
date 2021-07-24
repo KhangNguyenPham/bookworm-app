@@ -201,7 +201,7 @@ export default class Body_Shop extends Component{
     
                                 <div id="collapseOne" className="collapse show" aria-labelledby="headingOne" data-parent="#accordionExample">
                                     {this.state.categorys.map((category, index)=>(
-                                        <div key={index} className="card-body" onClick={() => this.filtered_by_category(category.id, category.category_name)}>
+                                        <div key={index} className="card-body text-capitalize" onClick={() => this.filtered_by_category(category.id, category.category_name)}>
                                             {category.category_name}
                                         </div>
                                     ))}
@@ -217,7 +217,7 @@ export default class Body_Shop extends Component{
                                 </div>
                                 <div id="collapseTwo" className="collapse" aria-labelledby="headingTwo" data-parent="#accordionExample">
                                     {this.state.authors.map((author, index)=>(
-                                        <div key={index} className="card-body" onClick={()=>this.filtered_by_author(author.id, author.author_name)}>
+                                        <div key={index} className="card-body text-capitalize" onClick={()=>this.filtered_by_author(author.id, author.author_name)}>
                                             {author.author_name}
                                         </div>   
                                     ))}

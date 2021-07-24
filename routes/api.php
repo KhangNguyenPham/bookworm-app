@@ -11,6 +11,7 @@ use App\Http\Controllers\Sale;
 use App\Http\Controllers\FeaturedBook;
 use App\Http\Controllers\ReviewController;
 use App\Http\Controllers\ReviewActionController;
+use App\Http\Controllers\IdBookController;
 
 
 /*
@@ -38,6 +39,8 @@ Route::prefix("Book")->group(function(){
 
     Route::apiResource("/sale", Sale::class);
 
+    Route::get("/id_list", [IdBookController::class, "index"]);
+
     Route::prefix("/feature")->group(function(){
 
         Route::get("/recommend", [FeaturedBook::class, "recommend"]);
@@ -64,33 +67,8 @@ Route::apiResource("Category", CategoryController::class);
 
 Route::apiResource("Shop", ShopController::class);
 
-#Route::apiResource("Review", ReviewController::class);
-
 Route::get("/test", function(){
     return (12-null);
 });
-
-/*
-Route::get("/test", function(){
-    return "test";
-});
-
-Route::get("/test/db", function(){
-    $author = DB::table('authors')->get();
-    return response()->json($author,200);
-});
-
-Route::get("test/eloquent", function(){
-    return $book = Book::join("discounts", "discounts.book_id", "=", "books.id")->get();
-});
-
-Route::get("/book/nophoto", function(){
-    return $book = Book::where("book_cover_photo",null)->get();
-});
-
-Route::get("/book/{id}", function($id){
-    return $book = Book::select("books.author_id", "authors.author_name")->where("books.id",$id)->join("authors", "books.author_id", "=", "authors.id")->get();
-});
-*/
 
 

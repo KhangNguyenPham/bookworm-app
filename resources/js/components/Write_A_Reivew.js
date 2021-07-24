@@ -50,12 +50,9 @@ export default class Write_A_Review extends Component{
     render(){
         return(
             <div className="write-a-review">
-                {this.state.title}
-                {this.state.detail}
-                {this.state.star}
                 <h4>Write a Review</h4>
                 <hr/>
-                <form>
+                
                     <div className="review-input">
                         <label for="title" className="form-label">Add a title</label>
                         <input type="text" className="form-control" id="title" onChange={this.title} />
@@ -78,7 +75,7 @@ export default class Write_A_Review extends Component{
                     <div>
                         <button className="add-to-card-submit" type="submit" onClick={()=>this.submit()}><h5>Submit Review</h5></button>
                     </div>
-                </form>
+                    
             </div>
         )
     }

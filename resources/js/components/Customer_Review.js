@@ -177,7 +177,7 @@ export default class Customer_Review extends Component {
                     </p>
                     <div className="row">
                         <div className="col-4">
-                            <p>Showing {this.state.from} - {this.state.to} of {this.state.total_reviews} reviews</p>
+                            <p>Showing {this.state.from || 0} - {this.state.to || 0} of {this.state.total_reviews} reviews</p>
                         </div>
                         <div className="col-8">                         
                             <select className="form-select" onChange={this.sort}>
