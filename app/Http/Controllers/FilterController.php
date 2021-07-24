@@ -174,21 +174,22 @@ class FilterController extends Controller
         return $books;
     }
 
-    function star_sale($category_id, $number){
+    function star_sale($id_result, $number){
         $books = Book::join("authors", "books.author_id", "=", "authors.id")
-        ->join("discounts", "books.id", "=", "discounts.book_id")
-        ->select("books.id", "book_title", "book_price", "book_cover_photo", "books.category_id",
-            "authors.author_name", 
+        ->leftjoin("discounts", "books.id", "=", "discounts.book_id")
+        ->select(
+            "books.id", "books.book_title", "books.book_price", "books.book_cover_photo",
+            "authors.author_name",
             "discounts.discount_price",
             Book::raw("(books.book_price - discounts.discount_price) as price")
-        )
-        ->where("category_id", $category_id)
+         )
+        ->whereIn("books.id", $id_result)
         ->orderBy("price", "desc")
         ->paginate($number);
         return $books;
     }
 
-    function star_popularity($category_id, $number){
+    function star_popularity($id_result, $number){
         $id = Book::join("reviews", "books.id", "=", "reviews.book_id")
         ->select( 
             "reviews.book_id",
@@ -221,15 +222,15 @@ class FilterController extends Controller
             "authors.author_name",
             "discounts.discount_price"
         )
-        ->where("books.category_id", $category_id)
+        ->whereIn("books.id", $id_result)
         ->whereIn("books.id", $id_collection)
         ->paginate($number);
 
         return $books;
     }
 
-    function star_high($category_id, $number){
-        $books = Book::where("category_id", $category_id)
+    function star_high($id_result, $number){
+        $books = Book::whereIn("books.id", $id_result)
         ->join("authors", "books.author_id", "=", "authors.id")
         ->leftjoin("discounts", "books.id", "=", "discounts.book_id")
         ->select("books.id", "book_title", "book_price", "book_cover_photo", "books.category_id",
@@ -242,8 +243,8 @@ class FilterController extends Controller
         return $books;
     }
 
-    function star_low($category_id, $number){
-        $books = Book::where("category_id", $category_id)
+    function star_low($id_result, $number){
+        $books = Book::whereIn("books.id", $id_result)
         ->join("authors", "books.author_id", "=", "authors.id")
         ->leftjoin("discounts", "books.id", "=", "discounts.book_id")
         ->select("books.id", "book_title", "book_price", "book_cover_photo", "books.category_id",
@@ -329,16 +330,33 @@ class FilterController extends Controller
             }
         }
 
-        $books = Book::join("authors", "books.author_id", "=", "authors.id")
-        ->leftjoin("discounts", "books.id", "=", "discounts.book_id")
-        ->select(
-            "books.id", "books.book_title", "books.book_price", "books.book_cover_photo",
-            "authors.author_name",
-            "discounts.discount_price"
-         )
-        ->whereIn("books.id", $id_result)
-        ->paginate($number);
+        // $books = Book::join("authors", "books.author_id", "=", "authors.id")
+        // ->leftjoin("discounts", "books.id", "=", "discounts.book_id")
+        // ->select(
+        //     "books.id", "books.book_title", "books.book_price", "books.book_cover_photo",
+        //     "authors.author_name",
+        //     "discounts.discount_price"
+        //  )
+        // ->whereIn("books.id", $id_result)
+        // ->paginate($number);
+        // return response()->json($books, 200);
 
-        return response()->json($books, 200);
+        $fillter_star = new FilterController();
+        switch ($sort_by){
+            case "sale": 
+                return response()->json($fillter_star->star_sale($id_result, $number), 200);
+                break;
+            case "popularity":
+                return response()->json($fillter_star->star_popularity($id_result, $number), 200);
+                break;
+            case "high":
+                return response()->json($fillter_star->star_high($id_result, $number), 200);
+                break;
+            case "low":
+                return response()->json($fillter_star->star_low($id_result, $number), 200);
+                break;
+            default:
+                return "";
+        }
     }
 }
