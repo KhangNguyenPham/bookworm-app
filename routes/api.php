@@ -30,7 +30,7 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::prefix("Book")->group(function(){
+Route::prefix("/Book")->group(function(){
     
     Route::get("/filtered_by_category/{category_id}/per_page/{number}/sort/{sort_by}",[FilterController::class, "category"]);
 
@@ -50,7 +50,9 @@ Route::prefix("Book")->group(function(){
     });
 });
 
-Route::prefix("Review/{book_id}")->group(function(){
+Route::post("/Review/add", [ReviewActionController::class, "add_review"]);
+
+Route::prefix("/Review/{book_id}")->group(function(){
     Route::get("/total_reviews", [ReviewActionController::class, "total_review"]);
 
     Route::get("/rating_star", [ReviewActionController::class, "rating_star"]);

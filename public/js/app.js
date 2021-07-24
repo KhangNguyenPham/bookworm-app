@@ -4849,11 +4849,11 @@ var Write_A_Review = /*#__PURE__*/function (_Component) {
         "review_date": "",
         "rating_start": this.state.star
       };
-      axios__WEBPACK_IMPORTED_MODULE_0___default().post("api/Review/", review).then(function (response) {
+      axios__WEBPACK_IMPORTED_MODULE_0___default().post("/api/Review/add", review).then(function (response) {
         console(response);
       })["catch"](function (error) {
         console.log(error);
-      }); //alert(review);
+      });
     }
   }, {
     key: "render",

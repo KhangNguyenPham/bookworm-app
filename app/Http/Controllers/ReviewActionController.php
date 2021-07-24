@@ -61,4 +61,25 @@ class ReviewActionController extends Controller
                 return "404-not found";
         } 
     }
+
+    public function add_review(Request $request){
+        $date = getdate();  
+        $month = $date["mon"] < 10 ? "0".$date["mon"] : $date["mon"];
+        $day = $date["mday"] < 10 ? "0".$date["mday"] : $date["mday"];
+        $today = $date["year"]."-".$month."-".$day;
+
+        $data = $request->json()->all();
+        $data = (array)$data;
+        // $review = new Review([
+        //     "book_id" =>$request->"book_id",
+        //     "review_title" => $request->"review_title",
+        //     "review_details" => $request->"review_details",
+        //     "review_date" => $today,
+        //     "rating_start" => $request->get("rating_start"),
+        // ]);
+        // $review->save();
+
+        //return response()->json("Reviewed!!!", 200);
+        return $data;
+    }
 }

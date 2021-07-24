@@ -39,12 +39,9 @@ export default class Write_A_Review extends Component{
             "review_date" :"",
             "rating_start" : this.state.star
         }
-        
-        axios.post("api/Review/", review)
-        .then(response=>{console(response)})
+        axios.post("/api/Review/add", review)
+        .then((response)=>{console(response)})
         .catch((error)=>{console.log(error)});
-        
-       //alert(review);
     }
     
     render(){
@@ -74,8 +71,7 @@ export default class Write_A_Review extends Component{
                     </div>
                     <div>
                         <button className="add-to-card-submit" type="submit" onClick={()=>this.submit()}><h5>Submit Review</h5></button>
-                    </div>
-                    
+                    </div>   
             </div>
         )
     }
