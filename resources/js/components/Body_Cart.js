@@ -1,22 +1,17 @@
 import axios from "axios";
 import React from "react";
 import { Component } from "react";
-import Book_image from "../../assets/bookcover/book1.jpg";
 
 export default class Body_Cart extends Component{
 
     state={
-        books:[],
-        book_price:"",
-        discount_price:"",
-        final_price:"",
+        cart:[],
         total:""
     }
     
     componentDidMount(){
-        axios.get("api/Book/").then(response=>{
-            this.setState({books:response.data});
-        }).catch(error=>console.log(error));
+        const cart = JSON.parse(localStorage.getItem("cart"));
+        this.setState({cart});
     }
 
     render(){
@@ -33,11 +28,13 @@ export default class Body_Cart extends Component{
                             </tr>
                         </thead>
                         <tbody>
-                            {this.state.books.map((book)=>
+                           
+                            {this.state.cart == null ? "" : this.state.cart.map((book)=>
+                                (
                                 <tr>
                                     <td>
                                         <div className="about-book">
-                                            <img class="img-fluid img-thumbnail w-25" src={"images/" + book.book_cover_photo + ".jpg"}/>
+                                            <img class="img-fluid img-thumbnail w-25" src={"images/" + book.photo + ".jpg"}/>
                                             <div>
                                                 <h5>{book.book_title}</h5>
                                                 <p>{book.author_name}</p>
@@ -45,24 +42,23 @@ export default class Body_Cart extends Component{
                                         </div>
                                     </td>
                                     <td>
-                                        ${Math.round(this.state.final_price * localStorage.getItem(book.id) * 100)/100}
+                                        ${book.price}
                                         <del>
-                                            <br></br>
-                                            {(this.state.discount_price != null ? "$" + this.state.book_price : "")} 
+                                            <br></br> 
                                         </del>
                                     </td>
                                     <td>
                                         <div className="input-add-to-cart">
                                             <button className="add-to-cart-action">-</button>
-                                            <input className="add-to-cart-number" type="text" value={localStorage.getItem(book.id)} />
+                                            <input className="add-to-cart-number" type="text" value={book.quantity}/>
                                             <button className="add-to-cart-action">+</button>
                                         </div>
                                     </td>
                                     <td>
-                                        Total
+                                        {Math.round(book.quantity * Number(book.price)*100)/100}
                                     </td>
                                 </tr>
-                            )}
+                            ))}
                         </tbody>
                     </table>
                 </div>

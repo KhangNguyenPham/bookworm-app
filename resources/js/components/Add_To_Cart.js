@@ -1,6 +1,7 @@
 import React from "react";
 import axios from "axios";
 import { Component } from "react";
+import { Toast } from "react-bootstrap";
 
 export default class Add_To_Cart extends Component{
 
@@ -9,6 +10,10 @@ export default class Add_To_Cart extends Component{
         discount_price:"",
         total:1,
         final_price:"",
+        toast:"",
+        show:false,
+        bg:"bg-primary",
+        book:""
     }
 
     componentDidMount(){
@@ -16,12 +21,15 @@ export default class Add_To_Cart extends Component{
         axios.get(url).then(response => {
             const book_price = response.data[0].book_price;
             const discount_price = response.data[0].discount_price;
-            let final_price = (discount_price != null ? discount_price : book_price);
+            const final_price = (discount_price != null ? discount_price : book_price);
+            const book = response.data[0] 
             this.setState({
                 book_price,
                 discount_price,
-                final_price
+                final_price,
+                book
             });
+            console.log(book);
         }).catch(error => console.log(error));
     }
 
@@ -46,23 +54,23 @@ export default class Add_To_Cart extends Component{
         axios.get(url).then(response => {
             const book_price = response.data[0].book_price;
             const discount_price = response.data[0].discount_price;
+            const book = response.data[0];
             let final_price = (discount_price != null ? discount_price : book_price);
             this.setState({
                 book_price,
                 discount_price,
-                final_price
+                final_price,
+                book
             });
         }).catch(error => console.log(error));
-        /*let in_cart = Number(localStorage.getItem(this.props.book_id)) + Number(this.state.total);
-        if(in_cart <= 8){
-            localStorage.setItem(this.props.book_id, Number(in_cart));
-        }else{
-            alert("No");
-        }*/
         let cart = [];
         let book = {
                 id: this.props.book_id,
-                quantity: this.state.total
+                book_title: this.state.book.book_title,
+                author_name: this.state.book.author_name,
+                price: this.state.final_price,
+                photo : this.state.book.book_cover_photo,
+                quantity: this.state.total,
             }
         let in_cart = 0;
         let store = localStorage.getItem("cart");
@@ -75,8 +83,17 @@ export default class Add_To_Cart extends Component{
             });
             if((book.quantity + in_cart) <= 8){
                 cart.push(book);
+                this.setState({
+                    toast:"You pushed " + book.quantity + " "+ book.book_title + " into cart.",
+                    bg:"bg-primary",
+                    show:true
+                });
             }else{
-                alert("No");
+                this.setState({
+                    toast:"Cart full",
+                    bg:"bg-danger",
+                    show:true
+                });
             }                
             localStorage.setItem("cart", JSON.stringify(cart));
         }else{
@@ -89,6 +106,7 @@ export default class Add_To_Cart extends Component{
 
     render(){
         return(
+            <>
             <div className="add-to-cart">
                 <div className="add-to-cart-form">
                     <div className="input-group-text">
@@ -110,6 +128,13 @@ export default class Add_To_Cart extends Component{
                     </div>
                 </div>
             </div>
+            <Toast className={"mt-2 " + this.state.bg} show={this.state.show} onClose={()=>{this.setState({show:false})}}>
+                <Toast.Header>
+                    <strong className="me-auto">BookWorm</strong>
+                </Toast.Header>
+                <Toast.Body>{this.state.toast}</Toast.Body>
+            </Toast>
+            </>
         )
     }
 }

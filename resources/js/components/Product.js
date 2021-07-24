@@ -9,20 +9,6 @@ import { useParams } from "react-router-dom";
 export default function Product() {    
 
     const {id} = useParams();
-
-    // const books = useState(()=>{
-    //     axios.get("http://127.0.0.1:8000/api/Book/" + id).then(response => {
-    //         return response.data;
-    //     }).catch(error => console.log(error));
-    // });
-
-    // useEffect(()=>{
-    //     axios.get("http://127.0.0.1:8000/api/Book/" + id).then(response => {
-    //         setBook(response.data);
-    //         this.setState({books});
-    //         console.log(books);
-    //     }).catch(error => console.log(error));
-    // });
     
     return(
         <> 

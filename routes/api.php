@@ -12,6 +12,7 @@ use App\Http\Controllers\FeaturedBook;
 use App\Http\Controllers\ReviewController;
 use App\Http\Controllers\ReviewActionController;
 use App\Http\Controllers\IdBookController;
+use App\Http\Controllers\CartController;
 
 
 /*
@@ -59,13 +60,15 @@ Route::prefix("Review/{book_id}")->group(function(){
     Route::get("/filltered_by_star/{star}/sort/{sort}/per_page/{number}", [ReviewActionController::class, "filltered"]);
 });
 
-Route::apiResource("Book", BookController::class);
+Route::apiResource("/Book", BookController::class);
 
-Route::apiResource("Author", AuthorController::class);
+Route::apiResource("/Author", AuthorController::class);
 
-Route::apiResource("Category", CategoryController::class);
+Route::apiResource("/Category", CategoryController::class);
 
-Route::apiResource("Shop", ShopController::class);
+Route::apiResource("/Shop", ShopController::class);
+
+Route::get("/Cart", [CartController::class, "index"]);
 
 Route::get("/test", function(){
     return (12-null);
