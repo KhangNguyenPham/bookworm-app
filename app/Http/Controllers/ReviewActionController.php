@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use App\Models\Review;
+use App\Models\Book;
 
 class ReviewActionController extends Controller
 {
@@ -68,18 +69,29 @@ class ReviewActionController extends Controller
         $day = $date["mday"] < 10 ? "0".$date["mday"] : $date["mday"];
         $today = $date["year"]."-".$month."-".$day;
 
-        $data = $request->json()->all();
-        $data = (array)$data;
-        // $review = new Review([
-        //     "book_id" =>$request->"book_id",
-        //     "review_title" => $request->"review_title",
-        //     "review_details" => $request->"review_details",
-        //     "review_date" => $today,
-        //     "rating_start" => $request->get("rating_start"),
-        // ]);
-        // $review->save();
+        $review = new Review([
+            "book_id" =>$request["book_id"],
+            "review_title" => $request["review_title"],
+            "review_details" => $request["review_details"],
+            "review_date" => $today,
+            "rating_start" => $request["rating_start"],
+        ]);
+        $review->save();
 
-        //return response()->json("Reviewed!!!", 200);
-        return $data;
+        $book_name = Book::select("book_title")
+        ->where("id", "=", $request["book_id"])
+        ->get();
+
+        $book_name = json_decode($book_name);
+        $book_name = (array)($book_name);
+        $name = "";
+        foreach($book_name as $index=>$value){
+            foreach($value as $i=>$v){
+                $name = $v;
+            } 
+        }
+        $thanks = "Thank you for your reviews about " . $name . "!";
+
+        return response()->json($thanks, 200);
     }
 }

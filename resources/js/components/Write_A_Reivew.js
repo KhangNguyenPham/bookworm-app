@@ -1,6 +1,7 @@
 import axios from "axios";
 import React from "react";
 import { Component } from "react";
+import { Toast } from "react-bootstrap";
 
 export default class Write_A_Review extends Component{
 
@@ -9,7 +10,9 @@ export default class Write_A_Review extends Component{
         this.state = {
             title:"",
             detail:"",
-            star:""
+            star:"",
+            toast:"",
+            show:false,
         }
         this.title = this.title.bind(this);
         this.detail = this.detail.bind(this);
@@ -17,17 +20,17 @@ export default class Write_A_Review extends Component{
     }   
 
     title(event){
-        let title = event.target.value;
+        const title = event.target.value;
         this.setState({title});
     }
 
     detail(event){
-        let detail = event.target.value;
+        const detail = event.target.value;
         this.setState({detail});
     }
     
     star(event){
-        let star = event.target.value;
+        const star = event.target.value;
         this.setState({star});
     }
 
@@ -39,24 +42,38 @@ export default class Write_A_Review extends Component{
             "review_date" :"",
             "rating_start" : this.state.star
         }
-        axios.post("/api/Review/add", review)
-        .then((response)=>{console(response)})
-        .catch((error)=>{console.log(error)});
+        if(this.state.title){
+            axios.post("/api/Review/add", review)
+            .then((response)=>{this.setState({
+                toast:response.data,
+                show:true
+            })})
+            .catch((error)=>{console.log(error)});
+            console.log(review);
+        }else{
+            document.getElementById("warning").innerHTML = "Don't miss this title please!"
+        }
     }
     
     render(){
         return(
             <div className="write-a-review">
+                <Toast className={"mb-2"} show={this.state.show} onClose={()=>{this.setState({show:false})}}>
+                    <Toast.Header>
+                        <strong className="me-auto">BookWorm</strong>
+                    </Toast.Header>
+                    <Toast.Body>{this.state.toast}</Toast.Body>
+                </Toast>
                 <h4>Write a Review</h4>
                 <hr/>
-                
+                    <p className="warning1" id="warning"></p>
                     <div className="review-input">
                         <label for="title" className="form-label">Add a title</label>
-                        <input type="text" className="form-control" id="title" onChange={this.title} />
+                        <input type="text" className="form-control" id="title" onChange={this.title} maxlength="120"/>
                     </div>
                     <div className="review-input">
                         <label for="content" className="form-label">Details please! Your comment helps other Shoppers</label>
-                        <input type="text" className="form-control" id="title" onChange={this.detail} />
+                        <input type="text" className="form-control" id="detail" onChange={this.detail} />
                     </div>
                     <div className="review-input">
                         <label className="form-label" for="rating">Select a rating star</label>
@@ -69,10 +86,8 @@ export default class Write_A_Review extends Component{
                             <option value="5">5 Star</option>
                         </select>
                     </div>
-                    <div>
-                        <button className="add-to-card-submit" type="submit" onClick={()=>this.submit()}><h5>Submit Review</h5></button>
-                    </div>   
+                    <button onClick={()=> this.submit()} className="add-to-card-submit"><h5>Submit Review</h5></button>   
             </div>
         )
     }
-    }
+}

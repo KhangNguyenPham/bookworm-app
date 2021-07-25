@@ -300,6 +300,10 @@ option{
     background-color: #f1f2f2;
 }
 
+.warning1{
+    color:#c73938;
+}
+
 .list-comment{
     background-color: #f1f2f2 !important;
 }
