@@ -1,7 +1,6 @@
 import axios from "axios";
 import React from "react";
 import { Component } from "react";
-import {Link} from "react-router-dom";
 
 export default class Body_Cart extends Component{
 
@@ -11,17 +10,31 @@ export default class Body_Cart extends Component{
     }
     
     componentDidMount(){
-        const cart = JSON.parse(localStorage.getItem("cart"));
+        let store = localStorage.getItem("cart");
         let total = 0;
-        if(cart){
+        if(store!=null){
+            let cart = JSON.parse(store);
+            
+            for(let i = 0; i < cart.length; i++){
+                for(let j = i+1; j < cart.length; j++){
+                    if(cart[i].id == cart[j].id){
+                        cart[i].quantity = cart[i].quantity + cart[j].quantity;
+                        cart[j] = "";
+                    }
+                }
+            }
+            cart = cart.filter(book => book != "");
+            localStorage.setItem("cart", JSON.stringify(cart));
+            
             cart.forEach(element => {
                 total += Number(element.price) * element.quantity;
             });
+            
+            this.setState({
+                cart,
+                total
+            });
         }
-        this.setState({
-            cart,
-            total
-        });
     }
 
     render(){

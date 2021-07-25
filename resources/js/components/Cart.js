@@ -7,8 +7,9 @@ export default class Cart extends Component{
     }
 
     componentDidMount(){
-        let cart = JSON.parse(localStorage.getItem("cart"));
-        if(cart){
+        let store = localStorage.getItem("cart")
+        if(store!=null){
+            let cart = JSON.parse(store);
             for(let i = 0; i < cart.length; i++){
                 for(let j = i+1; j < cart.length; j++){
                     if(cart[i].id == cart[j].id){

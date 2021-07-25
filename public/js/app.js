@@ -2703,19 +2703,33 @@ var Body_Cart = /*#__PURE__*/function (_Component) {
   _createClass(Body_Cart, [{
     key: "componentDidMount",
     value: function componentDidMount() {
-      var cart = JSON.parse(localStorage.getItem("cart"));
+      var store = localStorage.getItem("cart");
       var total = 0;
 
-      if (cart) {
+      if (store != null) {
+        var cart = JSON.parse(store);
+
+        for (var i = 0; i < cart.length; i++) {
+          for (var j = i + 1; j < cart.length; j++) {
+            if (cart[i].id == cart[j].id) {
+              cart[i].quantity = cart[i].quantity + cart[j].quantity;
+              cart[j] = "";
+            }
+          }
+        }
+
+        cart = cart.filter(function (book) {
+          return book != "";
+        });
+        localStorage.setItem("cart", JSON.stringify(cart));
         cart.forEach(function (element) {
           total += Number(element.price) * element.quantity;
         });
+        this.setState({
+          cart: cart,
+          total: total
+        });
       }
-
-      this.setState({
-        cart: cart,
-        total: total
-      });
     }
   }, {
     key: "render",
@@ -3726,9 +3740,11 @@ var Cart = /*#__PURE__*/function (_Component) {
   _createClass(Cart, [{
     key: "componentDidMount",
     value: function componentDidMount() {
-      var cart = JSON.parse(localStorage.getItem("cart"));
+      var store = localStorage.getItem("cart");
 
-      if (cart) {
+      if (store != null) {
+        var cart = JSON.parse(store);
+
         for (var i = 0; i < cart.length; i++) {
           for (var j = i + 1; j < cart.length; j++) {
             if (cart[i].id == cart[j].id) {
