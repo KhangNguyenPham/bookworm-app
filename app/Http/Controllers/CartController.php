@@ -15,7 +15,12 @@ class CartController extends Controller
         ->select(
             "books.id", "books.book_title", "books.book_cover_photo", "books.book_price",
             "authors.author_name",
-            "discounts.discount_price",
+            Book::raw("(CASE
+            WHEN ((discounts.discount_start_date <= CURRENT_DATE) and (discounts.discount_end_date >= CURRENT_DATE)) or
+            ((discounts.discount_start_date <= CURRENT_DATE) and (discounts.discount_end_date is null))
+            THEN discount_price
+            ELSE null
+            END) as discount_price")
         )
         ->get();
 

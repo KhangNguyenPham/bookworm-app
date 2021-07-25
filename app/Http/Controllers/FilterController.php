@@ -15,9 +15,9 @@ class FilterController extends Controller
         ->leftjoin("discounts", "books.id", "=", "discounts.book_id")
         ->select("books.id", "book_title", "book_price", "book_cover_photo", "books.category_id",
             "authors.author_name", 
-            "discounts.discount_price",
-            Discount::raw("(CASE 
-            WHEN discounts.discount_price is null THEN 0
+            "discount_price",
+            Book::raw("(CASE 
+            WHEN discount_price is null THEN 0
             ELSE (books.book_price - discounts.discount_price) 
             END) as price")
         )
@@ -59,7 +59,7 @@ class FilterController extends Controller
         ->select(
             "books.id", "books.book_title", "books.book_price", "books.book_cover_photo", "books.category_id",
             "authors.author_name",
-            "discounts.discount_price"
+            "discount_price"
         )
         ->where("books.category_id", $category_id)
         ->whereIn("books.id", $id_collection)
@@ -73,7 +73,7 @@ class FilterController extends Controller
         ->leftjoin("discounts", "books.id", "=", "discounts.book_id")
         ->select("books.id", "book_title", "book_price", "book_cover_photo", "books.category_id",
             "authors.author_name", 
-            "discounts.discount_price",
+            "discount_price",
             Discount::raw("(CASE 
             WHEN discounts.discount_price is null THEN books.book_price
             ELSE discounts.discount_price 
@@ -90,7 +90,7 @@ class FilterController extends Controller
         ->leftjoin("discounts", "books.id", "=", "discounts.book_id")
         ->select("books.id", "book_title", "book_price", "book_cover_photo", "books.category_id",
             "authors.author_name", 
-            "discounts.discount_price",
+            "discount_price",
             Discount::raw("(CASE 
             WHEN discounts.discount_price is null THEN books.book_price
             ELSE discounts.discount_price 
@@ -106,7 +106,7 @@ class FilterController extends Controller
         ->leftjoin("discounts", "books.id", "=", "discounts.book_id")
         ->select("books.id", "book_title", "book_price", "book_cover_photo", "books.category_id",
             "authors.author_name", 
-            "discounts.discount_price",
+            "discount_price",
             Discount::raw("(CASE 
             WHEN discounts.discount_price is null THEN 0
             ELSE (books.book_price - discounts.discount_price) 
@@ -150,7 +150,7 @@ class FilterController extends Controller
         ->select(
             "books.id", "books.book_title", "books.book_price", "books.book_cover_photo", "books.category_id",
             "authors.author_name",
-            "discounts.discount_price"
+            "discount_price"
         )
         ->where("author_id", $author_id)
         ->whereIn("books.id", $id_collection)
@@ -165,7 +165,7 @@ class FilterController extends Controller
         ->leftjoin("discounts", "books.id", "=", "discounts.book_id")
         ->select("books.id", "book_title", "book_price", "book_cover_photo", "books.category_id",
             "authors.author_name", 
-            "discounts.discount_price",
+            "discount_price",
             Discount::raw("(CASE 
             WHEN discounts.discount_price is null THEN books.book_price
             ELSE discounts.discount_price 
@@ -182,7 +182,7 @@ class FilterController extends Controller
         ->leftjoin("discounts", "books.id", "=", "discounts.book_id")
         ->select("books.id", "book_title", "book_price", "book_cover_photo", "books.category_id",
             "authors.author_name", 
-            "discounts.discount_price",
+            "discount_price",
             Discount::raw("(CASE 
             WHEN discounts.discount_price is null THEN books.book_price
             ELSE discounts.discount_price 
@@ -199,7 +199,7 @@ class FilterController extends Controller
         ->select(
             "books.id", "books.book_title", "books.book_price", "books.book_cover_photo",
             "authors.author_name",
-            "discounts.discount_price",
+            "discount_price",
             Discount::raw("(CASE 
             WHEN discounts.discount_price is null THEN 0
             ELSE (books.book_price - discounts.discount_price) 
@@ -243,7 +243,7 @@ class FilterController extends Controller
         ->select(
             "books.id", "books.book_title", "books.book_price", "books.book_cover_photo", "books.category_id",
             "authors.author_name",
-            "discounts.discount_price"
+            "discount_price"
         )
         ->whereIn("books.id", $id_result)
         ->whereIn("books.id", $id_collection)
@@ -258,7 +258,7 @@ class FilterController extends Controller
         ->leftjoin("discounts", "books.id", "=", "discounts.book_id")
         ->select("books.id", "book_title", "book_price", "book_cover_photo", "books.category_id",
             "authors.author_name", 
-            "discounts.discount_price",
+            "discount_price",
             Discount::raw("(CASE 
             WHEN discounts.discount_price is null THEN books.book_price
             ELSE discounts.discount_price 
@@ -275,7 +275,7 @@ class FilterController extends Controller
         ->leftjoin("discounts", "books.id", "=", "discounts.book_id")
         ->select("books.id", "book_title", "book_price", "book_cover_photo", "books.category_id",
             "authors.author_name", 
-            "discounts.discount_price",
+            "discount_price",
             Discount::raw("(CASE 
             WHEN discounts.discount_price is null THEN books.book_price
             ELSE discounts.discount_price 
@@ -358,17 +358,6 @@ class FilterController extends Controller
                 }
             }
         }
-
-        // $books = Book::join("authors", "books.author_id", "=", "authors.id")
-        // ->leftjoin("discounts", "books.id", "=", "discounts.book_id")
-        // ->select(
-        //     "books.id", "books.book_title", "books.book_price", "books.book_cover_photo",
-        //     "authors.author_name",
-        //     "discounts.discount_price"
-        //  )
-        // ->whereIn("books.id", $id_result)
-        // ->paginate($number);
-        // return response()->json($books, 200);
 
         $fillter_star = new FilterController();
         switch ($sort_by){

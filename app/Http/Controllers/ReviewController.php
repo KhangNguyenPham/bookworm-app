@@ -61,27 +61,8 @@ class ReviewController extends Controller
      */
     public function show($id)
     {
-        //show review according to book_id
-        /*
-        $total_reviews = Review::where("book_id", "=", $id)
-        ->count();
-
-        $star = Review::select(
-            Review::raw("AVG(cast(reviews.rating_start as float)) as avg_star") 
-        )
-        ->where("book_id" , "=", $id)
-        ->get();
-        
-        $reviews = Review::where("book_id", "=", $id)
-        ->get();
-        
-        $reviews = json_decode($reviews);
-        $reviews = (array)($reviews);
-        $reviews = [...$reviews, "total_reviews" => $total_reviews, "avg_star" => $star[0]["avg_star"]];
-        */
         $reviews = Review::Where("book_id", "=", $id)
         ->paginate(5);
-        #echo var_dump($reviews);
         return response()->json($reviews ,200); 
     }
 

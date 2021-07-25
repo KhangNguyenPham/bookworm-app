@@ -11,8 +11,7 @@ use App\Models\Discount;
 
 class FeaturedBook extends Controller
 {
-    function recommend(){
-        
+    function recommend(){        
         $id = Book::join("reviews", "books.id", "=", "reviews.book_id")
         ->select( 
             "reviews.book_id",
@@ -44,7 +43,12 @@ class FeaturedBook extends Controller
         ->select(
             "books.id", "books.book_title", "books.book_price", "books.book_cover_photo",
             "authors.author_name",
-            "discounts.discount_price"
+            Book::raw("(CASE
+            WHEN ((discounts.discount_start_date <= CURRENT_DATE) and (discounts.discount_end_date >= CURRENT_DATE)) or
+            ((discounts.discount_start_date <= CURRENT_DATE) and (discounts.discount_end_date is null))
+            THEN discount_price
+            ELSE null
+            END) as discount_price")
          )
         ->whereIn("books.id", $id_collection)->get();
 
@@ -83,7 +87,12 @@ class FeaturedBook extends Controller
         ->select(
             "books.id", "books.book_title", "books.book_price", "books.book_cover_photo",
             "authors.author_name",
-            "discounts.discount_price"
+            Book::raw("(CASE
+            WHEN ((discounts.discount_start_date <= CURRENT_DATE) and (discounts.discount_end_date >= CURRENT_DATE)) or
+            ((discounts.discount_start_date <= CURRENT_DATE) and (discounts.discount_end_date is null))
+            THEN discount_price
+            ELSE null
+            END) as discount_price")
          )
         ->whereIn("books.id", $id_collection)
         ->get();

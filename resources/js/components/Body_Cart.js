@@ -1,6 +1,7 @@
 import axios from "axios";
 import React from "react";
 import { Component } from "react";
+import {Link} from "react-router-dom";
 
 export default class Body_Cart extends Component{
 

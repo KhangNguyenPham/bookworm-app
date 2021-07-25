@@ -42,7 +42,6 @@ class Sale extends Controller
         ->orderBy("price", "desc")
         ->take(10)
         ->get();
-        #->paginate(4);
         return response()->json($books,200);
     }
 
