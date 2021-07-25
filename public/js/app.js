@@ -4856,7 +4856,9 @@ var Write_A_Review = /*#__PURE__*/function (_Component) {
         })["catch"](function (error) {
           console.log(error);
         });
-        console.log(review);
+        document.getElementById("warning").innerHTML = "";
+        document.getElementById("title").value = "";
+        document.getElementById("detail").value = "";
       } else {
         document.getElementById("warning").innerHTML = "Don't miss this title please!";
       }
@@ -4869,7 +4871,7 @@ var Write_A_Review = /*#__PURE__*/function (_Component) {
       return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("div", {
         className: "write-a-review",
         children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)(react_bootstrap__WEBPACK_IMPORTED_MODULE_3__.default, {
-          className: "mb-2",
+          className: "mb-2 bg-info",
           show: this.state.show,
           onClose: function onClose() {
             _this3.setState({

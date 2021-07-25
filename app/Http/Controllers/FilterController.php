@@ -12,14 +12,18 @@ class FilterController extends Controller
 {
     function category_sale($category_id, $number){
         $books = Book::join("authors", "books.author_id", "=", "authors.id")
-        ->join("discounts", "books.id", "=", "discounts.book_id")
+        ->leftjoin("discounts", "books.id", "=", "discounts.book_id")
         ->select("books.id", "book_title", "book_price", "book_cover_photo", "books.category_id",
             "authors.author_name", 
             "discounts.discount_price",
-            Book::raw("(books.book_price - discounts.discount_price) as price")
+            Discount::raw("(CASE 
+            WHEN discounts.discount_price is null THEN 0
+            ELSE (books.book_price - discounts.discount_price) 
+            END) as price")
         )
         ->where("category_id", $category_id)
         ->orderBy("price", "desc")
+        ->orderBy("books.book_price", "asc")
         ->paginate($number);
         return $books;
     }
@@ -65,15 +69,17 @@ class FilterController extends Controller
     }
 
     function category_high($category_id, $number){
-        $books = Book::where("category_id", $category_id)
-        ->join("authors", "books.author_id", "=", "authors.id")
+        $books = Book::join("authors", "books.author_id", "=", "authors.id")
         ->leftjoin("discounts", "books.id", "=", "discounts.book_id")
         ->select("books.id", "book_title", "book_price", "book_cover_photo", "books.category_id",
             "authors.author_name", 
             "discounts.discount_price",
-            Discount::raw("(books.book_price - discounts.discount_price) as price")
-        )
-        ->orderBy("book_price", "asc")
+            Discount::raw("(CASE 
+            WHEN discounts.discount_price is null THEN books.book_price
+            ELSE discounts.discount_price 
+            END) as price")
+        )->where("category_id", $category_id)
+        ->orderBy("price", "asc")
         ->paginate($number);
         return $books;
     }
@@ -85,23 +91,30 @@ class FilterController extends Controller
         ->select("books.id", "book_title", "book_price", "book_cover_photo", "books.category_id",
             "authors.author_name", 
             "discounts.discount_price",
-            Discount::raw("(books.book_price - discounts.discount_price) as price")
+            Discount::raw("(CASE 
+            WHEN discounts.discount_price is null THEN books.book_price
+            ELSE discounts.discount_price 
+            END) as price")
         )
-        ->orderBy("book_price", "desc")
+        ->orderBy("price", "desc")
         ->paginate($number);
         return $books;
     }
 
     function author_sale($author_id, $number){
         $books = Book::join("authors", "books.author_id", "=", "authors.id")
-        ->join("discounts", "books.id", "=", "discounts.book_id")
+        ->leftjoin("discounts", "books.id", "=", "discounts.book_id")
         ->select("books.id", "book_title", "book_price", "book_cover_photo", "books.category_id",
             "authors.author_name", 
             "discounts.discount_price",
-            Book::raw("(books.book_price - discounts.discount_price) as price")
+            Discount::raw("(CASE 
+            WHEN discounts.discount_price is null THEN 0
+            ELSE (books.book_price - discounts.discount_price) 
+            END) as price")
         )
         ->where("books.author_id", $author_id)
         ->orderBy("price", "desc")
+        ->orderBy("book_price", "asc")
         ->paginate($number);
         return $books;
     }
@@ -153,9 +166,12 @@ class FilterController extends Controller
         ->select("books.id", "book_title", "book_price", "book_cover_photo", "books.category_id",
             "authors.author_name", 
             "discounts.discount_price",
-            Discount::raw("(books.book_price - discounts.discount_price) as price")
+            Discount::raw("(CASE 
+            WHEN discounts.discount_price is null THEN books.book_price
+            ELSE discounts.discount_price 
+            END) as price")
         )
-        ->orderBy("book_price", "asc")
+        ->orderBy("price", "asc")
         ->paginate($number);
         return $books;
     }
@@ -167,9 +183,12 @@ class FilterController extends Controller
         ->select("books.id", "book_title", "book_price", "book_cover_photo", "books.category_id",
             "authors.author_name", 
             "discounts.discount_price",
-            Discount::raw("(books.book_price - discounts.discount_price) as price")
+            Discount::raw("(CASE 
+            WHEN discounts.discount_price is null THEN books.book_price
+            ELSE discounts.discount_price 
+            END) as price")
         )
-        ->orderBy("book_price", "desc")
+        ->orderBy("price", "desc")
         ->paginate($number);
         return $books;
     }
@@ -181,10 +200,14 @@ class FilterController extends Controller
             "books.id", "books.book_title", "books.book_price", "books.book_cover_photo",
             "authors.author_name",
             "discounts.discount_price",
-            Book::raw("(books.book_price - discounts.discount_price) as price")
+            Discount::raw("(CASE 
+            WHEN discounts.discount_price is null THEN 0
+            ELSE (books.book_price - discounts.discount_price) 
+            END) as price")
          )
         ->whereIn("books.id", $id_result)
         ->orderBy("price", "desc")
+        ->orderBy("book_price", "asc")
         ->paginate($number);
         return $books;
     }
@@ -236,9 +259,12 @@ class FilterController extends Controller
         ->select("books.id", "book_title", "book_price", "book_cover_photo", "books.category_id",
             "authors.author_name", 
             "discounts.discount_price",
-            Discount::raw("(books.book_price - discounts.discount_price) as price")
+            Discount::raw("(CASE 
+            WHEN discounts.discount_price is null THEN books.book_price
+            ELSE discounts.discount_price 
+            END) as price")
         )
-        ->orderBy("book_price", "asc")
+        ->orderBy("price", "asc")
         ->paginate($number);
         return $books;
     }
@@ -250,9 +276,12 @@ class FilterController extends Controller
         ->select("books.id", "book_title", "book_price", "book_cover_photo", "books.category_id",
             "authors.author_name", 
             "discounts.discount_price",
-            Discount::raw("(books.book_price - discounts.discount_price) as price")
+            Discount::raw("(CASE 
+            WHEN discounts.discount_price is null THEN books.book_price
+            ELSE discounts.discount_price 
+            END) as price")
         )
-        ->orderBy("book_price", "desc")
+        ->orderBy("price", "desc")
         ->paginate($number);
         return $books;
     }

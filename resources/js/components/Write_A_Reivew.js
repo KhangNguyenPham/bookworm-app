@@ -49,16 +49,18 @@ export default class Write_A_Review extends Component{
                 show:true
             })})
             .catch((error)=>{console.log(error)});
-            console.log(review);
+            document.getElementById("warning").innerHTML = "";
+            document.getElementById("title").value = "";
+            document.getElementById("detail").value = "";
         }else{
-            document.getElementById("warning").innerHTML = "Don't miss this title please!"
+            document.getElementById("warning").innerHTML = "Don't miss this title please!";
         }
     }
     
     render(){
         return(
             <div className="write-a-review">
-                <Toast className={"mb-2"} show={this.state.show} onClose={()=>{this.setState({show:false})}}>
+                <Toast className={"mb-2 bg-info"} show={this.state.show} onClose={()=>{this.setState({show:false})}}>
                     <Toast.Header>
                         <strong className="me-auto">BookWorm</strong>
                     </Toast.Header>

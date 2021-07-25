@@ -64,10 +64,14 @@ class ReviewActionController extends Controller
     }
 
     public function add_review(Request $request){
+        date_default_timezone_set('Asia/Ho_Chi_Minh');
         $date = getdate();  
+        $h = date("H");
+        $m = date("i");
+        $s = date("s");
         $month = $date["mon"] < 10 ? "0".$date["mon"] : $date["mon"];
         $day = $date["mday"] < 10 ? "0".$date["mday"] : $date["mday"];
-        $today = $date["year"]."-".$month."-".$day;
+        $today = $date["year"]."-".$month."-".$day." ".$h.":".$m.":".$s;
 
         $review = new Review([
             "book_id" =>$request["book_id"],
