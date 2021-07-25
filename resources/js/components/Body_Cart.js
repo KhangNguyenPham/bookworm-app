@@ -1,12 +1,15 @@
 import axios from "axios";
 import React from "react";
 import { Component } from "react";
+import { Toast } from "react-bootstrap";
 
 export default class Body_Cart extends Component{
 
     state={
         cart:[],
-        total:0
+        total:0,
+        toast:"",
+        show:false
     }
     
     componentDidMount(){
@@ -37,10 +40,39 @@ export default class Body_Cart extends Component{
         }
     }
 
+    place_order(){
+        let today = new Date();
+        let date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
+        let time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
+        let dateTime = date+' '+time;
+        let order={
+            "order_date": dateTime,
+            "order_amount": this.props.quantity_item,
+            "list":this.state.cart
+        }
+        axios.post("/api/Order", order)
+        .then((response)=>{
+            this.setState({
+                toast:response.data,
+                show:true,
+                cart:[],
+                total:0
+            })    
+            localStorage.removeItem("cart");
+        })
+        .catch((error)=>{console.log(error)});
+    }
+
     render(){
         return(
             <div className="row body-shop">
-                <div className="col-lg-8 col-md-12">     
+                <div className="col-lg-8 col-md-12"> 
+                    <Toast className={"mt-2 bg-info"} show={this.state.show} onClose={()=>{this.setState({show:false})}}>
+                        <Toast.Header>
+                            <strong className="me-auto">BookWorm</strong>
+                        </Toast.Header>
+                        <Toast.Body>{this.state.toast}</Toast.Body>
+                    </Toast>    
                     <table className="table table-image list-cart">
                         <thead>
                             <tr>
@@ -88,7 +120,7 @@ export default class Body_Cart extends Component{
                     <div className="total-cart">
                         <h5>Cart Totals</h5>
                         <h3>${Math.round(this.state.total*100)/100}</h3>
-                        <button className="add-to-card-submit" type="submit"><h5>Place order</h5></button>
+                        <button className="add-to-card-submit" type="submit" onClick={()=>this.place_order()}><h5>Place order</h5></button>
                     </div>
                 </div>
             </div>

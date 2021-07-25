@@ -13,6 +13,7 @@ use App\Http\Controllers\ReviewController;
 use App\Http\Controllers\ReviewActionController;
 use App\Http\Controllers\IdBookController;
 use App\Http\Controllers\CartController;
+use App\Http\Controllers\OrderController;
 
 
 /*
@@ -51,6 +52,8 @@ Route::prefix("/Book")->group(function(){
 });
 
 Route::post("/Review/add", [ReviewActionController::class, "add_review"]);
+
+Route::post("/Order", [OrderController::class, "index"]);
 
 Route::prefix("/Review/{book_id}")->group(function(){
     Route::get("/total_reviews", [ReviewActionController::class, "total_review"]);

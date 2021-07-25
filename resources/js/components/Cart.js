@@ -31,7 +31,7 @@ export default class Cart extends Component{
             <div>
                 <h4 className="header-shop">Your cart: {this.state.item} items</h4>
                 <hr className="hr-about-us"/>
-                <Body_Cart />
+                <Body_Cart quantity_item={this.state.item} />
             </div>
         )
     }
