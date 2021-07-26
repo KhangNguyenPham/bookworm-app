@@ -26,12 +26,17 @@ export default class Cart extends Component{
         }
     }
 
+    get_item_total_from_child = (total) =>{
+        this.setState({item:total});
+        this.props.get_total_from_nav(this.state.total);
+    }
+
     render(){
         return(
             <div>
                 <h4 className="header-shop">Your cart: {this.state.item} items</h4>
                 <hr className="hr-about-us"/>
-                <Body_Cart quantity_item={this.state.item} />
+                <Body_Cart quantity_item={this.state.item} get_item_total={this.get_item_total_from_child} />
             </div>
         )
     }

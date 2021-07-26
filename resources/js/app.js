@@ -28,40 +28,50 @@ import "bootstrap/dist/js/bootstrap.bundle.min.js";
 import "bootstrap/dist/js/bootstrap.min.js";
 
 import "./App.css";
+import { Component } from "react";
 
-function App(){
-    return(
-       <>
-        <Router>
-            <NavBar />
-            <Switch>
-                <Route exact path="/">
-                    <Home />
-                </Route>
+export default class App extends Component{
+    
+    state={
+        item:0
+    }
 
-                <Route path="/Shop">
-                    <Shop />
-                </Route>
+    get_item_total_from_child = (total) =>{
+        this.setState({item:total});
+    }
 
-                <Route path="/Product/:id">
-                    <Product />
-                </Route>
-
-                <Route path="/Cart">
-                    <Cart />
-                </Route>
-
-                <Route path="/About">
-                    <About />
-                </Route>
-            </Switch>    
-            <Footer />
-        </Router>
-       </>
-    );
+    render(){
+        return(
+            <>
+             <Router>
+                 <NavBar item={this.state.item} />
+                 <Switch>
+                     <Route exact path="/">
+                         <Home />
+                     </Route>
+     
+                     <Route path="/Shop">
+                         <Shop />
+                     </Route>
+     
+                     <Route path="/Product/:id">
+                         <Product />
+                     </Route>
+     
+                     <Route path="/Cart">
+                         <Cart get_total_from_nav={this.get_item_total_from_child}/>
+                     </Route>
+     
+                     <Route path="/About">
+                         <About />
+                     </Route>
+                 </Switch>    
+                 <Footer />
+             </Router>
+            </>
+         );
+    }
 }
-
-export default App;
 
 if (document.getElementById('app')) {
     ReactDOM.render(<App />, document.getElementById('app'));

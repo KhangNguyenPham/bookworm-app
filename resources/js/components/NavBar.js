@@ -15,7 +15,7 @@ export default class NavBar extends Component{
         if(cart){
             this.setState({cart:cart.length});
         }else{
-            this.setState({cart:0});
+            this.setState({cart:this.props.item});
         }
     }
 

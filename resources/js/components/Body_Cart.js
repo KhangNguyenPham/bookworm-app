@@ -1,5 +1,4 @@
 import axios from "axios";
-import { forEach } from "lodash";
 import React from "react";
 import { Component } from "react";
 import { Toast } from "react-bootstrap";
@@ -38,6 +37,8 @@ export default class Body_Cart extends Component{
                 cart,
                 total
             });
+
+            this.props.get_item_total(this.state.total);
         }else{
             this.setState({empty: "Your cart is empty now"});
         }
@@ -61,6 +62,7 @@ export default class Body_Cart extends Component{
                 total
             });
             localStorage.setItem("cart", JSON.stringify(cart));
+            this.props.get_item_total(this.state.total);
         }
     }
 
@@ -82,6 +84,7 @@ export default class Body_Cart extends Component{
                 total
             });
             localStorage.setItem("cart", JSON.stringify(cart));
+            this.props.get_item_total(this.state.total);
         }
     }
 
@@ -105,6 +108,7 @@ export default class Body_Cart extends Component{
                 empty: "Your cart is empty now"
             })    
             localStorage.removeItem("cart");
+            this.props.get_item_total(this.state.total);
         })
         .catch((error)=>{console.log(error)});
     }
