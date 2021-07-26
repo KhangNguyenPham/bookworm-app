@@ -66,13 +66,16 @@ export default class Body_Cart extends Component{
     dec(id){
         let store = localStorage.getItem("cart");
         let total = this.state.total;
+        let cart = JSON.parse(store);
         if(store!=null){
-            let cart = JSON.parse(store);
             cart.forEach(book => {
                 if(book.id == id){
                     if(book.quantity-1 >=0){
                         book.quantity-=1;
                         total-=Number(book.price);
+                        if(book.quantity==0){
+                            cart = cart.filter(item => item.id != book.id);
+                        } 
                     }
                 }
             });
@@ -82,6 +85,7 @@ export default class Body_Cart extends Component{
             });
             localStorage.setItem("cart", JSON.stringify(cart));
         }
+        this.props.get_item_total(cart.length);
     }
 
     place_order(){

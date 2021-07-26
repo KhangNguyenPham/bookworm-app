@@ -2823,14 +2823,20 @@ var Body_Cart = /*#__PURE__*/function (_Component) {
     value: function dec(id) {
       var store = localStorage.getItem("cart");
       var total = this.state.total;
+      var cart = JSON.parse(store);
 
       if (store != null) {
-        var cart = JSON.parse(store);
         cart.forEach(function (book) {
           if (book.id == id) {
             if (book.quantity - 1 >= 0) {
               book.quantity -= 1;
               total -= Number(book.price);
+
+              if (book.quantity == 0) {
+                cart = cart.filter(function (item) {
+                  return item.id != book.id;
+                });
+              }
             }
           }
         });
@@ -2840,6 +2846,8 @@ var Body_Cart = /*#__PURE__*/function (_Component) {
         });
         localStorage.setItem("cart", JSON.stringify(cart));
       }
+
+      this.props.get_item_total(cart.length);
     }
   }, {
     key: "place_order",
