@@ -106,6 +106,7 @@ export default class Add_To_Cart extends Component{
                 show:true
             });
         }
+        
     }
 
     render(){

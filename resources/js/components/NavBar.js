@@ -1,9 +1,10 @@
 import React, {useState} from "react";
 import { Component } from "react";
 import {Link} from "react-router-dom";
+import { connect} from 'react-redux';
 import navbar_logo from "../../assets/bookworm_icon.svg";
 
-export default class NavBar extends Component{
+class NavBar extends Component{
 
     state={
         choose:"home",
@@ -30,6 +31,7 @@ export default class NavBar extends Component{
     }
 
     render(){
+        const { totalCart} = this.props;
         return(
             <>
                 <nav className="navbar navbar-expand-lg navbar-light bg-light sticky-top">
@@ -61,7 +63,7 @@ export default class NavBar extends Component{
                             </li>
                             <li className="nav-item" id="cart" onClick={()=>this.choose("cart")}>
                                 <Link to="/Cart" className="nav-links navhvr">
-                                    Cart({this.state.cart})
+                                    Cart({totalCart})
                                 </Link>
                             </li>
                         </ul>
@@ -71,3 +73,9 @@ export default class NavBar extends Component{
         )
     }
 }
+
+const mapStateToProps = (state) => ({
+    totalCart: state.totalCart
+})
+
+export default connect(mapStateToProps)(NavBar);

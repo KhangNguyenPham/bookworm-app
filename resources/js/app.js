@@ -29,6 +29,7 @@ import "bootstrap/dist/js/bootstrap.min.js";
 import "./App.css";
 import { Component } from "react";
 import { Provider } from "react-redux";
+import store from './components/store';
 
 export default class App extends Component{
     
@@ -70,6 +71,9 @@ export default class App extends Component{
 }
 
 if (document.getElementById('app')) {
-    ReactDOM.render(<App />, document.getElementById('app'));
+    ReactDOM.render(
+    <Provider store={store}>
+        <App />
+    </Provider>, document.getElementById('app'));
 }
 

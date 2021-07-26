@@ -1,7 +1,9 @@
 import React from "react";
 import { Component } from "react";
 import Body_Cart from "./Body_Cart";
-export default class Cart extends Component{
+import { connect} from 'react-redux';
+import { updateTotalCart } from "./action/cartAction";
+class Cart extends Component{
     state={
         item:0
     }
@@ -21,8 +23,10 @@ export default class Cart extends Component{
             cart = cart.filter(book => book != "");
             localStorage.setItem("cart", JSON.stringify(cart));
             this.setState({item:cart.length})
+            this.props.dispatch(updateTotalCart(cart.length));
         }else{
             this.setState({item:0});
+            this.props.dispatch(updateTotalCart(0));
         }
     }
 
@@ -41,3 +45,5 @@ export default class Cart extends Component{
         )
     }
 }
+
+export default connect()(Cart);

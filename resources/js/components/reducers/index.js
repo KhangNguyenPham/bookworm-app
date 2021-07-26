@@ -1,8 +1,9 @@
 import { combineReducers } from "redux";
+import totalCart from './totalCart';
 import { ADD, DECREASE, GET_TOTAL_ITEM, INCREASE, ORDER } from "../action";
 
 const init={
-    total_item = 0
+    total_item : 0
 }
 
 function get_total(state = init, action){
@@ -33,7 +34,7 @@ function get_total(state = init, action){
 }
 
 const cart = combineReducers({
-    _get_total:get_total
+    totalCart
 });
 
 export default cart;
