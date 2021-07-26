@@ -15,16 +15,18 @@ class FilterController extends Controller
         ->leftjoin("discounts", "books.id", "=", "discounts.book_id")
         ->select("books.id", "book_title", "book_price", "book_cover_photo", "books.category_id",
             "authors.author_name", 
-            // Book::raw("(CASE 
-            // WHEN ((discount_start_date <= CURRENT_DATE) and (discount_end_date >= CURRENT_DATE)) or
-            // ((discount_start_date <= CURRENT_DATE) and (discount_end_date is null))
-            // THEN discount_price
-            // ELSE null
-            // END) as discount_price"),
-            "discount_price",
             Book::raw("(CASE 
-            WHEN discount_price is null THEN 0
-            ELSE (books.book_price - discounts.discount_price) 
+            WHEN ((discount_start_date <= CURRENT_DATE) and (discount_end_date >= CURRENT_DATE)) or
+            ((discount_start_date <= CURRENT_DATE) and (discount_end_date is null))
+            THEN discount_price
+            ELSE null
+            END) as discount_price"),
+            Book::raw("(CASE 
+            WHEN (discount_price is not null) and 
+            ((discount_start_date <= CURRENT_DATE) and (discount_end_date >= CURRENT_DATE)) or
+            ((discount_start_date <= CURRENT_DATE) and (discount_end_date is null))
+            THEN books.book_price - discounts.discount_price
+            ELSE 0
             END) as price")
         )
         ->where("category_id", $category_id)
@@ -133,10 +135,18 @@ class FilterController extends Controller
         ->leftjoin("discounts", "books.id", "=", "discounts.book_id")
         ->select("books.id", "book_title", "book_price", "book_cover_photo", "books.category_id",
             "authors.author_name", 
-            "discount_price",
-            Discount::raw("(CASE 
-            WHEN discounts.discount_price is null THEN 0
-            ELSE (books.book_price - discounts.discount_price) 
+            Book::raw("(CASE 
+            WHEN ((discount_start_date <= CURRENT_DATE) and (discount_end_date >= CURRENT_DATE)) or
+            ((discount_start_date <= CURRENT_DATE) and (discount_end_date is null))
+            THEN discount_price
+            ELSE null
+            END) as discount_price"),
+            Book::raw("(CASE 
+            WHEN (discount_price is not null) and 
+            ((discount_start_date <= CURRENT_DATE) and (discount_end_date >= CURRENT_DATE)) or
+            ((discount_start_date <= CURRENT_DATE) and (discount_end_date is null))
+            THEN books.book_price - discounts.discount_price
+            ELSE 0
             END) as price")
         )
         ->where("books.author_id", $author_id)
@@ -247,10 +257,18 @@ class FilterController extends Controller
         ->select(
             "books.id", "books.book_title", "books.book_price", "books.book_cover_photo",
             "authors.author_name",
-            "discount_price",
-            Discount::raw("(CASE 
-            WHEN discounts.discount_price is null THEN 0
-            ELSE (books.book_price - discounts.discount_price) 
+            Book::raw("(CASE 
+            WHEN ((discount_start_date <= CURRENT_DATE) and (discount_end_date >= CURRENT_DATE)) or
+            ((discount_start_date <= CURRENT_DATE) and (discount_end_date is null))
+            THEN discount_price
+            ELSE null
+            END) as discount_price"),
+            Book::raw("(CASE 
+            WHEN (discount_price is not null) and 
+            ((discount_start_date <= CURRENT_DATE) and (discount_end_date >= CURRENT_DATE)) or
+            ((discount_start_date <= CURRENT_DATE) and (discount_end_date is null))
+            THEN books.book_price - discounts.discount_price
+            ELSE 0
             END) as price")
          )
         ->whereIn("books.id", $id_result)
