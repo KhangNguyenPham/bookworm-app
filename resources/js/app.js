@@ -26,9 +26,9 @@ import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.bundle.min.js";
 import "bootstrap/dist/js/bootstrap.min.js";
-
 import "./App.css";
 import { Component } from "react";
+import { Provider } from "react-redux";
 
 export default class App extends Component{
     
@@ -36,15 +36,11 @@ export default class App extends Component{
         item:0
     }
 
-    get_item_total_from_child = (total) =>{
-        this.setState({item:total});
-    }
-
     render(){
         return(
             <>
              <Router>
-                 <NavBar item={this.state.item} />
+                 <NavBar />
                  <Switch>
                      <Route exact path="/">
                          <Home />
@@ -59,7 +55,7 @@ export default class App extends Component{
                      </Route>
      
                      <Route path="/Cart">
-                         <Cart get_total_from_nav={this.get_item_total_from_child}/>
+                         <Cart />
                      </Route>
      
                      <Route path="/About">

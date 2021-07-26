@@ -37,8 +37,6 @@ export default class Body_Cart extends Component{
                 cart,
                 total
             });
-
-            this.props.get_item_total(this.state.total);
         }else{
             this.setState({empty: "Your cart is empty now"});
         }
@@ -62,7 +60,6 @@ export default class Body_Cart extends Component{
                 total
             });
             localStorage.setItem("cart", JSON.stringify(cart));
-            this.props.get_item_total(this.state.total);
         }
     }
 
@@ -84,7 +81,6 @@ export default class Body_Cart extends Component{
                 total
             });
             localStorage.setItem("cart", JSON.stringify(cart));
-            this.props.get_item_total(this.state.total);
         }
     }
 
