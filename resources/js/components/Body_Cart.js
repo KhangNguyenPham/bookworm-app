@@ -1,4 +1,5 @@
 import axios from "axios";
+import { forEach } from "lodash";
 import React from "react";
 import { Component } from "react";
 import { Toast } from "react-bootstrap";
@@ -9,7 +10,8 @@ export default class Body_Cart extends Component{
         cart:[],
         total:0,
         toast:"",
-        show:false
+        show:false,
+        empty:""
     }
     
     componentDidMount(){
@@ -17,7 +19,6 @@ export default class Body_Cart extends Component{
         let total = 0;
         if(store!=null){
             let cart = JSON.parse(store);
-            
             for(let i = 0; i < cart.length; i++){
                 for(let j = i+1; j < cart.length; j++){
                     if(cart[i].id == cart[j].id){
@@ -37,6 +38,50 @@ export default class Body_Cart extends Component{
                 cart,
                 total
             });
+        }else{
+            this.setState({empty: "Your cart is empty now"});
+        }
+    }
+
+    inc(id){
+        let store = localStorage.getItem("cart");
+        let total = this.state.total;
+        if(store!=null){
+            let cart = JSON.parse(store);
+            cart.forEach(book => {
+                if(book.id == id){
+                    if(book.quantity+1 <=8){
+                        book.quantity+=1;
+                        total+=Number(book.price);
+                    }
+                }
+            });
+            this.setState({
+                cart,
+                total
+            });
+            localStorage.setItem("cart", JSON.stringify(cart));
+        }
+    }
+
+    dec(id){
+        let store = localStorage.getItem("cart");
+        let total = this.state.total;
+        if(store!=null){
+            let cart = JSON.parse(store);
+            cart.forEach(book => {
+                if(book.id == id){
+                    if(book.quantity-1 >=0){
+                        book.quantity-=1;
+                        total-=Number(book.price);
+                    }
+                }
+            });
+            this.setState({
+                cart,
+                total
+            });
+            localStorage.setItem("cart", JSON.stringify(cart));
         }
     }
 
@@ -56,7 +101,8 @@ export default class Body_Cart extends Component{
                 toast:response.data,
                 show:true,
                 cart:[],
-                total:0
+                total:0,
+                empty: "Your cart is empty now"
             })    
             localStorage.removeItem("cart");
         })
@@ -103,9 +149,9 @@ export default class Body_Cart extends Component{
                                     </td>
                                     <td>
                                         <div className="input-add-to-cart">
-                                            <button className="add-to-cart-action">-</button>
+                                            <button className="add-to-cart-action" onClick={()=>this.dec(book.id)}>-</button>
                                             <input className="add-to-cart-number" type="text" value={book.quantity}/>
-                                            <button className="add-to-cart-action">+</button>
+                                            <button className="add-to-cart-action" onClick={()=>this.inc(book.id)}>+</button>
                                         </div>
                                     </td>
                                     <td>
@@ -115,6 +161,7 @@ export default class Body_Cart extends Component{
                             ))}
                         </tbody>
                     </table>
+                    <h3 className="empty-cart">{this.state.empty}</h3>
                 </div>
                 <div className="col-lg-4 col-md-12">
                     <div className="total-cart">

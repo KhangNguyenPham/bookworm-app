@@ -340,6 +340,12 @@ option{
     padding: 1rem;
 }
 
+.empty-cart{
+    color:#6c757d;
+    margin: auto;
+    text-align: center;
+}
+
 .about-book{
     display: flex;
     align-items: center;
